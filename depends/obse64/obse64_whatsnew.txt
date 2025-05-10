@@ -1,0 +1,6 @@
+0.1.0
+- forked from SFSE 0.2.16
+- support for 0.411.140.0
+- plugin manager
+- GetOBSEVersion console command
+- greets to shad0wshayd3 for kicking me to do this

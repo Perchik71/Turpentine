@@ -1,0 +1,11 @@
+name: testbuild
+on: [push]
+jobs:
+    run-testbuild:
+        runs-on: windows-latest
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                path: obse64
+            - run: cmake -B obse64/build -S obse64 -DCMAKE_INSTALL_PREFIX=extern obse64
+            - run: cmake --build obse64/build --config Release

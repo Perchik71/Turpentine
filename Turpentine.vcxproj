@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{499b7012-793a-4846-9210-12ddcb98f395}</ProjectGuid>
+    <RootNamespace>Turpentine</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IntDir>$(SolutionDir)linkconf\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)build\</OutDir>
+    <IncludePath>$(SolutionDir)depends\obse64;$(SolutionDir)core;$(SolutionDir)depends\vmm\include;$(SolutionDir)depends\detours;$(SolutionDir)depends\typeinfo;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;TURPENTINE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;TURPENTINE_EXPORTS;_WINDOWS;_USRDLL;WIN32_LEAN_AND_MEAN;VOLTEK_LIB_BUILD;NOMINMAX;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CallingConvention>StdCall</CallingConvention>
+      <ForcedIncludeFiles>common.h</ForcedIncludeFiles>
+      <DisableSpecificWarnings>4244;4477</DisableSpecificWarnings>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>detours.lib;VoltekLib.MemoryManager.lib;Shell32.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="core\common.h" />
+    <ClInclude Include="depends\obse64\obse64\PluginAPI.h" />
+    <ClInclude Include="depends\obse64\obse64\PluginManager.h" />
+    <ClInclude Include="depends\obse64\obse64_common\BranchTrampoline.h" />
+    <ClInclude Include="depends\obse64\obse64_common\BufferStream.h" />
+    <ClInclude Include="depends\obse64\obse64_common\CoreInfo.h" />
+    <ClInclude Include="depends\obse64\obse64_common\DataStream.h" />
+    <ClInclude Include="depends\obse64\obse64_common\DirectoryIterator.h" />
+    <ClInclude Include="depends\obse64\obse64_common\Errors.h" />
+    <ClInclude Include="depends\obse64\obse64_common\FileStream.h" />
+    <ClInclude Include="depends\obse64\obse64_common\Log.h" />
+    <ClInclude Include="depends\obse64\obse64_common\obse64_version.h" />
+    <ClInclude Include="depends\obse64\obse64_common\Relocation.h" />
+    <ClInclude Include="depends\obse64\obse64_common\SafeWrite.h" />
+    <ClInclude Include="depends\obse64\obse64_common\Types.h" />
+    <ClInclude Include="depends\obse64\obse64_common\Utilities.h" />
+    <ClInclude Include="depends\typeinfo\ms_rtti.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="depends\obse64\obse64\PluginManager.cpp" />
+    <ClCompile Include="depends\obse64\obse64_common\BranchTrampoline.cpp" />
+    <ClCompile Include="depends\obse64\obse64_common\BufferStream.cpp" />
+    <ClCompile Include="depends\obse64\obse64_common\DataStream.cpp" />
+    <ClCompile Include="depends\obse64\obse64_common\DirectoryIterator.cpp" />
+    <ClCompile Include="depends\obse64\obse64_common\Errors.cpp" />
+    <ClCompile Include="depends\obse64\obse64_common\FileStream.cpp" />
+    <ClCompile Include="depends\obse64\obse64_common\Log.cpp" />
+    <ClCompile Include="depends\obse64\obse64_common\Relocation.cpp" />
+    <ClCompile Include="depends\obse64\obse64_common\SafeWrite.cpp" />
+    <ClCompile Include="depends\obse64\obse64_common\Utilities.cpp" />
+    <ClCompile Include="depends\typeinfo\ms_rtti.cpp" />
+    <ClCompile Include="dllmain.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="depends">
+      <UniqueIdentifier>{ddf95b7a-b5c6-4696-af77-2b6af076d3c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="depends\obse64">
+      <UniqueIdentifier>{ade133d6-ce92-46f4-aa5f-27d880a51101}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="depends\typeinfo">
+      <UniqueIdentifier>{8347db77-8e5e-4fc8-a1f7-dc27762ff6d7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="depends\obse64\obse64\PluginManager.h">
+      <Filter>depends\obse64</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\obse64\obse64\PluginAPI.h">
+      <Filter>depends\obse64</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\obse64\obse64_common\BranchTrampoline.h">
+      <Filter>depends\obse64</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\obse64\obse64_common\BufferStream.h">
+      <Filter>depends\obse64</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\obse64\obse64_common\CoreInfo.h">
+      <Filter>depends\obse64</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\obse64\obse64_common\DataStream.h">
+      <Filter>depends\obse64</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\obse64\obse64_common\DirectoryIterator.h">
+      <Filter>depends\obse64</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\obse64\obse64_common\Errors.h">
+      <Filter>depends\obse64</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\obse64\obse64_common\FileStream.h">
+      <Filter>depends\obse64</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\obse64\obse64_common\Log.h">
+      <Filter>depends\obse64</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\obse64\obse64_common\obse64_version.h">
+      <Filter>depends\obse64</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\obse64\obse64_common\Relocation.h">
+      <Filter>depends\obse64</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\obse64\obse64_common\SafeWrite.h">
+      <Filter>depends\obse64</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\obse64\obse64_common\Types.h">
+      <Filter>depends\obse64</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\obse64\obse64_common\Utilities.h">
+      <Filter>depends\obse64</Filter>
+    </ClInclude>
+    <ClInclude Include="core\common.h" />
+    <ClInclude Include="depends\typeinfo\ms_rtti.h">
+      <Filter>depends\typeinfo</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="depends\obse64\obse64\PluginManager.cpp">
+      <Filter>depends\obse64</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\obse64\obse64_common\BufferStream.cpp">
+      <Filter>depends\obse64</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\obse64\obse64_common\DataStream.cpp">
+      <Filter>depends\obse64</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\obse64\obse64_common\DirectoryIterator.cpp">
+      <Filter>depends\obse64</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\obse64\obse64_common\Errors.cpp">
+      <Filter>depends\obse64</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\obse64\obse64_common\FileStream.cpp">
+      <Filter>depends\obse64</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\obse64\obse64_common\Log.cpp">
+      <Filter>depends\obse64</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\obse64\obse64_common\Relocation.cpp">
+      <Filter>depends\obse64</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\obse64\obse64_common\SafeWrite.cpp">
+      <Filter>depends\obse64</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\obse64\obse64_common\Utilities.cpp">
+      <Filter>depends\obse64</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\obse64\obse64_common\BranchTrampoline.cpp">
+      <Filter>depends\obse64</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="depends\typeinfo\ms_rtti.cpp">
+      <Filter>depends\typeinfo</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
