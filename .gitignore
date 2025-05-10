@@ -32,4 +32,5 @@
 *.app
 /.vs
 /lib
+/build
 /linkconf
