@@ -3,13 +3,15 @@
 #include <Voltek.MemoryManager.h>
 #include <ms_rtti.h>
 
+// Patches
+#include "TMemory.h"
+
 #define TURPENTINE_VERSION MAKE_EXE_VERSION(0, 1, 0)
 #define TURPENTINE_NAME "Turpentine"
 #define TURPENTINE_AUTHOR "perchik71"
 #define USE_RTTI_EXPORT 0
 
 bool APIENTRY Start(const OBSEInterface* obse);
-void APIENTRY PatchMemory();
 
 std::string GlobalAppPath;
 uintptr_t GlobalBase = 0;
@@ -166,7 +168,7 @@ namespace Utils
 	}
 }
 
-bool APIENTRY Start(const OBSEInterface* obse)
+static void APIENTRY InitializeOBSE64LogSystem()
 {
 	const uint32_t BufferSize = 1024;
 	auto Buffer = make_unique<char[]>((size_t)BufferSize + 1);
@@ -175,7 +177,7 @@ bool APIENTRY Start(const OBSEInterface* obse)
 	UnknownDllName:
 		DebugLog::openRelative(CSIDL_MYDOCUMENTS, "\\My Games\\Oblivion Remastered\\OBSE\\Logs\\UnknownPluginName.log");
 	}
-	else 
+	else
 	{
 		if (!GetModuleFileNameA((HMODULE)GlobalModuleBase, Buffer.get(), BufferSize))
 			goto UnknownDllName;
@@ -198,10 +200,13 @@ bool APIENTRY Start(const OBSEInterface* obse)
 
 		sprintf(Path.get(), FormattedString, Buffer.get());
 		DebugLog::openRelative(CSIDL_MYDOCUMENTS, Path.get());
-
-		//_MESSAGE("[DEBUG] FileName:\"%s\" Path:\"%s\"",  FileName, Path.get());
 	}
+}
 
+bool APIENTRY Start(const OBSEInterface* obse)
+{
+	InitializeOBSE64LogSystem();
+	
 	_MESSAGE("OBSE64 version check. obse64Version: 0x%x, runtimeVersion: 0x%x", obse->obse64Version, obse->runtimeVersion);
 	_MESSAGE("Plugin \"" TURPENTINE_NAME "\" version check. Version: 0x%x, Author: %s", TURPENTINE_VERSION, TURPENTINE_AUTHOR);
 
@@ -259,200 +264,18 @@ bool APIENTRY Start(const OBSEInterface* obse)
 		fclose(f);
 	}
 #endif
+	DebugLog::flush();
 
-	PatchMemory();
+	Turpentine::Patches::PatchMemory();
 
 	return true;
 }
 
-constexpr auto MEM_GB = 1073741824;
-
-namespace impl
+BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
 {
-	class memory_manager
-	{
-	public:
-		memory_manager()
-		{
-			voltek::scalable_memory_manager_initialize();
-		}
-
-		memory_manager(const memory_manager&) = default;
-		memory_manager& operator=(const memory_manager&) = default;
-
-		static void* alloc(size_t size, size_t alignment, bool aligned = false, bool zeroed = true)
-		{
-			if (!aligned)
-				alignment = 16;
-
-			if (!size)
-				return voltek::scalable_alloc(0);
-
-			void* ptr = nullptr;
-
-			if (alignment <= 16)
-			{
-				if ((alignment & (alignment - 1)) != 0)
-				{
-					alignment--;
-					alignment |= alignment >> 1;
-					alignment |= alignment >> 2;
-					alignment |= alignment >> 4;
-					alignment |= alignment >> 8;
-					alignment |= alignment >> 16;
-					alignment++;
-				}
-
-				if ((size % alignment) != 0)
-					size = ((size + alignment - 1) / alignment) * alignment;
-
-				ptr = voltek::scalable_alloc(size);
-			}
-			else
-				ptr = _aligned_malloc(size, alignment);
-
-			if (ptr && zeroed) memset(ptr, 0, size);
-			return ptr;
-		}
-
-		inline static void dealloc(void* block)
-		{
-			if (!voltek::scalable_msize(block))
-				_aligned_free(block);
-			else
-				voltek::scalable_free(block);
-		}
-
-		inline static size_t msize(void* block)
-		{
-			return voltek::scalable_msize(block);
-		}
-	};
-
-	memory_manager g_memory_mgr;
-
-	namespace detail
-	{
-		class BGSMemoryManager
-		{
-		public:
-			static void* alloc(BGSMemoryManager* self, size_t size, uint32_t alignment, bool aligned)
-			{
-				return memory_manager::alloc(size, alignment, aligned, true);
-			}
-
-			static void dealloc(BGSMemoryManager* self, void* block, bool aligned)
-			{
-				memory_manager::dealloc(block);
-			}
-
-			static void* realloc(BGSMemoryManager* self, void* old_block, size_t size, uint32_t alignment, bool aligned)
-			{
-				auto new_ptr = memory_manager::alloc(size, alignment, aligned, true);
-				if (!new_ptr) return nullptr;
-
-				if (old_block)
-				{
-					auto old_size = memory_manager::msize(old_block);
-					memcpy(new_ptr, old_block, min(old_size, size));
-					memory_manager::dealloc(old_block);
-				}
-
-				return new_ptr;
-			}
-
-			static size_t msize(BGSMemoryManager* self, void* memory)
-			{
-				return memory_manager::msize(memory);
-			}
-		};
-	}
-
-	static void* calloc(size_t count, size_t size)
-	{
-		return memory_manager::alloc(count * size, 0);
-	}
-
-	static void* malloc(size_t size)
-	{
-		return memory_manager::alloc(size, 0);
-	}
-
-	static void* realloc(void* memory, size_t size)
-	{
-		void* newMemory = nullptr;
-
-		if (size > 0)
-		{
-			newMemory = memory_manager::alloc(size, 0, false);
-
-			if (memory)
-				memcpy(newMemory, memory, min(size, voltek::scalable_msize(memory)));
-		}
-
-		memory_manager::dealloc(memory);
-		return newMemory;
-	}
-
-	static void free(void* block)
-	{
-		memory_manager::dealloc(block);
-	}
-
-	static void* aligned_malloc(size_t size, size_t alignment)
-	{
-		return memory_manager::alloc(size, alignment, true);
-	}
-
-	static void* aligned_realloc(void* memory, size_t size, size_t alignment)
-	{
-		void* newMemory = nullptr;
-
-		if (size > 0)
-		{
-			newMemory = memory_manager::alloc(size, alignment, true);
-
-			if (memory)
-				memcpy(newMemory, memory, min(size, voltek::scalable_msize(memory)));
-		}
-
-		memory_manager::dealloc(memory);
-		return newMemory;
-	}	
-
-	static void aligned_free(void* block)
-	{
-		memory_manager::dealloc(block);
-	}
-}
-
-void APIENTRY PatchMemory()
-{
-	// Replacement of all functions of the standard allocator.
-
-	Detours::IATHook(GlobalBase, "API-MS-WIN-CRT-HEAP-L1-1-0.DLL", "_aligned_free", (uintptr_t)&impl::aligned_free);
-	Detours::IATHook(GlobalBase, "API-MS-WIN-CRT-HEAP-L1-1-0.DLL", "_aligned_malloc", (uintptr_t)&impl::aligned_malloc);
-	Detours::IATHook(GlobalBase, "API-MS-WIN-CRT-HEAP-L1-1-0.DLL", "_aligned_realloc", (uintptr_t)&impl::aligned_realloc);
-	Detours::IATHook(GlobalBase, "API-MS-WIN-CRT-HEAP-L1-1-0.DLL", "calloc", (uintptr_t)&impl::calloc);
-	Detours::IATHook(GlobalBase, "API-MS-WIN-CRT-HEAP-L1-1-0.DLL", "free", (uintptr_t)&impl::free);
-	Detours::IATHook(GlobalBase, "API-MS-WIN-CRT-HEAP-L1-1-0.DLL", "malloc", (uintptr_t)&impl::malloc);
-	Detours::IATHook(GlobalBase, "API-MS-WIN-CRT-HEAP-L1-1-0.DLL", "realloc", (uintptr_t)&impl::realloc);
-}
-
-BOOL APIENTRY DllMain( HMODULE hModule,
-                       DWORD  ul_reason_for_call,
-                       LPVOID lpReserved
-                     )
-{
-    switch (ul_reason_for_call)
-    {
-    case DLL_PROCESS_ATTACH:
+    if (ul_reason_for_call == DLL_PROCESS_ATTACH)
 		GlobalModuleBase = (uintptr_t)hModule;
-    case DLL_THREAD_ATTACH:
-    case DLL_THREAD_DETACH:
-    case DLL_PROCESS_DETACH:
-        break;
-    }
+
     return TRUE;
 }
 
