@@ -16,6 +16,7 @@
 #include <string.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <comdef.h>
 
 using namespace std;
 

@@ -65,6 +65,9 @@
     <ClInclude Include="depends\typeinfo\ms_rtti.h">
       <Filter>depends\typeinfo</Filter>
     </ClInclude>
+    <ClInclude Include="core\TMemory.h" />
+    <ClInclude Include="core\TThreads.h" />
+    <ClInclude Include="core\TRelocation.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="depends\obse64\obse64\PluginManager.cpp">
@@ -104,5 +107,8 @@
     <ClCompile Include="depends\typeinfo\ms_rtti.cpp">
       <Filter>depends\typeinfo</Filter>
     </ClCompile>
+    <ClCompile Include="core\TMemory.cpp" />
+    <ClCompile Include="core\TThreads.cpp" />
+    <ClCompile Include="core\TRelocation.cpp" />
   </ItemGroup>
 </Project>

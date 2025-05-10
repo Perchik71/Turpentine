@@ -1,10 +1,11 @@
-﻿// Copyright © 2024-2025 aka perchik71. All rights reserved.
+﻿// Copyright © 2025 aka perchik71. All rights reserved.
 // Contacts: <email:timencevaleksej@gmail.com>
 // License: https://www.gnu.org/licenses/gpl-3.0.html
 
-#include "TMemory.h"
-#include <detours/Detours.h>
+#include <TMemory.h>
+#include <TRelocation.h>
 #include <Voltek.MemoryManager.h>
+#include <detours/Detours.h>
 
 extern uintptr_t GlobalBase;
 
@@ -21,7 +22,7 @@ namespace Turpentine
 				voltek::scalable_memory_manager_initialize();
 			}
 
-			void* MemoryHeap::alloc(size_t size, size_t alignment, bool aligned = false, bool zeroed = true) noexcept(true)
+			void* MemoryHeap::alloc(size_t size, size_t alignment, bool aligned, bool zeroed) noexcept(true)
 			{
 				if (!aligned)
 					alignment = 16;
@@ -126,18 +127,30 @@ namespace Turpentine
 				MemoryHeap::dealloc(block);
 			}
 		}
+	
+		constexpr auto MEM_GB = 1073741824;
 
 		void APIENTRY PatchMemory() noexcept(true)
 		{
+			MEMORYSTATUSEX statex = { 0 };
+			statex.dwLength = sizeof(MEMORYSTATUSEX);
+			if (!GlobalMemoryStatusEx(&statex))
+				return;
+
+			_MESSAGE("Memory (Total: %.2f Gb, Available: %.2f Gb)",
+				((double)statex.ullTotalPageFile / MEM_GB), ((double)statex.ullAvailPageFile / MEM_GB));
+
 			// Replacement of all functions of the standard allocator.
 
-			Detours::IATHook(GlobalBase, "API-MS-WIN-CRT-HEAP-L1-1-0.DLL", "_aligned_free", (uintptr_t)&Impl::MemoryHeapIntf::aligned_free);
-			Detours::IATHook(GlobalBase, "API-MS-WIN-CRT-HEAP-L1-1-0.DLL", "_aligned_malloc", (uintptr_t)&Impl::MemoryHeapIntf::aligned_malloc);
-			Detours::IATHook(GlobalBase, "API-MS-WIN-CRT-HEAP-L1-1-0.DLL", "_aligned_realloc", (uintptr_t)&Impl::MemoryHeapIntf::aligned_realloc);
-			Detours::IATHook(GlobalBase, "API-MS-WIN-CRT-HEAP-L1-1-0.DLL", "calloc", (uintptr_t)&Impl::MemoryHeapIntf::calloc);
-			Detours::IATHook(GlobalBase, "API-MS-WIN-CRT-HEAP-L1-1-0.DLL", "free", (uintptr_t)&Impl::MemoryHeapIntf::free);
-			Detours::IATHook(GlobalBase, "API-MS-WIN-CRT-HEAP-L1-1-0.DLL", "malloc", (uintptr_t)&Impl::MemoryHeapIntf::malloc);
-			Detours::IATHook(GlobalBase, "API-MS-WIN-CRT-HEAP-L1-1-0.DLL", "realloc", (uintptr_t)&Impl::MemoryHeapIntf::realloc);
+			REL::DetourIAT(GlobalBase, "API-MS-WIN-CRT-HEAP-L1-1-0.DLL", "_aligned_free", (uintptr_t)&Impl::MemoryHeapIntf::aligned_free);
+			REL::DetourIAT(GlobalBase, "API-MS-WIN-CRT-HEAP-L1-1-0.DLL", "_aligned_malloc", (uintptr_t)&Impl::MemoryHeapIntf::aligned_malloc);
+			REL::DetourIAT(GlobalBase, "API-MS-WIN-CRT-HEAP-L1-1-0.DLL", "_aligned_realloc", (uintptr_t)&Impl::MemoryHeapIntf::aligned_realloc);
+			REL::DetourIAT(GlobalBase, "API-MS-WIN-CRT-HEAP-L1-1-0.DLL", "calloc", (uintptr_t)&Impl::MemoryHeapIntf::calloc);
+			REL::DetourIAT(GlobalBase, "API-MS-WIN-CRT-HEAP-L1-1-0.DLL", "free", (uintptr_t)&Impl::MemoryHeapIntf::free);
+			REL::DetourIAT(GlobalBase, "API-MS-WIN-CRT-HEAP-L1-1-0.DLL", "malloc", (uintptr_t)&Impl::MemoryHeapIntf::malloc);
+			REL::DetourIAT(GlobalBase, "API-MS-WIN-CRT-HEAP-L1-1-0.DLL", "realloc", (uintptr_t)&Impl::MemoryHeapIntf::realloc);
+
+			DebugLog::flush();
 		}
 	}
 }

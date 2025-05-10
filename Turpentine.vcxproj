@@ -101,6 +101,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="core\common.h" />
+    <ClInclude Include="core\TMemory.h" />
+    <ClInclude Include="core\TRelocation.h" />
+    <ClInclude Include="core\TThreads.h" />
     <ClInclude Include="depends\obse64\obse64\PluginAPI.h" />
     <ClInclude Include="depends\obse64\obse64\PluginManager.h" />
     <ClInclude Include="depends\obse64\obse64_common\BranchTrampoline.h" />
@@ -119,6 +122,9 @@
     <ClInclude Include="depends\typeinfo\ms_rtti.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="core\TMemory.cpp" />
+    <ClCompile Include="core\TRelocation.cpp" />
+    <ClCompile Include="core\TThreads.cpp" />
     <ClCompile Include="depends\obse64\obse64\PluginManager.cpp" />
     <ClCompile Include="depends\obse64\obse64_common\BranchTrampoline.cpp" />
     <ClCompile Include="depends\obse64\obse64_common\BufferStream.cpp" />

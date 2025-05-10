@@ -5,8 +5,9 @@
 
 // Patches
 #include "TMemory.h"
+#include "TThreads.h"
 
-#define TURPENTINE_VERSION MAKE_EXE_VERSION(0, 1, 0)
+#define TURPENTINE_VERSION MAKE_EXE_VERSION(0, 2, 0)
 #define TURPENTINE_NAME "Turpentine"
 #define TURPENTINE_AUTHOR "perchik71"
 #define USE_RTTI_EXPORT 0
@@ -20,20 +21,6 @@ msrtti::section GlobalSection[3];
 
 extern "C"
 {
-#if (FO4_VER < FO4_984_VERSION)
-	// for f4se 6.23 and older
-	__declspec(dllexport) bool F4SEPlugin_Query(const F4SEInterface* f4se, PluginInfo* info)
-	{
-		if (f4se->runtimeVersion != RUNTIME_VERSION_1_10_163)
-			return false;
-
-		info->infoVersion = PluginInfo::kInfoVersion;
-		info->version = XCell::ModVersion;
-		info->name = XCell::ModName;
-
-		return true;
-	}
-#else
 	// for f4se 0.1 alpha and newer
 	__declspec(dllexport) OBSEPluginVersionData OBSEPlugin_Version =
 	{
@@ -46,7 +33,6 @@ extern "C"
 		{ RUNTIME_VERSION, 0 },
 		0,	// works with any version of the script extender. you probably do not need to put anything here
 	};
-#endif // !FO4_V984
 
 	__declspec(dllexport) bool OBSEPlugin_Load(const OBSEInterface* obse)
 	{
@@ -267,6 +253,7 @@ bool APIENTRY Start(const OBSEInterface* obse)
 	DebugLog::flush();
 
 	Turpentine::Patches::PatchMemory();
+	Turpentine::Patches::PatchThreads();
 
 	return true;
 }
