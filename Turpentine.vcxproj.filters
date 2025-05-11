@@ -68,6 +68,7 @@
     <ClInclude Include="core\TMemory.h" />
     <ClInclude Include="core\TThreads.h" />
     <ClInclude Include="core\TRelocation.h" />
+    <ClInclude Include="core\TMaxStdio.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="depends\obse64\obse64\PluginManager.cpp">
@@ -110,5 +111,6 @@
     <ClCompile Include="core\TMemory.cpp" />
     <ClCompile Include="core\TThreads.cpp" />
     <ClCompile Include="core\TRelocation.cpp" />
+    <ClCompile Include="core\TMaxStdio.cpp" />
   </ItemGroup>
 </Project>

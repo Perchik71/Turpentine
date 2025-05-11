@@ -6,6 +6,7 @@
 // Patches
 #include "TMemory.h"
 #include "TThreads.h"
+#include "TMaxStdio.h"
 
 #define TURPENTINE_VERSION MAKE_EXE_VERSION(0, 2, 0)
 #define TURPENTINE_NAME "Turpentine"
@@ -30,7 +31,7 @@ extern "C"
 		TURPENTINE_AUTHOR,
 		0,
 		0,
-		{ RUNTIME_VERSION, 0 },
+		{ 0 },
 		0,	// works with any version of the script extender. you probably do not need to put anything here
 	};
 
@@ -250,10 +251,12 @@ bool APIENTRY Start(const OBSEInterface* obse)
 		fclose(f);
 	}
 #endif
+
 	DebugLog::flush();
 
 	Turpentine::Patches::PatchMemory();
 	Turpentine::Patches::PatchThreads();
+	Turpentine::Patches::PatchMaxStdio();
 
 	return true;
 }

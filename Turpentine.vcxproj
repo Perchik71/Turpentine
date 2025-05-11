@@ -101,6 +101,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="core\common.h" />
+    <ClInclude Include="core\TMaxStdio.h" />
     <ClInclude Include="core\TMemory.h" />
     <ClInclude Include="core\TRelocation.h" />
     <ClInclude Include="core\TThreads.h" />
@@ -122,6 +123,7 @@
     <ClInclude Include="depends\typeinfo\ms_rtti.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="core\TMaxStdio.cpp" />
     <ClCompile Include="core\TMemory.cpp" />
     <ClCompile Include="core\TRelocation.cpp" />
     <ClCompile Include="core\TThreads.cpp" />
