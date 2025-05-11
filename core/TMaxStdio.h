@@ -8,6 +8,6 @@ namespace Turpentine
 {
 	namespace Patches
 	{
-		void APIENTRY PatchMaxStdio() noexcept(true);
+		void APIENTRY PatchMaxStdio(int value) noexcept(true);
 	}
 }

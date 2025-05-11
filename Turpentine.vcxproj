@@ -47,7 +47,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IntDir>$(SolutionDir)linkconf\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)build\</OutDir>
-    <IncludePath>$(SolutionDir)depends\obse64;$(SolutionDir)core;$(SolutionDir)depends\vmm\include;$(SolutionDir)depends\detours;$(SolutionDir)depends\typeinfo;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)depends\obse64;$(SolutionDir)core;$(SolutionDir)depends\vmm\include;$(SolutionDir)depends\detours;$(SolutionDir)depends\typeinfo;$(SolutionDir)depends\Toml\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -85,7 +85,7 @@
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CallingConvention>StdCall</CallingConvention>
       <ForcedIncludeFiles>common.h</ForcedIncludeFiles>
-      <DisableSpecificWarnings>4244;4477</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4244;4477;26478;26495;26498;26439</DisableSpecificWarnings>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
@@ -95,7 +95,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>detours.lib;VoltekLib.MemoryManager.lib;Shell32.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>detours.lib;VoltekLib.MemoryManager.lib;Shell32.lib;Shlwapi.lib;Toml.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

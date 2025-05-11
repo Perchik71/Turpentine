@@ -2,6 +2,7 @@
 #include <detours/Detours.h>
 #include <Voltek.MemoryManager.h>
 #include <ms_rtti.h>
+#include <toml.hpp>
 
 // Patches
 #include "TMemory.h"
@@ -254,9 +255,24 @@ bool APIENTRY Start(const OBSEInterface* obse)
 
 	DebugLog::flush();
 
-	Turpentine::Patches::PatchMemory();
-	Turpentine::Patches::PatchThreads();
-	Turpentine::Patches::PatchMaxStdio();
+	auto TOMLResult = toml::try_parse(TURPENTINE_NAME ".toml", toml::spec::v(1, 1, 0));
+	if (!TOMLResult.is_ok())
+	{
+		_ERROR("Error reading the settings file " TURPENTINE_NAME ".toml");
+		return false;
+	}
+
+	auto& TOMLData = TOMLResult.unwrap();
+	if (TOMLData.contains("Patches"))
+	{
+		auto& TOMLPatches = TOMLData.at("Patches");
+		if (TOMLPatches.contains("bMemory") && TOMLPatches.at("bMemory").is_boolean() && TOMLPatches.at("bMemory").as_boolean())
+			Turpentine::Patches::PatchMemory();
+		if (TOMLPatches.contains("bThreads") && TOMLPatches.at("bThreads").is_boolean() && TOMLPatches.at("bThreads").as_boolean())
+			Turpentine::Patches::PatchThreads();
+		if (TOMLPatches.contains("iMaxStdio") && TOMLPatches.at("iMaxStdio").is_integer())
+			Turpentine::Patches::PatchMaxStdio(TOMLPatches.at("iMaxStdio").as_integer());
+	}
 
 	return true;
 }

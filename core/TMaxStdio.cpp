@@ -10,14 +10,14 @@ namespace Turpentine
 {
 	namespace Patches
 	{
-		void APIENTRY PatchMaxStdio() noexcept(true)
+		void APIENTRY PatchMaxStdio(int value) noexcept(true)
 		{
-			int value = 2048;
+			int v = std::max(512, std::min(8096, value));
 
-			if (_setmaxstdio(value) == -1)
-				_ERROR("When trying to sets %d _setmaxstdio returned failed", value);
+			if (_setmaxstdio(v) == -1)
+				_ERROR("When trying to sets %d _setmaxstdio returned failed", v);
 			else
-				_MESSAGE("_setmaxstdio sets %d", value);
+				_MESSAGE("_setmaxstdio sets %d", v);
 
 			DebugLog::flush();
 		}
