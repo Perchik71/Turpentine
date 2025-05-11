@@ -272,10 +272,14 @@ bool APIENTRY Start(const OBSEInterface* obse)
 		if (TOMLData.contains("Patches"))
 		{
 			auto& TOMLPatches = TOMLData.at("Patches");
-			if (TOMLPatches.contains("bMemory") && TOMLPatches.at("bMemory").is_boolean() && TOMLPatches.at("bMemory").as_boolean())
-				Turpentine::Patches::PatchMemory();
+			// Memory
+			Turpentine::Patches::PatchMemory(
+				TOMLPatches.contains("bMemory") && TOMLPatches.at("bMemory").is_boolean() && TOMLPatches.at("bMemory").as_boolean(),
+				TOMLPatches.contains("bAudioMemory") && TOMLPatches.at("bAudioMemory").is_boolean() && TOMLPatches.at("bAudioMemory").as_boolean());
+			// Threads
 			if (TOMLPatches.contains("bThreads") && TOMLPatches.at("bThreads").is_boolean() && TOMLPatches.at("bThreads").as_boolean())
 				Turpentine::Patches::PatchThreads();
+			// MaxStdio
 			if (TOMLPatches.contains("iMaxStdio") && TOMLPatches.at("iMaxStdio").is_integer())
 				Turpentine::Patches::PatchMaxStdio(TOMLPatches.at("iMaxStdio").as_integer());
 		}

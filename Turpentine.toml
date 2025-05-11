@@ -1,6 +1,7 @@
 # TURPENTINE PLUGIN SETTINGS
 
 [Patches]
-bThreads=true					# All threads have priority above idle, process above normal, for adequate latency, prohibition on changing processor cores.
+bThreads=true					# All threads have priority sets normal, process sets highest, for adequate latency, prohibition on changing processor cores.
 bMemory=true					# Replaced OS function's memory manager.
+bAudioMemory=true				# Replaced function's memory manager AK::MemoryMgr related to the sound system.
 iMaxStdio=2048					# Replaces the maximum stdio handles. Default 512, max 8192 https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/setmaxstdio?view=msvc-170
