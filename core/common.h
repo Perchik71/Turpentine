@@ -24,4 +24,4 @@ using namespace std;
 #include <obse64_common/Utilities.h>
 #include <obse64_common/Log.h>
 
-#define RUNTIME_VERSION	RUNTIME_VERSION_0_411_140
+#define RUNTIME_VERSION	CURRENT_RELEASE_RUNTIME

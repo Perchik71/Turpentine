@@ -32,7 +32,7 @@ extern "C"
 		TURPENTINE_AUTHOR,
 		0,
 		0,
-		{ 0 },
+		{ RUNTIME_VERSION_0_411_140, 0 },
 		0,	// works with any version of the script extender. you probably do not need to put anything here
 	};
 
@@ -255,24 +255,33 @@ bool APIENTRY Start(const OBSEInterface* obse)
 
 	DebugLog::flush();
 
-	auto TOMLResult = toml::try_parse(TURPENTINE_NAME ".toml", toml::spec::v(1, 1, 0));
+	auto TOMLResult = toml::try_parse(Utils::GetGamePluginPath() + TURPENTINE_NAME ".toml", toml::spec::v(1, 1, 0));
 	if (!TOMLResult.is_ok())
 	{
 		_ERROR("Error reading the settings file " TURPENTINE_NAME ".toml");
-		return false;
+
+		auto& TOMLError = TOMLResult.as_err();
+		for (size_t i = 0; i < TOMLError.size(); i++)
+			_MESSAGE("\t%s", TOMLError.at(i).title().c_str());
+
+		DebugLog::flush();
+	}
+	else
+	{
+		auto& TOMLData = TOMLResult.unwrap();
+		if (TOMLData.contains("Patches"))
+		{
+			auto& TOMLPatches = TOMLData.at("Patches");
+			if (TOMLPatches.contains("bMemory") && TOMLPatches.at("bMemory").is_boolean() && TOMLPatches.at("bMemory").as_boolean())
+				Turpentine::Patches::PatchMemory();
+			if (TOMLPatches.contains("bThreads") && TOMLPatches.at("bThreads").is_boolean() && TOMLPatches.at("bThreads").as_boolean())
+				Turpentine::Patches::PatchThreads();
+			if (TOMLPatches.contains("iMaxStdio") && TOMLPatches.at("iMaxStdio").is_integer())
+				Turpentine::Patches::PatchMaxStdio(TOMLPatches.at("iMaxStdio").as_integer());
+		}
 	}
 
-	auto& TOMLData = TOMLResult.unwrap();
-	if (TOMLData.contains("Patches"))
-	{
-		auto& TOMLPatches = TOMLData.at("Patches");
-		if (TOMLPatches.contains("bMemory") && TOMLPatches.at("bMemory").is_boolean() && TOMLPatches.at("bMemory").as_boolean())
-			Turpentine::Patches::PatchMemory();
-		if (TOMLPatches.contains("bThreads") && TOMLPatches.at("bThreads").is_boolean() && TOMLPatches.at("bThreads").as_boolean())
-			Turpentine::Patches::PatchThreads();
-		if (TOMLPatches.contains("iMaxStdio") && TOMLPatches.at("iMaxStdio").is_integer())
-			Turpentine::Patches::PatchMaxStdio(TOMLPatches.at("iMaxStdio").as_integer());
-	}
+	DebugLog::flush();
 
 	return true;
 }
