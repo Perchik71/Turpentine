@@ -40,10 +40,10 @@ namespace voltek
 		typedef page_t<block1024_t> page1024_t;
 		typedef page_t<block4096_t> page4096_t;
 		typedef page_t<block8192_t> page8192_t;
-		typedef page_t<block16384_t, __VMM_PAGE_CONFIG_SMALL_SIZE> page16384_t;
+		/*typedef page_t<block16384_t, __VMM_PAGE_CONFIG_SMALL_SIZE> page16384_t;
 		typedef page_t<block32768_t, __VMM_PAGE_CONFIG_SMALL_SIZE> page32768_t;
 		typedef page_t<block65536_t, __VMM_PAGE_CONFIG_LOW_SIZE> page65536_t;
-		typedef page_t<block131072_t, __VMM_PAGE_CONFIG_LOW_SIZE> page131072_t;
+		typedef page_t<block131072_t, __VMM_PAGE_CONFIG_LOW_SIZE> page131072_t;*/
 		typedef pool_t<block8_t, page8_t, __VMM_POOL_CONFIG_BIG_SIZE> pool8_t;
 		typedef pool_t<block16_t, page16_t, __VMM_POOL_CONFIG_BIG_SIZE> pool16_t;
 		typedef pool_t<block32_t, page32_t, __VMM_POOL_CONFIG_BIG_SIZE> pool32_t;
@@ -54,10 +54,10 @@ namespace voltek
 		typedef pool_t<block1024_t, page1024_t> pool1024_t;
 		typedef pool_t<block4096_t, page4096_t> pool4096_t;
 		typedef pool_t<block8192_t, page8192_t> pool8192_t;
-		typedef pool_t<block16384_t, page16384_t, __VMM_POOL_CONFIG_SMALL_SIZE> pool16384_t;
+		/*typedef pool_t<block16384_t, page16384_t, __VMM_POOL_CONFIG_SMALL_SIZE> pool16384_t;
 		typedef pool_t<block32768_t, page32768_t, __VMM_POOL_CONFIG_SMALL_SIZE> pool32768_t;
 		typedef pool_t<block65536_t, page65536_t, __VMM_POOL_CONFIG_LOW_SIZE> pool65536_t;
-		typedef pool_t<block131072_t, page131072_t, __VMM_POOL_CONFIG_LOW_SIZE> pool131072_t;
+		typedef pool_t<block131072_t, page131072_t, __VMM_POOL_CONFIG_LOW_SIZE> pool131072_t;*/
 
 
 		// Проверка на допустимость памяти
@@ -138,10 +138,10 @@ namespace voltek
 						if (pools[POOL_1024]) { ((pool1024_t*)pools[POOL_1024])->push_free_block_to_cache(); }
 						if (pools[POOL_4096]) { ((pool4096_t*)pools[POOL_4096])->push_free_block_to_cache(); }
 						if (pools[POOL_8192]) { ((pool8192_t*)pools[POOL_8192])->push_free_block_to_cache(); }
-						if (pools[POOL_16384]) { ((pool16384_t*)pools[POOL_16384])->push_free_block_to_cache(); }
+						/*if (pools[POOL_16384]) { ((pool16384_t*)pools[POOL_16384])->push_free_block_to_cache(); }
 						if (pools[POOL_32768]) { ((pool32768_t*)pools[POOL_32768])->push_free_block_to_cache(); }
 						if (pools[POOL_65536]) { ((pool65536_t*)pools[POOL_65536])->push_free_block_to_cache(); }
-						if (pools[POOL_131072]) { ((pool131072_t*)pools[POOL_131072])->push_free_block_to_cache(); }
+						if (pools[POOL_131072]) { ((pool131072_t*)pools[POOL_131072])->push_free_block_to_cache(); }*/
 					}
 
 					if (WaitForSingleObject(*ev_close, 10) == WAIT_OBJECT_0)
@@ -178,10 +178,10 @@ namespace voltek
 					if (pools[POOL_1024]) delete ((pool1024_t*)pools[POOL_1024]);
 					if (pools[POOL_4096]) delete ((pool4096_t*)pools[POOL_4096]);
 					if (pools[POOL_8192]) delete ((pool8192_t*)pools[POOL_8192]);
-					if (pools[POOL_16384]) delete ((pool16384_t*)pools[POOL_16384]);
+					/*if (pools[POOL_16384]) delete ((pool16384_t*)pools[POOL_16384]);
 					if (pools[POOL_32768]) delete ((pool32768_t*)pools[POOL_32768]);
 					if (pools[POOL_65536]) delete ((pool65536_t*)pools[POOL_65536]);
-					if (pools[POOL_131072]) delete ((pool131072_t*)pools[POOL_131072]);
+					if (pools[POOL_131072]) delete ((pool131072_t*)pools[POOL_131072]);*/
 
 					voltek::core::_internal::aligned_free(pools);
 					pools = nullptr;
@@ -207,7 +207,7 @@ namespace voltek
 
 			// Проблемы с пулами? или размер больше фиксируемых блоков?
 			// Тогда выделим память простым способом.
-			if (!pools || (size > 131072))
+			if (!pools || (size > 8192))
 			{
 			alloc_default_ptr_label:
 				block_base* new_block;
@@ -233,79 +233,80 @@ namespace voltek
 			// Блокируем. Снятие блокировки будет заботить компилятор.
 			voltek::core::_internal::simple_scope_lock scope_lock(lock);
 	
-			if (size > 65536)
-			{
-				if (!pools[POOL_131072])
-					pools[POOL_131072] = (void*)(new pool131072_t(POOL_SIZE));
+			//if (size > 65536)
+			//{
+			//	if (!pools[POOL_131072])
+			//		pools[POOL_131072] = (void*)(new pool131072_t(POOL_SIZE));
 
-				pool131072_t* pool = (pool131072_t*)pools[POOL_131072];
-				page131072_t* page = nullptr;
-				block131072_t* block = nullptr;
-				size_t index_block = 0;
+			//	pool131072_t* pool = (pool131072_t*)pools[POOL_131072];
+			//	page131072_t* page = nullptr;
+			//	block131072_t* block = nullptr;
+			//	size_t index_block = 0;
 
-				if (pool->get_free_block(block, page, index_block))
-				{
-					create_pool_block(block, (uint32_t)size, (uint16_t)page->get_user_data(),
-						(uint32_t)index_block, (uint16_t)POOL_131072);
-					new_ptr = get_ptr_from_block_handle(block);
-					//_fsniff("Pool block allocated <131072>: %p %llu", new_ptr, size);
-				}
-			}
-			else if (size > 32768)
-			{
-				if (!pools[POOL_65536])
-					pools[POOL_65536] = (void*)(new pool65536_t(POOL_SIZE));
+			//	if (pool->get_free_block(block, page, index_block))
+			//	{
+			//		create_pool_block(block, (uint32_t)size, (uint16_t)page->get_user_data(),
+			//			(uint32_t)index_block, (uint16_t)POOL_131072);
+			//		new_ptr = get_ptr_from_block_handle(block);
+			//		//_fsniff("Pool block allocated <131072>: %p %llu", new_ptr, size);
+			//	}
+			//}
+			//else if (size > 32768)
+			//{
+			//	if (!pools[POOL_65536])
+			//		pools[POOL_65536] = (void*)(new pool65536_t(POOL_SIZE));
 
-				pool65536_t* pool = (pool65536_t*)pools[POOL_65536];
-				page65536_t* page = nullptr;
-				block65536_t* block = nullptr;
-				size_t index_block = 0;
+			//	pool65536_t* pool = (pool65536_t*)pools[POOL_65536];
+			//	page65536_t* page = nullptr;
+			//	block65536_t* block = nullptr;
+			//	size_t index_block = 0;
 
-				if (pool->get_free_block(block, page, index_block))
-				{
-					create_pool_block(block, (uint32_t)size, (uint16_t)page->get_user_data(),
-						(uint32_t)index_block, (uint16_t)POOL_65536);
-					new_ptr = get_ptr_from_block_handle(block);
-					//_fsniff("Pool block allocated <65536>: %p %llu", new_ptr, size);
-				}
-			}
-			else if (size > 16384)
-			{
-				if (!pools[POOL_32768])
-					pools[POOL_32768] = (void*)(new pool32768_t(POOL_SIZE));
+			//	if (pool->get_free_block(block, page, index_block))
+			//	{
+			//		create_pool_block(block, (uint32_t)size, (uint16_t)page->get_user_data(),
+			//			(uint32_t)index_block, (uint16_t)POOL_65536);
+			//		new_ptr = get_ptr_from_block_handle(block);
+			//		//_fsniff("Pool block allocated <65536>: %p %llu", new_ptr, size);
+			//	}
+			//}
+			//else if (size > 16384)
+			//{
+			//	if (!pools[POOL_32768])
+			//		pools[POOL_32768] = (void*)(new pool32768_t(POOL_SIZE));
 
-				pool32768_t* pool = (pool32768_t*)pools[POOL_32768];
-				page32768_t* page = nullptr;
-				block32768_t* block = nullptr;
-				size_t index_block = 0;
+			//	pool32768_t* pool = (pool32768_t*)pools[POOL_32768];
+			//	page32768_t* page = nullptr;
+			//	block32768_t* block = nullptr;
+			//	size_t index_block = 0;
 
-				if (pool->get_free_block(block, page, index_block))
-				{
-					create_pool_block(block, (uint32_t)size, (uint16_t)page->get_user_data(),
-						(uint32_t)index_block, (uint16_t)POOL_32768);
-					new_ptr = get_ptr_from_block_handle(block);
-					//_fsniff("Pool block allocated <32768>: %p %llu", new_ptr, size);
-				}
-			}
-			else if (size > 8192)
-			{
-				if (!pools[POOL_16384])
-					pools[POOL_16384] = (void*)(new pool16384_t(POOL_SIZE));
+			//	if (pool->get_free_block(block, page, index_block))
+			//	{
+			//		create_pool_block(block, (uint32_t)size, (uint16_t)page->get_user_data(),
+			//			(uint32_t)index_block, (uint16_t)POOL_32768);
+			//		new_ptr = get_ptr_from_block_handle(block);
+			//		//_fsniff("Pool block allocated <32768>: %p %llu", new_ptr, size);
+			//	}
+			//}
+			//else if (size > 8192)
+			//{
+			//	if (!pools[POOL_16384])
+			//		pools[POOL_16384] = (void*)(new pool16384_t(POOL_SIZE));
 
-				pool16384_t* pool = (pool16384_t*)pools[POOL_16384];
-				page16384_t* page = nullptr;
-				block16384_t* block = nullptr;
-				size_t index_block = 0;
+			//	pool16384_t* pool = (pool16384_t*)pools[POOL_16384];
+			//	page16384_t* page = nullptr;
+			//	block16384_t* block = nullptr;
+			//	size_t index_block = 0;
 
-				if (pool->get_free_block(block, page, index_block))
-				{
-					create_pool_block(block, (uint32_t)size, (uint16_t)page->get_user_data(),
-						(uint32_t)index_block, (uint16_t)POOL_16384);
-					new_ptr = get_ptr_from_block_handle(block);
-					//_fsniff("Pool block allocated <16384>: %p %llu", new_ptr, size);
-				}
-			}
-			else if (size > 4096)
+			//	if (pool->get_free_block(block, page, index_block))
+			//	{
+			//		create_pool_block(block, (uint32_t)size, (uint16_t)page->get_user_data(),
+			//			(uint32_t)index_block, (uint16_t)POOL_16384);
+			//		new_ptr = get_ptr_from_block_handle(block);
+			//		//_fsniff("Pool block allocated <16384>: %p %llu", new_ptr, size);
+			//	}
+			//}
+			//else 
+			if (size > 4096)
 			{
 				if (!pools[POOL_8192])
 					pools[POOL_8192] = (void*)(new pool8192_t(POOL_SIZE));
@@ -507,46 +508,46 @@ namespace voltek
 
 				switch (pool_id)
 				{
-				case POOL_131072:
+				/*case POOL_131072:
 				{
-					// Если требуемая память больше, чем может позволить блок,
-					// то выделение новой памяти неизбежно.
+					 Если требуемая память больше, чем может позволить блок,
+					 то выделение новой памяти неизбежно.
 					if (size > 131072)
 						goto realloc_def_label;
-					// Новый размер для памяти.
+					 Новый размер для памяти.
 					block->size = (uint32_t)size;
 				}
 				break;
 				case POOL_65536:
 				{
-					// Если требуемая память больше, чем может позволить блок,
-					// то выделение новой памяти неизбежно.
+					 Если требуемая память больше, чем может позволить блок,
+					 то выделение новой памяти неизбежно.
 					if (size > 65536)
 						goto realloc_def_label;
-					// Новый размер для памяти.
+					 Новый размер для памяти.
 					block->size = (uint32_t)size;
 				}
 				break;
 				case POOL_32768:
 				{
-					// Если требуемая память больше, чем может позволить блок,
-					// то выделение новой памяти неизбежно.
+					 Если требуемая память больше, чем может позволить блок,
+					 то выделение новой памяти неизбежно.
 					if (size > 32768)
 						goto realloc_def_label;
-					// Новый размер для памяти.
+					 Новый размер для памяти.
 					block->size = (uint32_t)size;
 				}
 				break;
 				case POOL_16384:
 				{
-					// Если требуемая память больше, чем может позволить блок,
-					// то выделение новой памяти неизбежно.
+					 Если требуемая память больше, чем может позволить блок,
+					 то выделение новой памяти неизбежно.
 					if (size > 16384)
 						goto realloc_def_label;
-					// Новый размер для памяти.
+					 Новый размер для памяти.
 					block->size = (uint32_t)size;
 				}
-				break;
+				break;*/
 				case POOL_8192:
 				{
 					// Если требуемая память больше, чем может позволить блок,
@@ -684,34 +685,34 @@ namespace voltek
 
 				switch (pool_id)
 				{
-				case POOL_131072:
-				{
-					pool131072_t* pool = (pool131072_t*)(pools[POOL_131072]);
-					ret = pool->release_block((*pool)[page_id], block_id);
-					//_fsniff("Pool memory block <131072> released [%s]", (ret ? "SUCCESS" : "FAILED"));
-				}
-				break;
-				case POOL_65536:
-				{
-					pool65536_t* pool = (pool65536_t*)(pools[POOL_65536]);
-					ret = pool->release_block((*pool)[page_id], block_id);
-					//_fsniff("Pool memory block <65536> released [%s]", (ret ? "SUCCESS" : "FAILED"));
-				}
-				break;
-				case POOL_32768:
-				{
-					pool32768_t* pool = (pool32768_t*)(pools[POOL_32768]);
-					ret = pool->release_block((*pool)[page_id], block_id);
-					//_fsniff("Pool memory block <32768> released [%s]", (ret ? "SUCCESS" : "FAILED"));
-				}
-				break;
-				case POOL_16384:
-				{
-					pool16384_t* pool = (pool16384_t*)(pools[POOL_16384]);
-					ret = pool->release_block((*pool)[page_id], block_id);
-					//_fsniff("Pool memory block <16384> released [%s]", (ret ? "SUCCESS" : "FAILED"));
-				}
-				break;
+				//case POOL_131072:
+				//{
+				//	pool131072_t* pool = (pool131072_t*)(pools[POOL_131072]);
+				//	ret = pool->release_block((*pool)[page_id], block_id);
+				//	//_fsniff("Pool memory block <131072> released [%s]", (ret ? "SUCCESS" : "FAILED"));
+				//}
+				//break;
+				//case POOL_65536:
+				//{
+				//	pool65536_t* pool = (pool65536_t*)(pools[POOL_65536]);
+				//	ret = pool->release_block((*pool)[page_id], block_id);
+				//	//_fsniff("Pool memory block <65536> released [%s]", (ret ? "SUCCESS" : "FAILED"));
+				//}
+				//break;
+				//case POOL_32768:
+				//{
+				//	pool32768_t* pool = (pool32768_t*)(pools[POOL_32768]);
+				//	ret = pool->release_block((*pool)[page_id], block_id);
+				//	//_fsniff("Pool memory block <32768> released [%s]", (ret ? "SUCCESS" : "FAILED"));
+				//}
+				//break;
+				//case POOL_16384:
+				//{
+				//	pool16384_t* pool = (pool16384_t*)(pools[POOL_16384]);
+				//	ret = pool->release_block((*pool)[page_id], block_id);
+				//	//_fsniff("Pool memory block <16384> released [%s]", (ret ? "SUCCESS" : "FAILED"));
+				//}
+				//break;
 				case POOL_8192:
 				{
 					pool8192_t* pool = (pool8192_t*)(pools[POOL_8192]);
@@ -808,7 +809,7 @@ namespace voltek
 
 			switch (pool_id)
 			{
-			case POOL_131072:
+			/*case POOL_131072:
 			{
 				pool131072_t* pool = (pool131072_t*)(pools[POOL_131072]);
 				pool->dump_map(filename);
@@ -831,7 +832,7 @@ namespace voltek
 				pool16384_t* pool = (pool16384_t*)(pools[POOL_16384]);
 				pool->dump_map(filename);
 			}
-			break;
+			break;*/
 			case POOL_8192:
 			{
 				pool8192_t* pool = (pool8192_t*)(pools[POOL_8192]);
@@ -907,7 +908,7 @@ namespace voltek
 
 			switch (pool_id)
 			{
-			case POOL_131072:
+			/*case POOL_131072:
 			{
 				pool131072_t* pool = (pool131072_t*)(pools[POOL_131072]);
 				pool->dump(filename);
@@ -930,7 +931,7 @@ namespace voltek
 				pool16384_t* pool = (pool16384_t*)(pools[POOL_16384]);
 				pool->dump(filename);
 			}
-			break;
+			break;*/
 			case POOL_8192:
 			{
 				pool8192_t* pool = (pool8192_t*)(pools[POOL_8192]);
