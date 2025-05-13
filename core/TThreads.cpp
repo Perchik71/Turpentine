@@ -13,6 +13,28 @@ namespace Turpentine
 	{
 		namespace Impl
 		{
+			void WINAPI ThreadIntf::HKSleep(DWORD dwMilliseconds) noexcept(true)
+			{
+				if (dwMilliseconds >= 20)
+				{
+					SleepEx(20, FALSE);
+					return;
+				}
+
+				SleepEx(dwMilliseconds, FALSE);
+			}
+
+			void WINAPI ThreadIntf::HKSleepEx(DWORD dwMilliseconds, BOOL bAlertable) noexcept(true)
+			{
+				if (dwMilliseconds >= 20)
+				{
+					SleepEx(20, bAlertable);
+					return;
+				}
+
+				SleepEx(dwMilliseconds, bAlertable);
+			}
+
 			BOOL WINAPI ThreadIntf::HKSetThreadPriority(HANDLE Thread, int Priority) noexcept(true)
 			{
 				// Don't allow a priority below normal - Fallout 4 doesn't have many "idle" threads
@@ -23,6 +45,13 @@ namespace Turpentine
 			{
 				// Don't change anything
 				return numeric_limits<DWORD_PTR>::max();
+			}
+
+			BOOL WINAPI ThreadIntf::HKSetThreadGroupAffinity(HANDLE hThread, GROUP_AFFINITY* GroupAffinity,
+				PGROUP_AFFINITY PreviousGroupAffinity) noexcept(true)
+			{
+				// Don't change anything
+				return TRUE;
 			}
 		}
 	
@@ -77,16 +106,22 @@ namespace Turpentine
 				{
 					auto SetPriorityClass_addr = GetProcAddress(kernel_32, "SetPriorityClass");
 					auto SetProcessAffinityMask_addr = GetProcAddress(kernel_32, "SetProcessAffinityMask");
+					auto SetThreadGroupAffinity_addr = GetProcAddress(kernel_32, "SetThreadGroupAffinity");
 					if (SetPriorityClass_addr)
 					{
 						REL::Patch((uintptr_t)SetPriorityClass_addr, { 0x31, 0xC0, 0xC3, 0x90, });
 						REL::Patch((uintptr_t)SetProcessAffinityMask_addr, { 0x31, 0xC0, 0xC3, 0x90, });
+						REL::Patch((uintptr_t)SetThreadGroupAffinity_addr, { 0x31, 0xC0, 0xC3, 0x90, });
 					}
 				}
 			}
 
+			REL::DetourIAT(GlobalBase, "kernel32.dll", "Sleep", (uintptr_t)&Impl::ThreadIntf::HKSleep);
+			REL::DetourIAT(GlobalBase, "kernel32.dll", "SleepEx", (uintptr_t)&Impl::ThreadIntf::HKSleepEx);
 			REL::DetourIAT(GlobalBase, "kernel32.dll", "SetThreadPriority", (uintptr_t)&Impl::ThreadIntf::HKSetThreadPriority);
 			REL::DetourIAT(GlobalBase, "kernel32.dll", "SetThreadAffinityMask", (uintptr_t)&Impl::ThreadIntf::HKSetThreadAffinityMask);
+			REL::DetourIAT(GlobalBase, "kernel32.dll", "SetThreadGroupAffinity", 
+				(uintptr_t)&Impl::ThreadIntf::HKSetThreadGroupAffinity);
 
 			// The system does not display the critical-error-handler message box. 
 			// Instead, the system sends the error to the calling process.
@@ -99,8 +134,6 @@ namespace Turpentine
 				auto ErrorLast = GetLastError();
 				_ERROR("SetThreadErrorMode returned failed (0x%x): %s", ErrorLast, _com_error(ErrorLast).ErrorMessage());
 			}
-
-			DebugLog::flush();
 		}
 	}
 }

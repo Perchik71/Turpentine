@@ -4,8 +4,6 @@
 #include "obse64_common/Utilities.h"
 #include "obse64_common/obse64_version.h"
 #include "obse64_common/BranchTrampoline.h"
-#include "obse64_common/Log.h"
-#include "obse64_common/Errors.h"
 
 PluginManager	g_pluginManager;
 
@@ -667,10 +665,7 @@ void PluginManager::reportPluginErrors()
 		MB_YESNO);
 
 	if(result == IDYES)
-	{
-		DebugLog::flush();
 		TerminateProcess(GetCurrentProcess(), 0);
-	}
 }
 
 void PluginManager::updateAddressLibraryPrompt()

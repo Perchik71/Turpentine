@@ -12,14 +12,12 @@ namespace Turpentine
 	{
 		void APIENTRY PatchMaxStdio(int value) noexcept(true)
 		{
-			int v = std::max(512, std::min(8096, value));
+			int v = std::max(512, std::min(8192, value));
 
 			if (_setmaxstdio(v) == -1)
 				_ERROR("When trying to sets %d _setmaxstdio returned failed", v);
 			else
 				_MESSAGE("_setmaxstdio sets %d", v);
-
-			DebugLog::flush();
 		}
 	}
 }

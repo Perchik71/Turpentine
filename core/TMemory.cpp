@@ -310,8 +310,6 @@ namespace Turpentine
 				//REL::DetourJump(GlobalBase + 0x63CAD50, (uintptr_t)&Impl::AK::MemoryMgr::TermForThread);
 				//REL::DetourJump(GlobalBase + 0x63CAD60, (uintptr_t)&Impl::AK::MemoryMgr::TrimForThread);
 			}
-
-			DebugLog::flush(); 
 		}
 	}
 }

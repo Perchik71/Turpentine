@@ -14,6 +14,12 @@
     <Filter Include="depends\typeinfo">
       <UniqueIdentifier>{8347db77-8e5e-4fc8-a1f7-dc27762ff6d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="depends\f4se_common">
+      <UniqueIdentifier>{c5a6d1a1-55d4-4c55-bee6-08fbe8d45c51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="patches">
+      <UniqueIdentifier>{60702646-8d2a-409a-acb6-43acbeb6b31d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="depends\obse64\obse64\PluginManager.h">
@@ -37,13 +43,7 @@
     <ClInclude Include="depends\obse64\obse64_common\DirectoryIterator.h">
       <Filter>depends\obse64</Filter>
     </ClInclude>
-    <ClInclude Include="depends\obse64\obse64_common\Errors.h">
-      <Filter>depends\obse64</Filter>
-    </ClInclude>
     <ClInclude Include="depends\obse64\obse64_common\FileStream.h">
-      <Filter>depends\obse64</Filter>
-    </ClInclude>
-    <ClInclude Include="depends\obse64\obse64_common\Log.h">
       <Filter>depends\obse64</Filter>
     </ClInclude>
     <ClInclude Include="depends\obse64\obse64_common\obse64_version.h">
@@ -65,10 +65,104 @@
     <ClInclude Include="depends\typeinfo\ms_rtti.h">
       <Filter>depends\typeinfo</Filter>
     </ClInclude>
-    <ClInclude Include="core\TMemory.h" />
-    <ClInclude Include="core\TThreads.h" />
     <ClInclude Include="core\TRelocation.h" />
-    <ClInclude Include="core\TMaxStdio.h" />
+    <ClInclude Include="core\TUtils.h" />
+    <ClInclude Include="core\TSettings.h" />
+    <ClInclude Include="depends\f4se_common\f4se_common\IDataStream.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\IDebugLog.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\IDirectoryIterator.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\IDynamicCreate.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\IErrors.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\IEvent.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\IFIFO.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\IFileStream.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\IInterlockedLong.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\ILinkedList.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\IMemPool.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\IMutex.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\IPipeClient.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\IPipeServer.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\IRangeMap.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\IReadWriteLock.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\ISegmentStream.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\ISingleton.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\ITextParser.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\IThread.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\ITimer.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\ITypes.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\IArchive.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\IBufferStream.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\IConsole.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\ICriticalSection.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\f4se_common\f4se_common\IDatabase.h">
+      <Filter>depends\f4se_common</Filter>
+    </ClInclude>
+    <ClInclude Include="core\TModSettings.h" />
+    <ClInclude Include="core\TMaxStdio.h">
+      <Filter>patches</Filter>
+    </ClInclude>
+    <ClInclude Include="core\TMemory.h">
+      <Filter>patches</Filter>
+    </ClInclude>
+    <ClInclude Include="core\TThreads.h">
+      <Filter>patches</Filter>
+    </ClInclude>
+    <ClInclude Include="core\TTime.h" />
+    <ClInclude Include="core\TGarbageCollector.h">
+      <Filter>patches</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="depends\obse64\obse64\PluginManager.cpp">
@@ -83,13 +177,7 @@
     <ClCompile Include="depends\obse64\obse64_common\DirectoryIterator.cpp">
       <Filter>depends\obse64</Filter>
     </ClCompile>
-    <ClCompile Include="depends\obse64\obse64_common\Errors.cpp">
-      <Filter>depends\obse64</Filter>
-    </ClCompile>
     <ClCompile Include="depends\obse64\obse64_common\FileStream.cpp">
-      <Filter>depends\obse64</Filter>
-    </ClCompile>
-    <ClCompile Include="depends\obse64\obse64_common\Log.cpp">
       <Filter>depends\obse64</Filter>
     </ClCompile>
     <ClCompile Include="depends\obse64\obse64_common\Relocation.cpp">
@@ -108,9 +196,93 @@
     <ClCompile Include="depends\typeinfo\ms_rtti.cpp">
       <Filter>depends\typeinfo</Filter>
     </ClCompile>
-    <ClCompile Include="core\TMemory.cpp" />
-    <ClCompile Include="core\TThreads.cpp" />
     <ClCompile Include="core\TRelocation.cpp" />
-    <ClCompile Include="core\TMaxStdio.cpp" />
+    <ClCompile Include="core\TUtils.cpp" />
+    <ClCompile Include="core\TSettings.cpp" />
+    <ClCompile Include="depends\f4se_common\f4se_common\IDataStream.cpp">
+      <Filter>depends\f4se_common</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\f4se_common\f4se_common\IDebugLog.cpp">
+      <Filter>depends\f4se_common</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\f4se_common\f4se_common\IDirectoryIterator.cpp">
+      <Filter>depends\f4se_common</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\f4se_common\f4se_common\IDynamicCreate.cpp">
+      <Filter>depends\f4se_common</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\f4se_common\f4se_common\IErrors.cpp">
+      <Filter>depends\f4se_common</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\f4se_common\f4se_common\IEvent.cpp">
+      <Filter>depends\f4se_common</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\f4se_common\f4se_common\IFIFO.cpp">
+      <Filter>depends\f4se_common</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\f4se_common\f4se_common\IFileStream.cpp">
+      <Filter>depends\f4se_common</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\f4se_common\f4se_common\IMemPool.cpp">
+      <Filter>depends\f4se_common</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\f4se_common\f4se_common\IMutex.cpp">
+      <Filter>depends\f4se_common</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\f4se_common\f4se_common\IPipeClient.cpp">
+      <Filter>depends\f4se_common</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\f4se_common\f4se_common\IPipeServer.cpp">
+      <Filter>depends\f4se_common</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\f4se_common\f4se_common\IReadWriteLock.cpp">
+      <Filter>depends\f4se_common</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\f4se_common\f4se_common\ISegmentStream.cpp">
+      <Filter>depends\f4se_common</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\f4se_common\f4se_common\ITextParser.cpp">
+      <Filter>depends\f4se_common</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\f4se_common\f4se_common\IThread.cpp">
+      <Filter>depends\f4se_common</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\f4se_common\f4se_common\ITimer.cpp">
+      <Filter>depends\f4se_common</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\f4se_common\f4se_common\ITypes.cpp">
+      <Filter>depends\f4se_common</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\f4se_common\f4se_common\IArchive.cpp">
+      <Filter>depends\f4se_common</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\f4se_common\f4se_common\IBufferStream.cpp">
+      <Filter>depends\f4se_common</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\f4se_common\f4se_common\IConsole.cpp">
+      <Filter>depends\f4se_common</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\f4se_common\f4se_common\IDatabase.cpp">
+      <Filter>depends\f4se_common</Filter>
+    </ClCompile>
+    <ClCompile Include="core\TMaxStdio.cpp">
+      <Filter>patches</Filter>
+    </ClCompile>
+    <ClCompile Include="core\TMemory.cpp">
+      <Filter>patches</Filter>
+    </ClCompile>
+    <ClCompile Include="core\TThreads.cpp">
+      <Filter>patches</Filter>
+    </ClCompile>
+    <ClCompile Include="core\TModSettings.cpp" />
+    <ClCompile Include="core\TTime.cpp" />
+    <ClCompile Include="core\TGarbageCollector.cpp">
+      <Filter>patches</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="depends\f4se_common\f4se_common\IDatabase.inc">
+      <Filter>depends\f4se_common</Filter>
+    </None>
   </ItemGroup>
 </Project>

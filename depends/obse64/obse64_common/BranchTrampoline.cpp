@@ -2,8 +2,6 @@
 #include "SafeWrite.h"
 #include <climits>
 #include <Windows.h>
-#include "obse64_common/Log.h"
-#include "obse64_common/Errors.h"
 
 BranchTrampoline g_branchTrampoline;
 BranchTrampoline g_localTrampoline;

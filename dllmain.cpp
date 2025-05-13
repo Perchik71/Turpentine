@@ -1,15 +1,19 @@
 ﻿#include <obse64/PluginAPI.h>
 #include <detours/Detours.h>
 #include <Voltek.MemoryManager.h>
-#include <ms_rtti.h>
-#include <toml.hpp>
+
+// Core
+#include "TUtils.h"
+#include "TSettings.h"
+#include "TModSettings.h"
 
 // Patches
 #include "TMemory.h"
 #include "TThreads.h"
 #include "TMaxStdio.h"
+#include "TGarbageCollector.h"
 
-#define TURPENTINE_VERSION MAKE_EXE_VERSION(0, 2, 0)
+#define TURPENTINE_VERSION MAKE_EXE_VERSION(0, 3, 0)
 #define TURPENTINE_NAME "Turpentine"
 #define TURPENTINE_AUTHOR "perchik71"
 #define USE_RTTI_EXPORT 0
@@ -17,6 +21,7 @@
 bool APIENTRY Start(const OBSEInterface* obse);
 
 std::string GlobalAppPath;
+Turpentine::TOMLCollectionSettings GlobalModSettings;
 uintptr_t GlobalBase = 0;
 uintptr_t GlobalModuleBase = 0;
 msrtti::section GlobalSection[3];
@@ -45,117 +50,6 @@ extern "C"
 	}
 };
 
-namespace Utils
-{
-	static std::wstring __stdcall AnsiToWide(const std::string& String) noexcept(true)
-	{
-		auto l = MultiByteToWideChar(CP_ACP, 0, String.c_str(), (int32_t)String.length(), nullptr, 0);
-		if (l <= 0) return L"";
-		std::wstring temp;
-		temp.resize(l);
-		MultiByteToWideChar(CP_ACP, 0, String.c_str(), (int32_t)String.length(), temp.data(), (int32_t)temp.length());
-		return temp;
-	}
-
-	static std::string __stdcall WideToAnsi(const std::wstring& String) noexcept(true)
-	{
-		auto l = WideCharToMultiByte(CP_ACP, 0, String.c_str(), (int32_t)String.length(), nullptr, 0, nullptr, nullptr);
-		if (l <= 0) return "";
-		std::string temp;
-		temp.resize(l);
-		WideCharToMultiByte(CP_ACP, 0, String.c_str(), (int32_t)String.length(), temp.data(), (int32_t)temp.length(), nullptr, nullptr);
-		return temp;
-	}
-
-	static std::string __stdcall AnsiToUtf8(const std::string& String) noexcept(true)
-	{
-		auto Source = AnsiToWide(String);
-		auto l = WideCharToMultiByte(CP_UTF8, 0, Source.c_str(), (int32_t)String.length(), nullptr, 0, nullptr, nullptr);
-		if (l <= 0) return "";
-		std::string temp;
-		temp.resize(l);
-		WideCharToMultiByte(CP_ACP, 0, Source.c_str(), (int32_t)Source.length(), temp.data(), (int32_t)temp.length(), nullptr, nullptr);
-		return temp;
-	}
-
-	static std::string __stdcall Utf8ToAnsi(const std::string& String) noexcept(true)
-	{
-		auto l = MultiByteToWideChar(CP_UTF8, 0, String.c_str(), (int32_t)String.length(), nullptr, 0);
-		if (l <= 0) return "";
-		std::wstring temp;
-		temp.resize(l);
-		MultiByteToWideChar(CP_UTF8, 0, String.c_str(), (int32_t)String.length(), temp.data(), (int32_t)temp.length());
-		return WideToAnsi(temp);
-	}
-
-	static std::string& __stdcall Trim(std::string& String) noexcept(true)
-	{
-		constexpr static char whitespaceDelimiters[] = " \t\n\r\f\v";
-
-		if (!String.empty())
-		{
-			String.erase(String.find_last_not_of(whitespaceDelimiters) + 1);
-			String.erase(0, String.find_first_not_of(whitespaceDelimiters));
-		}
-
-		return String;
-	}
-
-	static std::string __stdcall GetApplicationPath() noexcept(true)
-	{
-		std::string _app_path;
-		const uint32_t BufferSize = 1024;
-
-		auto Buffer = std::make_unique<char[]>((size_t)BufferSize + 1);
-		if (Buffer && GetModuleFileNameA(GetModuleHandleA(nullptr), Buffer.get(), BufferSize))
-		{
-			PathRemoveFileSpecA(Buffer.get());
-			_app_path = Buffer.get();
-			_app_path += "\\";
-		}
-
-		return _app_path;
-	}
-
-	static std::string __stdcall GetGamePluginPath() noexcept(true)
-	{
-		return GetApplicationPath() + "OBSE\\Plugins\\";
-	}
-
-	static bool __stdcall GetPESectionRange(const char* section, msrtti::section* data) noexcept(true)
-	{
-		if (!data)
-			return false;
-
-		PIMAGE_NT_HEADERS ntHeaders = (PIMAGE_NT_HEADERS)(GlobalBase + ((PIMAGE_DOS_HEADER)GlobalBase)->e_lfanew);
-		PIMAGE_SECTION_HEADER cur_section = IMAGE_FIRST_SECTION(ntHeaders);
-
-		if (!section || (strlen(section) <= 0))
-		{
-			data->base = GlobalBase;
-			data->end = data->base + ntHeaders->OptionalHeader.SizeOfHeaders;
-
-			return true;
-		}
-
-		for (uint32_t i = 0; i < ntHeaders->FileHeader.NumberOfSections; i++, cur_section++)
-		{
-			char sectionName[sizeof(IMAGE_SECTION_HEADER::Name) + 1] = { };
-			memcpy(sectionName, cur_section->Name, sizeof(IMAGE_SECTION_HEADER::Name));
-
-			if (!strcmp(sectionName, section))
-			{
-				data->base = GlobalBase + cur_section->VirtualAddress;
-				data->end = data->base + cur_section->Misc.VirtualSize;
-
-				return true;
-			}
-		}
-
-		return false;
-	}
-}
-
 static void APIENTRY InitializeOBSE64LogSystem()
 {
 	const uint32_t BufferSize = 1024;
@@ -163,7 +57,7 @@ static void APIENTRY InitializeOBSE64LogSystem()
 	if (!Buffer)
 	{
 	UnknownDllName:
-		DebugLog::openRelative(CSIDL_MYDOCUMENTS, "\\My Games\\Oblivion Remastered\\OBSE\\Logs\\UnknownPluginName.log");
+		gLog.OpenRelative(CSIDL_MYDOCUMENTS, "\\My Games\\Oblivion Remastered\\OBSE\\Logs\\UnknownPluginName.log");
 	}
 	else
 	{
@@ -187,7 +81,7 @@ static void APIENTRY InitializeOBSE64LogSystem()
 			goto UnknownDllName;
 
 		sprintf(Path.get(), FormattedString, Buffer.get());
-		DebugLog::openRelative(CSIDL_MYDOCUMENTS, Path.get());
+		gLog.OpenRelative(CSIDL_MYDOCUMENTS, Path.get());
 	}
 }
 
@@ -198,37 +92,37 @@ bool APIENTRY Start(const OBSEInterface* obse)
 	_MESSAGE("OBSE64 version check. obse64Version: 0x%x, runtimeVersion: 0x%x", obse->obse64Version, obse->runtimeVersion);
 	_MESSAGE("Plugin \"" TURPENTINE_NAME "\" version check. Version: 0x%x, Author: %s", TURPENTINE_VERSION, TURPENTINE_AUTHOR);
 
-	GlobalAppPath = Utils::GetApplicationPath();
+	GlobalAppPath = Turpentine::Utils::GetApplicationPath();
 	GlobalBase = (uintptr_t)GetModuleHandleA(nullptr);
 
 	_MESSAGE("AppPath: %s", GlobalAppPath.c_str());
 
-	if (!Utils::GetPESectionRange(".text", &GlobalSection[0]))
+	if (!Turpentine::Utils::GetPESectionRange(".text", &GlobalSection[0]))
 	{
 		_ERROR("There is no information about \".text\" in the module");
 		return false;
 	}
 
-	if (!Utils::GetPESectionRange(".rdata", &GlobalSection[1]))
+	if (!Turpentine::Utils::GetPESectionRange(".rdata", &GlobalSection[1]))
 	{
 		_ERROR("There is no information about \".rdata\" in the module");
 		return false;
 	}
 
-	if (!Utils::GetPESectionRange(".data", &GlobalSection[2]))
+	if (!Turpentine::Utils::GetPESectionRange(".data", &GlobalSection[2]))
 	{
 		_ERROR("There is no information about \".data\" in the module");
 		return false;
 	}
 
 	msrtti::section temp;
-	if (Utils::GetPESectionRange(".textbss", &temp))
+	if (Turpentine::Utils::GetPESectionRange(".textbss", &temp))
 	{
 		GlobalSection[0].base = std::min(GlobalSection[0].base, temp.base);
 		GlobalSection[0].end = std::max(GlobalSection[0].end, temp.end);
 	}
 
-	if (Utils::GetPESectionRange(".interpr", &temp))
+	if (Turpentine::Utils::GetPESectionRange(".interpr", &temp))
 	{
 		GlobalSection[0].base = std::min(GlobalSection[0].base, temp.base);
 		GlobalSection[0].end = std::max(GlobalSection[0].end, temp.end);
@@ -253,39 +147,29 @@ bool APIENTRY Start(const OBSEInterface* obse)
 	}
 #endif
 
-	DebugLog::flush();
+	// Patches
+	GlobalModSettings.Add(Turpentine::CVarThreads);
+	GlobalModSettings.Add(Turpentine::CVarMemory);
+	GlobalModSettings.Add(Turpentine::CVarAudioMemory);
+	GlobalModSettings.Add(Turpentine::CVarMaxStdio);
+	GlobalModSettings.Add(Turpentine::CVarGarbageCollectorWaitFor);
 
-	auto TOMLResult = toml::try_parse(Utils::GetGamePluginPath() + TURPENTINE_NAME ".toml", toml::spec::v(1, 1, 0));
-	if (!TOMLResult.is_ok())
-	{
-		_ERROR("Error reading the settings file " TURPENTINE_NAME ".toml");
+	// Load settings
+	GlobalModSettings.LoadFromFile((Turpentine::Utils::GetGamePluginPath() + TURPENTINE_NAME ".toml").c_str());
 
-		auto& TOMLError = TOMLResult.as_err();
-		for (size_t i = 0; i < TOMLError.size(); i++)
-			_MESSAGE("\t%s", TOMLError.at(i).title().c_str());
+	// Install patches
+	//
+	if (Turpentine::CVarThreads->GetBool())
+		Turpentine::Patches::PatchThreads();
 
-		DebugLog::flush();
-	}
-	else
-	{
-		auto& TOMLData = TOMLResult.unwrap();
-		if (TOMLData.contains("Patches"))
-		{
-			auto& TOMLPatches = TOMLData.at("Patches");
-			// Memory
-			Turpentine::Patches::PatchMemory(
-				TOMLPatches.contains("bMemory") && TOMLPatches.at("bMemory").is_boolean() && TOMLPatches.at("bMemory").as_boolean(),
-				TOMLPatches.contains("bAudioMemory") && TOMLPatches.at("bAudioMemory").is_boolean() && TOMLPatches.at("bAudioMemory").as_boolean());
-			// Threads
-			if (TOMLPatches.contains("bThreads") && TOMLPatches.at("bThreads").is_boolean() && TOMLPatches.at("bThreads").as_boolean())
-				Turpentine::Patches::PatchThreads();
-			// MaxStdio
-			if (TOMLPatches.contains("iMaxStdio") && TOMLPatches.at("iMaxStdio").is_integer())
-				Turpentine::Patches::PatchMaxStdio(TOMLPatches.at("iMaxStdio").as_integer());
-		}
-	}
+	Turpentine::Patches::PatchMemory(
+		Turpentine::CVarMemory->GetBool(), 
+		Turpentine::CVarAudioMemory->GetBool());
 
-	DebugLog::flush();
+	Turpentine::Patches::PatchMaxStdio(Turpentine::CVarMaxStdio->GetSignedInt());
+
+	if (Turpentine::CVarGarbageCollectorWaitFor->GetBool())
+		Turpentine::Patches::PatchGarbageCollector();
 
 	return true;
 }
