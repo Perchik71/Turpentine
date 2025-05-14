@@ -13,7 +13,7 @@
 #include "TMaxStdio.h"
 #include "TGarbageCollector.h"
 
-#define TURPENTINE_VERSION MAKE_EXE_VERSION(0, 3, 0)
+#define TURPENTINE_VERSION MAKE_EXE_VERSION(0, 3, 2)
 #define TURPENTINE_NAME "Turpentine"
 #define TURPENTINE_AUTHOR "perchik71"
 #define USE_RTTI_EXPORT 0
@@ -152,7 +152,7 @@ bool APIENTRY Start(const OBSEInterface* obse)
 	GlobalModSettings.Add(Turpentine::CVarMemory);
 	GlobalModSettings.Add(Turpentine::CVarAudioMemory);
 	GlobalModSettings.Add(Turpentine::CVarMaxStdio);
-	GlobalModSettings.Add(Turpentine::CVarGarbageCollectorWaitFor);
+	GlobalModSettings.Add(Turpentine::CVarThreadTaskDelay);
 
 	// Load settings
 	GlobalModSettings.LoadFromFile((Turpentine::Utils::GetGamePluginPath() + TURPENTINE_NAME ".toml").c_str());
@@ -168,7 +168,7 @@ bool APIENTRY Start(const OBSEInterface* obse)
 
 	Turpentine::Patches::PatchMaxStdio(Turpentine::CVarMaxStdio->GetSignedInt());
 
-	if (Turpentine::CVarGarbageCollectorWaitFor->GetBool())
+	if (Turpentine::CVarThreadTaskDelay->GetBool())
 		Turpentine::Patches::PatchGarbageCollector();
 
 	return true;

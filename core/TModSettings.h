@@ -16,6 +16,6 @@ namespace Turpentine
 	extern std::shared_ptr<Setting> CVarAudioMemory;
 	// Replaces the maximum stdio handles.Default 512, max 8192 https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/setmaxstdio?view=msvc-170
 	extern std::shared_ptr<Setting> CVarMaxStdio;
-	// Waiting function has been rewrited, which transfers processor time every 10 ms to other threads, reduces severe stuttering caused by massive resource release
-	extern std::shared_ptr<Setting> CVarGarbageCollectorWaitFor;
+	// Fixed shuttering. If the waiting time exceeds one second, it forcibly resets the lock from thread
+	extern std::shared_ptr<Setting> CVarThreadTaskDelay;
 }
