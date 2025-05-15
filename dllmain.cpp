@@ -11,9 +11,8 @@
 #include "TMemory.h"
 #include "TThreads.h"
 #include "TMaxStdio.h"
-#include "TGarbageCollector.h"
 
-#define TURPENTINE_VERSION MAKE_EXE_VERSION(0, 3, 2)
+#define TURPENTINE_VERSION MAKE_EXE_VERSION(0, 3, 3)
 #define TURPENTINE_NAME "Turpentine"
 #define TURPENTINE_AUTHOR "perchik71"
 #define USE_RTTI_EXPORT 0
@@ -167,9 +166,6 @@ bool APIENTRY Start(const OBSEInterface* obse)
 		Turpentine::CVarAudioMemory->GetBool());
 
 	Turpentine::Patches::PatchMaxStdio(Turpentine::CVarMaxStdio->GetSignedInt());
-
-	if (Turpentine::CVarThreadTaskDelay->GetBool())
-		Turpentine::Patches::PatchGarbageCollector();
 
 	return true;
 }

@@ -101,7 +101,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="core\common.h" />
-    <ClInclude Include="core\TGarbageCollector.h" />
     <ClInclude Include="core\TMaxStdio.h" />
     <ClInclude Include="core\TMemory.h" />
     <ClInclude Include="core\TModSettings.h" />
@@ -153,7 +152,6 @@
     <ClInclude Include="depends\typeinfo\ms_rtti.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="core\TGarbageCollector.cpp" />
     <ClCompile Include="core\TMaxStdio.cpp" />
     <ClCompile Include="core\TMemory.cpp" />
     <ClCompile Include="core\TModSettings.cpp" />

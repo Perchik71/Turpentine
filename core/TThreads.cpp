@@ -13,6 +13,57 @@ namespace Turpentine
 	{
 		namespace Impl
 		{
+#pragma pack(push, 1)
+			class ThreadMemoryTask
+			{
+			public:
+				char pad08[0x8];
+				HANDLE hEvent;
+				bool bManualReset;
+				char pad19[0x1F];
+				HANDLE hThread;
+
+				[[nodiscard]] virtual bool InitLock(bool manualReset) noexcept(true);
+				[[nodiscard]] virtual bool HasManualReset() noexcept(true);
+				virtual bool Unlock() noexcept(true);
+				virtual bool Lock() noexcept(true);
+
+				virtual bool Task(DWORD Timeout, char a3);
+				virtual bool Unk28();
+				virtual bool Unk30();
+				virtual bool Unk38();
+
+				[[nodiscard]] virtual bool Suspend(bool suspend = true) noexcept(true)
+				{
+					return (suspend ? SuspendThread(hThread) : ResumeThread(hThread));
+				}
+			};
+#pragma pack(pop)
+
+			static bool CreateThreadTask(
+				ThreadMemoryTask* self,
+				__int64 a2,
+				wchar_t* a3,
+				unsigned int a4,
+				unsigned int a5,
+				__int64 a6) noexcept(true);
+
+			decltype(&CreateThreadTask) ptrCreateThreadTask = nullptr;
+
+			static bool CreateThreadTask(
+				ThreadMemoryTask* self,
+				__int64 a2,
+				wchar_t* a3,
+				unsigned int a4,
+				unsigned int a5,
+				__int64 a6) noexcept(true)
+			{
+				bool b = ptrCreateThreadTask(self, a2, a3, a4, a5, a6);
+				if (b)
+					SetThreadPriority(self->hThread, THREAD_PRIORITY_TIME_CRITICAL);
+				return b;
+			}
+
 			void WINAPI ThreadIntf::HKSleep(DWORD dwMilliseconds) noexcept(true)
 			{
 				if (dwMilliseconds >= 20)
@@ -37,8 +88,10 @@ namespace Turpentine
 
 			BOOL WINAPI ThreadIntf::HKSetThreadPriority(HANDLE Thread, int Priority) noexcept(true)
 			{
-				// Don't allow a priority below normal - Fallout 4 doesn't have many "idle" threads
-				return SetThreadPriority(Thread, max(THREAD_PRIORITY_NORMAL, Priority));
+				auto OldPriority = GetThreadPriority(Thread);
+				// Don't allow a priority below normal
+				return SetThreadPriority(Thread, max(THREAD_PRIORITY_NORMAL, 
+					(OldPriority >= Priority ? OldPriority : Priority)));
 			}
 
 			DWORD_PTR WINAPI ThreadIntf::HKSetThreadAffinityMask(HANDLE Thread, DWORD_PTR AffinityMask) noexcept(true)
@@ -116,8 +169,10 @@ namespace Turpentine
 				}
 			}
 
-			REL::DetourIAT(GlobalBase, "kernel32.dll", "Sleep", (uintptr_t)&Impl::ThreadIntf::HKSleep);
-			REL::DetourIAT(GlobalBase, "kernel32.dll", "SleepEx", (uintptr_t)&Impl::ThreadIntf::HKSleepEx);
+			*((uintptr_t*)&Impl::ptrCreateThreadTask) = REL::DetourJump(GlobalBase + 0xF63FA0, (uintptr_t)&Impl::CreateThreadTask);
+
+			//REL::DetourIAT(GlobalBase, "kernel32.dll", "Sleep", (uintptr_t)&Impl::ThreadIntf::HKSleep);
+			//REL::DetourIAT(GlobalBase, "kernel32.dll", "SleepEx", (uintptr_t)&Impl::ThreadIntf::HKSleepEx);
 			REL::DetourIAT(GlobalBase, "kernel32.dll", "SetThreadPriority", (uintptr_t)&Impl::ThreadIntf::HKSetThreadPriority);
 			REL::DetourIAT(GlobalBase, "kernel32.dll", "SetThreadAffinityMask", (uintptr_t)&Impl::ThreadIntf::HKSetThreadAffinityMask);
 			REL::DetourIAT(GlobalBase, "kernel32.dll", "SetThreadGroupAffinity", 
