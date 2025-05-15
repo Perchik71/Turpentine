@@ -105,6 +105,7 @@
     <ClInclude Include="core\TMemory.h" />
     <ClInclude Include="core\TModSettings.h" />
     <ClInclude Include="core\TRelocation.h" />
+    <ClInclude Include="core\TSafeExit.h" />
     <ClInclude Include="core\TSettings.h" />
     <ClInclude Include="core\TThreads.h" />
     <ClInclude Include="core\TTime.h" />
@@ -156,6 +157,7 @@
     <ClCompile Include="core\TMemory.cpp" />
     <ClCompile Include="core\TModSettings.cpp" />
     <ClCompile Include="core\TRelocation.cpp" />
+    <ClCompile Include="core\TSafeExit.cpp" />
     <ClCompile Include="core\TSettings.cpp" />
     <ClCompile Include="core\TThreads.cpp" />
     <ClCompile Include="core\TTime.cpp" />

@@ -151,7 +151,8 @@ namespace Turpentine
 						_MESSAGE("Restore usage of processor cores");
 				}
 
-				// Complete removal of WinAPI functions SetPriorityClass and SetProcessAffinityMask.
+				// Complete removal of WinAPI functions SetPriorityClass, SetProcessAffinityMask,
+				// SetThreadGroupAffinity and SetThreadErrorMode.
 				// Protection against premeditated, foolishly committed spoilage of the process.
 
 				auto kernel_32 = GetModuleHandleA("kernel32.dll");
@@ -160,11 +161,13 @@ namespace Turpentine
 					auto SetPriorityClass_addr = GetProcAddress(kernel_32, "SetPriorityClass");
 					auto SetProcessAffinityMask_addr = GetProcAddress(kernel_32, "SetProcessAffinityMask");
 					auto SetThreadGroupAffinity_addr = GetProcAddress(kernel_32, "SetThreadGroupAffinity");
+					auto SetThreadErrorMode_addr = GetProcAddress(kernel_32, "SetThreadErrorMode");
 					if (SetPriorityClass_addr)
 					{
 						REL::Patch((uintptr_t)SetPriorityClass_addr, { 0x31, 0xC0, 0xC3, 0x90, });
 						REL::Patch((uintptr_t)SetProcessAffinityMask_addr, { 0x31, 0xC0, 0xC3, 0x90, });
 						REL::Patch((uintptr_t)SetThreadGroupAffinity_addr, { 0x31, 0xC0, 0xC3, 0x90, });
+						REL::Patch((uintptr_t)SetThreadErrorMode_addr, { 0x31, 0xC0, 0xC3, 0x90, });
 					}
 				}
 			}
@@ -177,7 +180,7 @@ namespace Turpentine
 			REL::DetourIAT(GlobalBase, "kernel32.dll", "SetThreadAffinityMask", (uintptr_t)&Impl::ThreadIntf::HKSetThreadAffinityMask);
 			REL::DetourIAT(GlobalBase, "kernel32.dll", "SetThreadGroupAffinity", 
 				(uintptr_t)&Impl::ThreadIntf::HKSetThreadGroupAffinity);
-
+			
 			// The system does not display the critical-error-handler message box. 
 			// Instead, the system sends the error to the calling process.
 			// Best practice is that all applications call the process - wide SetErrorMode 

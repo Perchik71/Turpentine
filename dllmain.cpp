@@ -1,6 +1,7 @@
 ﻿#include <obse64/PluginAPI.h>
 #include <detours/Detours.h>
 #include <Voltek.MemoryManager.h>
+#include <TRelocation.h>
 
 // Core
 #include "TUtils.h"
@@ -11,10 +12,15 @@
 #include "TMemory.h"
 #include "TThreads.h"
 #include "TMaxStdio.h"
+#include "TSafeExit.h"
 
-#define TURPENTINE_VERSION MAKE_EXE_VERSION(0, 3, 3)
-#define TURPENTINE_NAME "Turpentine"
-#define TURPENTINE_AUTHOR "perchik71"
+#define MOD_VERSION_MAJOR 0
+#define MOD_VERSION_MINOR 4
+#define MOD_VERSION_BETA 0
+#define MOD_VERSION MAKE_EXE_VERSION(MOD_VERSION_MAJOR, MOD_VERSION_MINOR, MOD_VERSION_BETA)
+#define MOD_NAME "turpentine"
+#define MOD_AUTHOR "perchik71"
+
 #define USE_RTTI_EXPORT 0
 
 bool APIENTRY Start(const OBSEInterface* obse);
@@ -31,9 +37,9 @@ extern "C"
 	__declspec(dllexport) OBSEPluginVersionData OBSEPlugin_Version =
 	{
 		OBSEPluginVersionData::kVersion,
-		TURPENTINE_VERSION,
-		TURPENTINE_NAME,
-		TURPENTINE_AUTHOR,
+		MOD_VERSION,
+		MOD_NAME,
+		MOD_AUTHOR,
 		0,
 		0,
 		{ RUNTIME_VERSION_0_411_140, 0 },
@@ -44,7 +50,7 @@ extern "C"
 	{
 		if (obse->isEditor)
 			return false;
-
+		
 		return Start(obse);
 	}
 };
@@ -89,7 +95,7 @@ bool APIENTRY Start(const OBSEInterface* obse)
 	InitializeOBSE64LogSystem();
 	
 	_MESSAGE("OBSE64 version check. obse64Version: 0x%x, runtimeVersion: 0x%x", obse->obse64Version, obse->runtimeVersion);
-	_MESSAGE("Plugin \"" TURPENTINE_NAME "\" version check. Version: 0x%x, Author: %s", TURPENTINE_VERSION, TURPENTINE_AUTHOR);
+	_MESSAGE("Plugin \"" MOD_NAME "\" version check. Version: 0x%x, Author: %s", MOD_VERSION, MOD_AUTHOR);
 
 	GlobalAppPath = Turpentine::Utils::GetApplicationPath();
 	GlobalBase = (uintptr_t)GetModuleHandleA(nullptr);
@@ -135,7 +141,7 @@ bool APIENTRY Start(const OBSEInterface* obse)
 	_MESSAGE("The \".data\" section: (base: %llX end: %llX)", GlobalSection[2].base, GlobalSection[2].end);
 
 #if USE_RTTI_EXPORT
-	auto rtti_fname = Utils::GetGamePluginPath() + "rtti-" TURPENTINE_NAME ".txt";
+	auto rtti_fname = Utils::GetGamePluginPath() + "rtti-" MOD_NAME ".txt";
 	FILE* f = _fsopen(rtti_fname.c_str(), "wb", _SH_DENYWR);
 	if (!f)
 		_MESSAGE("Failed to create a \"%s\" file for RTTI output.", rtti_fname.c_str());
@@ -146,15 +152,27 @@ bool APIENTRY Start(const OBSEInterface* obse)
 	}
 #endif
 
+	wchar_t* versionSubApp = new wchar_t[96];
+	swprintf_s(versionSubApp, 50, L" " MOD_NAME " (%d.%d.%d) by " MOD_AUTHOR,
+		MOD_VERSION_MAJOR, MOD_VERSION_MINOR, MOD_VERSION_BETA);
+	wchar_t* versionApp = new wchar_t[250];
+	wcscpy_s(versionApp, 250, L"v%s(%s) CorrelationID:%s");
+	wcscat_s(versionApp, 250, versionSubApp);
+	delete[] versionSubApp;
+
+	// Change App
+	Turpentine::REL::Patch(GlobalBase + 0x493EBF5, { 0x8B });
+	Turpentine::REL::Patch(GlobalBase + 0x7DB14E8, (uint8_t*)&versionApp, sizeof(uintptr_t));
+	
 	// Patches
 	GlobalModSettings.Add(Turpentine::CVarThreads);
 	GlobalModSettings.Add(Turpentine::CVarMemory);
 	GlobalModSettings.Add(Turpentine::CVarAudioMemory);
 	GlobalModSettings.Add(Turpentine::CVarMaxStdio);
-	GlobalModSettings.Add(Turpentine::CVarThreadTaskDelay);
+	GlobalModSettings.Add(Turpentine::CVarSafeExit);
 
 	// Load settings
-	GlobalModSettings.LoadFromFile((Turpentine::Utils::GetGamePluginPath() + TURPENTINE_NAME ".toml").c_str());
+	GlobalModSettings.LoadFromFile((Turpentine::Utils::GetGamePluginPath() + MOD_NAME ".toml").c_str());
 
 	// Install patches
 	//
@@ -166,6 +184,9 @@ bool APIENTRY Start(const OBSEInterface* obse)
 		Turpentine::CVarAudioMemory->GetBool());
 
 	Turpentine::Patches::PatchMaxStdio(Turpentine::CVarMaxStdio->GetSignedInt());
+
+	if (Turpentine::CVarSafeExit->GetBool())
+		Turpentine::Patches::PatchSafeExit();
 
 	return true;
 }

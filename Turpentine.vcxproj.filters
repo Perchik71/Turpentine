@@ -160,6 +160,9 @@
       <Filter>patches</Filter>
     </ClInclude>
     <ClInclude Include="core\TTime.h" />
+    <ClInclude Include="core\TSafeExit.h">
+      <Filter>patches</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="depends\obse64\obse64\PluginManager.cpp">
@@ -273,6 +276,9 @@
     </ClCompile>
     <ClCompile Include="core\TModSettings.cpp" />
     <ClCompile Include="core\TTime.cpp" />
+    <ClCompile Include="core\TSafeExit.cpp">
+      <Filter>patches</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="depends\f4se_common\f4se_common\IDatabase.inc">

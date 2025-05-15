@@ -17,5 +17,5 @@ namespace Turpentine
 	// Replaces the maximum stdio handles.Default 512, max 8192 https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/setmaxstdio?view=msvc-170
 	extern std::shared_ptr<Setting> CVarMaxStdio;
 	// Fixed shuttering. If the waiting time exceeds one second, it forcibly resets the lock from thread
-	extern std::shared_ptr<Setting> CVarThreadTaskDelay;
+	extern std::shared_ptr<Setting> CVarSafeExit;
 }
