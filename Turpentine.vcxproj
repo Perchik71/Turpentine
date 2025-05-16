@@ -85,7 +85,7 @@
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CallingConvention>StdCall</CallingConvention>
       <ForcedIncludeFiles>common.h</ForcedIncludeFiles>
-      <DisableSpecificWarnings>4244;4477;26478;26495;26498;26439;6031;4018</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4244;4477;26478;26495;26498;26439;6031;4018;26813</DisableSpecificWarnings>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
@@ -101,6 +101,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="core\common.h" />
+    <ClInclude Include="core\TFFXQueryCrash.h" />
     <ClInclude Include="core\TMaxStdio.h" />
     <ClInclude Include="core\TMemory.h" />
     <ClInclude Include="core\TModSettings.h" />
@@ -153,6 +154,7 @@
     <ClInclude Include="depends\typeinfo\ms_rtti.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="core\TFFXQueryCrash.cpp" />
     <ClCompile Include="core\TMaxStdio.cpp" />
     <ClCompile Include="core\TMemory.cpp" />
     <ClCompile Include="core\TModSettings.cpp" />

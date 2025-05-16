@@ -13,6 +13,7 @@
 #include "TThreads.h"
 #include "TMaxStdio.h"
 #include "TSafeExit.h"
+#include "TFFXQueryCrash.h"
 
 #define MOD_VERSION_MAJOR 0
 #define MOD_VERSION_MINOR 4
@@ -187,6 +188,9 @@ bool APIENTRY Start(const OBSEInterface* obse)
 
 	if (Turpentine::CVarSafeExit->GetBool())
 		Turpentine::Patches::PatchSafeExit();
+	
+	if (Turpentine::CVarFFXQueryCrash->GetBool())
+		Turpentine::Patches::PatchFFXQueryCrash();
 
 	return true;
 }

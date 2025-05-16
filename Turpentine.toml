@@ -2,8 +2,12 @@
 #
 # When the memory options is enabled, you must have a PC of 32GB or more.
 
+[Fixes]
+bSafeExit=true                  # Fixes crashes related to exiting the game that can be caused erroneously by OBSE64 plugin hooks and also fast quit 
+bFFXQueryCrash=true				# Fixes crashes in the ffxQuery function no check Next pointer in struct ffxApiHeader
+
 [Patches]
 bThreads=true					# All threads have priority sets normal, process sets highest, for adequate latency, prohibition on changing processor cores
-bMemory=true					# Replaced OS function's memory manager (+12.5% memory consumption)
-bAudioMemory=true				# Replaced function's memory manager AK::MemoryMgr related to the sound system (+12.5% memory consumption)
+bMemory=true					# Replaces the global memory manager (+12.5% memory consumption)
+bAudioMemory=true				# Replaces the audio memory allocator (+12.5% memory consumption)
 iMaxStdio=2048					# Replaces the maximum stdio handles. Default 512, max 8192 https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/setmaxstdio?view=msvc-170

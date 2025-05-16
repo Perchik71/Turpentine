@@ -130,7 +130,7 @@ namespace Turpentine
 			{
 				MemoryHeap::dealloc(block);
 			}
-
+	
 			namespace AK
 			{
 				voltek::memory_manager::memory_manager* audiomgr = nullptr;

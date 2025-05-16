@@ -163,6 +163,9 @@
     <ClInclude Include="core\TSafeExit.h">
       <Filter>patches</Filter>
     </ClInclude>
+    <ClInclude Include="core\TFFXQueryCrash.h">
+      <Filter>patches</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="depends\obse64\obse64\PluginManager.cpp">
@@ -277,6 +280,9 @@
     <ClCompile Include="core\TModSettings.cpp" />
     <ClCompile Include="core\TTime.cpp" />
     <ClCompile Include="core\TSafeExit.cpp">
+      <Filter>patches</Filter>
+    </ClCompile>
+    <ClCompile Include="core\TFFXQueryCrash.cpp">
       <Filter>patches</Filter>
     </ClCompile>
   </ItemGroup>
