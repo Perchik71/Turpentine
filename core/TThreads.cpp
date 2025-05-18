@@ -161,13 +161,13 @@ namespace Turpentine
 					auto SetPriorityClass_addr = GetProcAddress(kernel_32, "SetPriorityClass");
 					auto SetProcessAffinityMask_addr = GetProcAddress(kernel_32, "SetProcessAffinityMask");
 					auto SetThreadGroupAffinity_addr = GetProcAddress(kernel_32, "SetThreadGroupAffinity");
-					auto SetThreadErrorMode_addr = GetProcAddress(kernel_32, "SetThreadErrorMode");
+					//auto SetThreadErrorMode_addr = GetProcAddress(kernel_32, "SetThreadErrorMode");
 					if (SetPriorityClass_addr)
 					{
 						REL::Patch((uintptr_t)SetPriorityClass_addr, { 0x31, 0xC0, 0xC3, 0x90, });
 						REL::Patch((uintptr_t)SetProcessAffinityMask_addr, { 0x31, 0xC0, 0xC3, 0x90, });
 						REL::Patch((uintptr_t)SetThreadGroupAffinity_addr, { 0x31, 0xC0, 0xC3, 0x90, });
-						REL::Patch((uintptr_t)SetThreadErrorMode_addr, { 0x31, 0xC0, 0xC3, 0x90, });
+					//	REL::Patch((uintptr_t)SetThreadErrorMode_addr, { 0x31, 0xC0, 0xC3, 0x90, });
 					}
 				}
 			}

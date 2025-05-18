@@ -9,8 +9,8 @@
 namespace Turpentine
 {
 	std::shared_ptr<Setting> CVarThreads = std::make_shared<Setting>("bThreads:Patches", true);
-	std::shared_ptr<Setting> CVarMemory = std::make_shared<Setting>("bMemory:Patches", true);
-	std::shared_ptr<Setting> CVarAudioMemory = std::make_shared<Setting>("bAudioMemory:Patches", true);
+	std::shared_ptr<Setting> CVarMemory = std::make_shared<Setting>("bMemoryManager:Patches", true);
+	std::shared_ptr<Setting> CVarAudioMemory = std::make_shared<Setting>("bAudioAllocator:Patches", true);
 	std::shared_ptr<Setting> CVarMaxStdio = std::make_shared<Setting>("iMaxStdio:Patches", 2048);	
 	std::shared_ptr<Setting> CVarSafeExit = std::make_shared<Setting>("bSafeExit:Fixes", true);
 	std::shared_ptr<Setting> CVarFFXQueryCrash = std::make_shared<Setting>("bFFXQueryCrash:Fixes", true);
