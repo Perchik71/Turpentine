@@ -8,6 +8,6 @@ namespace Turpentine
 {
 	namespace Fixes
 	{
-		void APIENTRY FFXQueryCrash() noexcept(true);
+		void APIENTRY WithoutPrefixNL() noexcept(true);
 	}
 }

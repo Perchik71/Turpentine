@@ -34,5 +34,7 @@ namespace Turpentine
 		uintptr_t APIENTRY DetourVTable(uintptr_t Target, uintptr_t Function, uint32_t Index) noexcept(true);
 		uintptr_t APIENTRY DetourIAT(uintptr_t TargetModule, const char* Import, const char* FunctionName, uintptr_t Function) noexcept(true);
 		uintptr_t APIENTRY DetourIATDelayed(uintptr_t TargetModule, const char* Import, const char* FunctionName, uintptr_t Function) noexcept(true);
+
+		[[nodiscard]] uintptr_t APIENTRY Offset(uint32_t rva) noexcept(true);
 	}
 }

@@ -22,6 +22,6 @@ namespace Turpentine
 			};
 		}
 
-		void APIENTRY PatchThreads() noexcept(true);
+		void APIENTRY Threads() noexcept(true);
 	}
 }

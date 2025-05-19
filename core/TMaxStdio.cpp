@@ -4,13 +4,11 @@
 
 #include <TMaxStdio.h>
 
-extern uintptr_t GlobalBase;
-
 namespace Turpentine
 {
 	namespace Patches
 	{
-		void APIENTRY PatchMaxStdio(int value) noexcept(true)
+		void APIENTRY MaxStdio(int value) noexcept(true)
 		{
 			int v = std::max(512, std::min(8192, value));
 

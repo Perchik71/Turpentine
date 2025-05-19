@@ -6,8 +6,8 @@
 
 namespace Turpentine
 {
-	namespace Fixes
+	namespace Patches
 	{
-		void APIENTRY FFXQueryCrash() noexcept(true);
+		void APIENTRY LoadScreen() noexcept(true);
 	}
 }

@@ -6,8 +6,8 @@
 
 namespace Turpentine
 {
-	namespace Fixes
+	namespace Jokes
 	{
-		void APIENTRY FFXQueryCrash() noexcept(true);
+		void APIENTRY Friendship() noexcept(true);
 	}
 }

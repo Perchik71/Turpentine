@@ -20,4 +20,12 @@ namespace Turpentine
 	extern std::shared_ptr<Setting> CVarSafeExit;
 	// Fixes crashes in the ffxQuery function no check Next pointer in struct ffxApiHeader 
 	extern std::shared_ptr<Setting> CVarFFXQueryCrash;
+
+	extern std::shared_ptr<Setting> CVarLoadScreen;
+	// Enemies don't attack (they don't see player)
+	extern std::shared_ptr<Setting> CVarFriendship;
+	// Deletes the "MessageBox" function from scripts and console, fixes an issue with annoying messages in gameplay
+	extern std::shared_ptr<Setting> CVarNoScriptMessageBox;
+	// Removes the [NL] prefix from all strings
+	extern std::shared_ptr<Setting> CVarWithoutPrefixNL;
 }

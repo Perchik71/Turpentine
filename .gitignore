@@ -35,3 +35,4 @@
 /build
 /linkconf
 *.zip
+copy_dll.ps1

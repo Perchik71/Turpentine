@@ -6,8 +6,8 @@
 
 namespace Turpentine
 {
-	namespace Patches
+	namespace Fixes
 	{
-		void APIENTRY PatchSafeExit() noexcept(true);
+		void APIENTRY SafeExit() noexcept(true);
 	}
 }

@@ -71,6 +71,6 @@ namespace Turpentine
 			}
 		}
 
-		void APIENTRY PatchMemory(bool crtmem, bool audiomem) noexcept(true);
+		void APIENTRY Memory(bool crtmem, bool audiomem) noexcept(true);
 	}
 }

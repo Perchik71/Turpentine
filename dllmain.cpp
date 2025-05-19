@@ -7,20 +7,26 @@
 #include "TUtils.h"
 #include "TSettings.h"
 #include "TModSettings.h"
+#include "TModVersion.h"
+
+// Hooks
+#include "THookDataHandler.h"
+#include "THookMenuSettings.h"
 
 // Patches
 #include "TMemory.h"
 #include "TThreads.h"
 #include "TMaxStdio.h"
+#include "TLoadScreen.h"
+#include "TNoScriptMessageBox.h"
+
+// Fixes
 #include "TSafeExit.h"
 #include "TFFXQueryCrash.h"
+#include "TWithoutPrefixNL.h"
 
-#define MOD_VERSION_MAJOR 0
-#define MOD_VERSION_MINOR 4
-#define MOD_VERSION_BETA 0
-#define MOD_VERSION MAKE_EXE_VERSION(MOD_VERSION_MAJOR, MOD_VERSION_MINOR, MOD_VERSION_BETA)
-#define MOD_NAME "turpentine"
-#define MOD_AUTHOR "perchik71"
+// Jokes
+#include "TJokeFriendship.h"
 
 #define USE_RTTI_EXPORT 0
 
@@ -31,6 +37,7 @@ Turpentine::TOMLCollectionSettings GlobalModSettings;
 uintptr_t GlobalBase = 0;
 uintptr_t GlobalModuleBase = 0;
 msrtti::section GlobalSection[3];
+std::unordered_map<std::string, int> GlobalActivePlugins;
 
 extern "C"
 {
@@ -153,44 +160,60 @@ bool APIENTRY Start(const OBSEInterface* obse)
 	}
 #endif
 
-	wchar_t* versionSubApp = new wchar_t[96];
-	swprintf_s(versionSubApp, 50, L" " MOD_NAME " (%d.%d.%d) by " MOD_AUTHOR,
-		MOD_VERSION_MAJOR, MOD_VERSION_MINOR, MOD_VERSION_BETA);
-	wchar_t* versionApp = new wchar_t[250];
-	wcscpy_s(versionApp, 250, L"v%s(%s) CorrelationID:%s");
-	wcscat_s(versionApp, 250, versionSubApp);
-	delete[] versionSubApp;
-
-	// Change App
-	Turpentine::REL::Patch(GlobalBase + 0x493EBF5, { 0x8B });
-	Turpentine::REL::Patch(GlobalBase + 0x7DB14E8, (uint8_t*)&versionApp, sizeof(uintptr_t));
-	
-	// Patches
+	// Added control settings
 	GlobalModSettings.Add(Turpentine::CVarThreads);
 	GlobalModSettings.Add(Turpentine::CVarMemory);
 	GlobalModSettings.Add(Turpentine::CVarAudioMemory);
 	GlobalModSettings.Add(Turpentine::CVarMaxStdio);
 	GlobalModSettings.Add(Turpentine::CVarSafeExit);
+	//GlobalModSettings.Add(Turpentine::CVarLoadScreen);
+	GlobalModSettings.Add(Turpentine::CVarFriendship);
+	GlobalModSettings.Add(Turpentine::CVarNoScriptMessageBox);
+	GlobalModSettings.Add(Turpentine::CVarWithoutPrefixNL);
 
 	// Load settings
 	GlobalModSettings.LoadFromFile((Turpentine::Utils::GetGamePluginPath() + MOD_NAME ".toml").c_str());
 
+	// Install Hooks
+	//
+	Turpentine::Hooks::MenuSettings();
+	Turpentine::Hooks::DataHandler();
+
 	// Install patches
 	//
 	if (Turpentine::CVarThreads->GetBool())
-		Turpentine::Patches::PatchThreads();
+		Turpentine::Patches::Threads();
 
-	Turpentine::Patches::PatchMemory(
+	Turpentine::Patches::Memory(
 		Turpentine::CVarMemory->GetBool(), 
 		Turpentine::CVarAudioMemory->GetBool());
 
-	Turpentine::Patches::PatchMaxStdio(Turpentine::CVarMaxStdio->GetSignedInt());
+	Turpentine::Patches::MaxStdio(Turpentine::CVarMaxStdio->GetSignedInt());
 
+	//if (Turpentine::CVarLoadScreen->GetBool())
+	//	Turpentine::Patches::LoadScreen();
+
+	if (Turpentine::CVarNoScriptMessageBox->GetBool())
+		Turpentine::Patches::NoScriptMessageBox();
+
+	// Install fixes
+	//
 	if (Turpentine::CVarSafeExit->GetBool())
-		Turpentine::Patches::PatchSafeExit();
-	
+		Turpentine::Fixes::SafeExit();
+
 	if (Turpentine::CVarFFXQueryCrash->GetBool())
-		Turpentine::Patches::PatchFFXQueryCrash();
+		Turpentine::Fixes::FFXQueryCrash();
+
+	if (Turpentine::CVarWithoutPrefixNL->GetBool())
+		Turpentine::Fixes::WithoutPrefixNL();
+
+	// Install jokes
+	//
+	if (Turpentine::CVarFriendship->GetBool())
+		Turpentine::Jokes::Friendship();
+
+	// Blocking input or show pause menu
+	//Turpentine::REL::Patch(GlobalBase + 0x6591CD0, { 0x31, 0xC0, 0xC3, 0x90 });
 
 	return true;
 }

@@ -6,13 +6,11 @@
 #include <TRelocation.h>
 #include <xbyak/xbyak/xbyak.h>
 
-extern uintptr_t GlobalBase;
-
 namespace Turpentine
 {
-	namespace Patches
+	namespace Fixes
 	{
-		void APIENTRY PatchFFXQueryCrash() noexcept(true)
+		void APIENTRY FFXQueryCrash() noexcept(true)
 		{
 			class ffxQueryHook : public Xbyak::CodeGenerator
 			{
@@ -30,9 +28,9 @@ namespace Turpentine
 					dq(a2);
 				}
 			} 
-			static ffxQueryInstance(GlobalBase + 0x45BD115, GlobalBase + 0x45BD18C);
+			static ffxQueryInstance(REL::Offset(0x45BD115), REL::Offset(0x45BD18C));
 
-			REL::DetourJump(GlobalBase + 0x45BD10D, (uintptr_t)ffxQueryInstance.getCode());
+			REL::DetourJump(REL::Offset(0x45BD10D), (uintptr_t)ffxQueryInstance.getCode());
 		}
 	}
 }

@@ -98,19 +98,29 @@
       <AdditionalDependencies>detours.lib;VoltekLib.MemoryManager.lib;Shell32.lib;Shlwapi.lib;Toml.lib;Comdlg32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>powershell -ExecutionPolicy Bypass -File "$(SolutionDir)\copy_dll.ps1"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="core\common.h" />
     <ClInclude Include="core\TFFXQueryCrash.h" />
+    <ClInclude Include="core\THookDataHandler.h" />
+    <ClInclude Include="core\THookMenuSettings.h" />
+    <ClInclude Include="core\TJokeFriendship.h" />
+    <ClInclude Include="core\TLoadScreen.h" />
     <ClInclude Include="core\TMaxStdio.h" />
     <ClInclude Include="core\TMemory.h" />
     <ClInclude Include="core\TModSettings.h" />
+    <ClInclude Include="core\TModVersion.h" />
+    <ClInclude Include="core\TNoScriptMessageBox.h" />
     <ClInclude Include="core\TRelocation.h" />
     <ClInclude Include="core\TSafeExit.h" />
     <ClInclude Include="core\TSettings.h" />
     <ClInclude Include="core\TThreads.h" />
     <ClInclude Include="core\TTime.h" />
     <ClInclude Include="core\TUtils.h" />
+    <ClInclude Include="core\TWithoutPrefixNL.h" />
     <ClInclude Include="depends\f4se_common\f4se_common\IArchive.h" />
     <ClInclude Include="depends\f4se_common\f4se_common\IBufferStream.h" />
     <ClInclude Include="depends\f4se_common\f4se_common\IConsole.h" />
@@ -155,15 +165,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\TFFXQueryCrash.cpp" />
+    <ClCompile Include="core\THookDataHandler.cpp" />
+    <ClCompile Include="core\THookMenuSettings.cpp" />
+    <ClCompile Include="core\TJokeFriendship.cpp" />
+    <ClCompile Include="core\TLoadScreen.cpp" />
     <ClCompile Include="core\TMaxStdio.cpp" />
     <ClCompile Include="core\TMemory.cpp" />
     <ClCompile Include="core\TModSettings.cpp" />
+    <ClCompile Include="core\TNoScriptMessageBox.cpp" />
     <ClCompile Include="core\TRelocation.cpp" />
     <ClCompile Include="core\TSafeExit.cpp" />
     <ClCompile Include="core\TSettings.cpp" />
     <ClCompile Include="core\TThreads.cpp" />
     <ClCompile Include="core\TTime.cpp" />
     <ClCompile Include="core\TUtils.cpp" />
+    <ClCompile Include="core\TWithoutPrefixNL.cpp" />
     <ClCompile Include="depends\f4se_common\f4se_common\IArchive.cpp" />
     <ClCompile Include="depends\f4se_common\f4se_common\IBufferStream.cpp" />
     <ClCompile Include="depends\f4se_common\f4se_common\IConsole.cpp" />

@@ -20,6 +20,15 @@
     <Filter Include="patches">
       <UniqueIdentifier>{60702646-8d2a-409a-acb6-43acbeb6b31d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="fixes">
+      <UniqueIdentifier>{af8cbab0-31a2-4dd3-b87e-df2e7ae2024b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hooks">
+      <UniqueIdentifier>{41cfb548-74c6-40d6-9fa7-f1eaae2e3ef8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jokes">
+      <UniqueIdentifier>{7b71fbef-46af-40bf-b2bf-454b7e4f5f90}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="depends\obse64\obse64\PluginManager.h">
@@ -160,11 +169,30 @@
       <Filter>patches</Filter>
     </ClInclude>
     <ClInclude Include="core\TTime.h" />
-    <ClInclude Include="core\TSafeExit.h">
+    <ClInclude Include="core\TLoadScreen.h">
       <Filter>patches</Filter>
     </ClInclude>
+    <ClInclude Include="core\TSafeExit.h">
+      <Filter>fixes</Filter>
+    </ClInclude>
     <ClInclude Include="core\TFFXQueryCrash.h">
-      <Filter>patches</Filter>
+      <Filter>fixes</Filter>
+    </ClInclude>
+    <ClInclude Include="core\THookDataHandler.h">
+      <Filter>hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="core\THookMenuSettings.h">
+      <Filter>hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="core\TModVersion.h" />
+    <ClInclude Include="core\TJokeFriendship.h">
+      <Filter>jokes</Filter>
+    </ClInclude>
+    <ClInclude Include="core\TNoScriptMessageBox.h">
+      <Filter>fixes</Filter>
+    </ClInclude>
+    <ClInclude Include="core\TWithoutPrefixNL.h">
+      <Filter>fixes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -279,11 +307,29 @@
     </ClCompile>
     <ClCompile Include="core\TModSettings.cpp" />
     <ClCompile Include="core\TTime.cpp" />
-    <ClCompile Include="core\TSafeExit.cpp">
+    <ClCompile Include="core\TLoadScreen.cpp">
       <Filter>patches</Filter>
     </ClCompile>
+    <ClCompile Include="core\TSafeExit.cpp">
+      <Filter>fixes</Filter>
+    </ClCompile>
     <ClCompile Include="core\TFFXQueryCrash.cpp">
-      <Filter>patches</Filter>
+      <Filter>fixes</Filter>
+    </ClCompile>
+    <ClCompile Include="core\THookDataHandler.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="core\THookMenuSettings.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="core\TJokeFriendship.cpp">
+      <Filter>jokes</Filter>
+    </ClCompile>
+    <ClCompile Include="core\TNoScriptMessageBox.cpp">
+      <Filter>fixes</Filter>
+    </ClCompile>
+    <ClCompile Include="core\TWithoutPrefixNL.cpp">
+      <Filter>fixes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

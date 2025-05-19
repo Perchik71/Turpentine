@@ -14,4 +14,8 @@ namespace Turpentine
 	std::shared_ptr<Setting> CVarMaxStdio = std::make_shared<Setting>("iMaxStdio:Patches", 2048);	
 	std::shared_ptr<Setting> CVarSafeExit = std::make_shared<Setting>("bSafeExit:Fixes", true);
 	std::shared_ptr<Setting> CVarFFXQueryCrash = std::make_shared<Setting>("bFFXQueryCrash:Fixes", true);
+	std::shared_ptr<Setting> CVarLoadScreen = std::make_shared<Setting>("bLoadScreen:Patches", false);
+	std::shared_ptr<Setting> CVarFriendship = std::make_shared<Setting>("bFriendship:Jokes", false);
+	std::shared_ptr<Setting> CVarNoScriptMessageBox = std::make_shared<Setting>("bNoScriptMessageBox:Patches", true);
+	std::shared_ptr<Setting> CVarWithoutPrefixNL = std::make_shared<Setting>("bWithoutPrefixNL:Fixes", true);
 }

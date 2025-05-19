@@ -9,18 +9,19 @@ extern uintptr_t GlobalBase;
 
 namespace Turpentine
 {
-	namespace Patches
+	namespace Fixes
 	{
 		namespace Impl
 		{
 			static void WINAPI HKPostQuitMessage(int nExitCode) noexcept(true)
 			{
-				TerminateProcess(GetCurrentProcess(), 0);
+				if (!TerminateProcess(GetCurrentProcess(), 0))
+					std::abort();
 				__assume(0);
 			}
 		}
 
-		void APIENTRY PatchSafeExit() noexcept(true)
+		void APIENTRY SafeExit() noexcept(true)
 		{
 			REL::DetourIAT(GlobalBase, "user32.dll", "PostQuitMessage", (uintptr_t)&Impl::HKPostQuitMessage);
 		}

@@ -5,6 +5,8 @@
 #include "TRelocation.h"
 #include <detours/Detours.h>
 
+extern uintptr_t GlobalBase;
+
 namespace Turpentine
 {
 	namespace REL
@@ -35,7 +37,7 @@ namespace Turpentine
 			}
 		}
 
-		uintptr_t __stdcall FindPattern(uintptr_t Address, uintptr_t MaxSize, const char* Mask) noexcept(true)
+		uintptr_t APIENTRY FindPattern(uintptr_t Address, uintptr_t MaxSize, const char* Mask) noexcept(true)
 		{
 			vector<pair<uint8_t, bool>> pattern;
 
@@ -67,7 +69,7 @@ namespace Turpentine
 			return (uintptr_t)(distance(dataStart, ret) + Address);
 		}
 
-		vector<uintptr_t> __stdcall FindPatterns(uintptr_t Address, uintptr_t MaxSize, const char* Mask) noexcept(true)
+		vector<uintptr_t> APIENTRY FindPatterns(uintptr_t Address, uintptr_t MaxSize, const char* Mask) noexcept(true)
 		{
 			vector<uintptr_t> results;
 			vector<pair<uint8_t, bool>> pattern;
@@ -108,7 +110,7 @@ namespace Turpentine
 			return results;
 		}
 
-		void __stdcall Patch(uintptr_t Target, uint8_t* Data, size_t Size) noexcept(true)
+		void APIENTRY Patch(uintptr_t Target, uint8_t* Data, size_t Size) noexcept(true)
 		{
 			if (!Target || !Data || !Size) return;
 			Impl::ScopeLock Lock(Target, Size);
@@ -119,7 +121,7 @@ namespace Turpentine
 			}
 		}
 
-		void __stdcall Patch(uintptr_t Target, initializer_list<uint8_t> Data) noexcept(true)
+		void APIENTRY Patch(uintptr_t Target, initializer_list<uint8_t> Data) noexcept(true)
 		{
 			if (!Target || !Data.size()) return;
 			Impl::ScopeLock Lock(Target, Data.size());
@@ -131,7 +133,7 @@ namespace Turpentine
 			}
 		}
 
-		void __stdcall PatchNop(uintptr_t Target, size_t Size) noexcept(true)
+		void APIENTRY PatchNop(uintptr_t Target, size_t Size) noexcept(true)
 		{
 			if (!Target || !Size) return;
 			Impl::ScopeLock Lock(Target, Size);
@@ -139,34 +141,39 @@ namespace Turpentine
 				memset((LPVOID)Target, 0x90, Size);
 		}
 
-		uintptr_t __stdcall DetourJump(uintptr_t Target, uintptr_t Function) noexcept(true)
+		uintptr_t APIENTRY DetourJump(uintptr_t Target, uintptr_t Function) noexcept(true)
 		{
 			if (!Target || !Function) return 0;
 			return Detours::X64::DetourFunction(Target, Function, Detours::X64Option::USE_REL32_JUMP);
 		}
 
-		uintptr_t __stdcall DetourCall(uintptr_t Target, uintptr_t Function) noexcept(true)
+		uintptr_t APIENTRY DetourCall(uintptr_t Target, uintptr_t Function) noexcept(true)
 		{
 			if (!Target || !Function) return 0;
 			return (uintptr_t)Detours::X64::DetourFunction(Target, Function, Detours::X64Option::USE_REL32_CALL);
 		}
 
-		uintptr_t __stdcall DetourVTable(uintptr_t Target, uintptr_t Function, uint32_t Index) noexcept(true)
+		uintptr_t APIENTRY DetourVTable(uintptr_t Target, uintptr_t Function, uint32_t Index) noexcept(true)
 		{
 			if (!Target || !Function) return 0;
 			return (uintptr_t)Detours::X64::DetourVTable(Target, Function, Index);
 		}
 
-		uintptr_t __stdcall DetourIAT(uintptr_t TargetModule, const char* Import, const char* FunctionName, uintptr_t Function) noexcept(true)
+		uintptr_t APIENTRY DetourIAT(uintptr_t TargetModule, const char* Import, const char* FunctionName, uintptr_t Function) noexcept(true)
 		{
 			if (!TargetModule || !Function || !Import || !FunctionName) return 0;
 			return (uintptr_t)Detours::IATHook(TargetModule, Import, FunctionName, Function);
 		}
 
-		uintptr_t __stdcall DetourIATDelayed(uintptr_t TargetModule, const char* Import, const char* FunctionName, uintptr_t Function) noexcept(true)
+		uintptr_t APIENTRY DetourIATDelayed(uintptr_t TargetModule, const char* Import, const char* FunctionName, uintptr_t Function) noexcept(true)
 		{
 			if (!TargetModule || !Function || !Import || !FunctionName) return 0;
 			return (uintptr_t)Detours::IATDelayedHook(TargetModule, Import, FunctionName, Function);
+		}
+
+		uintptr_t APIENTRY Offset(uint32_t rva) noexcept(true)
+		{
+			return (uintptr_t)(GlobalBase + rva);
 		}
 	}
 }

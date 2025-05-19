@@ -247,7 +247,7 @@ namespace Turpentine
 			}
 		}
 
-		void APIENTRY PatchMemory(bool crtmem, bool audiomem) noexcept(true)
+		void APIENTRY Memory(bool crtmem, bool audiomem) noexcept(true)
 		{
 			if (crtmem || audiomem)
 			{
@@ -296,19 +296,11 @@ namespace Turpentine
 			{
 				Impl::AK::audiomgr = new voltek::memory_manager::memory_manager();
 
-				REL::DetourJump(GlobalBase + 0x63CA220, (uintptr_t)&Impl::AK::MemoryMgr::Free);
-				//REL::DetourJump(GlobalBase + 0x63CA950, (uintptr_t)&Impl::AK::MemoryMgr::GetDefaultSettings);
-				//REL::DetourJump(GlobalBase + 0x63CA230, (uintptr_t)&Impl::AK::MemoryMgr::GetGlobalStats);
-				//REL::DetourJump(GlobalBase + 0x63CAA10, (uintptr_t)&Impl::AK::MemoryMgr::Init);
-				//REL::DetourJump(GlobalBase + 0x63CAD00, (uintptr_t)&Impl::AK::MemoryMgr::InitForThread);
-				//REL::DetourJump(GlobalBase + 0x63CA250, (uintptr_t)&Impl::AK::MemoryMgr::IsInitialized);
-				REL::DetourJump(GlobalBase + 0x63CA260, (uintptr_t)&Impl::AK::MemoryMgr::Malign);
-				REL::DetourJump(GlobalBase + 0x63CA270, (uintptr_t)&Impl::AK::MemoryMgr::Malloc);
-				REL::DetourJump(GlobalBase + 0x63CA280, (uintptr_t)&Impl::AK::MemoryMgr::Realloc);
-				REL::DetourJump(GlobalBase + 0x63CA290, (uintptr_t)&Impl::AK::MemoryMgr::ReallocAligned);
-				//REL::DetourJump(GlobalBase + 0x63CAD10, (uintptr_t)&Impl::AK::MemoryMgr::Term);
-				//REL::DetourJump(GlobalBase + 0x63CAD50, (uintptr_t)&Impl::AK::MemoryMgr::TermForThread);
-				//REL::DetourJump(GlobalBase + 0x63CAD60, (uintptr_t)&Impl::AK::MemoryMgr::TrimForThread);
+				REL::DetourJump(REL::Offset(0x63CA220), (uintptr_t)&Impl::AK::MemoryMgr::Free);
+				REL::DetourJump(REL::Offset(0x63CA260), (uintptr_t)&Impl::AK::MemoryMgr::Malign);
+				REL::DetourJump(REL::Offset(0x63CA270), (uintptr_t)&Impl::AK::MemoryMgr::Malloc);
+				REL::DetourJump(REL::Offset(0x63CA280), (uintptr_t)&Impl::AK::MemoryMgr::Realloc);
+				REL::DetourJump(REL::Offset(0x63CA290), (uintptr_t)&Impl::AK::MemoryMgr::ReallocAligned);
 			}
 		}
 	}

@@ -6,8 +6,8 @@
 
 namespace Turpentine
 {
-	namespace Fixes
+	namespace Hooks
 	{
-		void APIENTRY FFXQueryCrash() noexcept(true);
+		void APIENTRY MenuSettings() noexcept(true);
 	}
 }
