@@ -12,7 +12,7 @@ bThreads=true					# All threads have priority sets normal, process sets highest,
 bMemoryManager=true				# Replaces the global memory manager (+12.5% memory consumption)
 bAudioAllocator=true			# Replaces the audio memory allocator (+12.5% memory consumption)
 iMaxStdio=2048					# Replaces the maximum stdio handles. Default 512, max 8192 https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/setmaxstdio?view=msvc-170
-bNoScriptMessageBox=true		# Deletes the "MessageBox" function from scripts and console, fixes an issue with annoying messages in gameplay
+bNoScriptMessageBox=false		# Deletes the "MessageBox" function from scripts (without buttons), fixes an issue with annoying messages in gameplay
 
 [Jokes]
 bFriendship=false				# Enemies don't attack (they don't see player)

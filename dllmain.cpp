@@ -12,6 +12,7 @@
 // Hooks
 #include "THookDataHandler.h"
 #include "THookMenuSettings.h"
+#include "THookCommandTable.h"
 
 // Patches
 #include "TMemory.h"
@@ -29,6 +30,7 @@
 #include "TJokeFriendship.h"
 
 #define USE_RTTI_EXPORT 0
+#define USE_CMDTABLE_DUMP 0
 
 bool APIENTRY Start(const OBSEInterface* obse);
 
@@ -41,7 +43,7 @@ std::unordered_map<std::string, int> GlobalActivePlugins;
 
 extern "C"
 {
-	// for f4se 0.1 alpha and newer
+	// for obse64 0.1 alpha and newer
 	__declspec(dllexport) OBSEPluginVersionData OBSEPlugin_Version =
 	{
 		OBSEPluginVersionData::kVersion,
@@ -158,7 +160,7 @@ bool APIENTRY Start(const OBSEInterface* obse)
 		msrtti::dump(f);
 		fclose(f);
 	}
-#endif
+#endif // USE_RTTI_EXPORT
 
 	// Added control settings
 	GlobalModSettings.Add(Turpentine::CVarThreads);
@@ -178,6 +180,11 @@ bool APIENTRY Start(const OBSEInterface* obse)
 	//
 	Turpentine::Hooks::MenuSettings();
 	Turpentine::Hooks::DataHandler();
+	Turpentine::Hooks::CommandTable();
+
+#if USE_CMDTABLE_DUMP
+	Turpentine::RE::DumpCommandTable("commands_dump.txt");
+#endif // USE_CMDTABLE_DUMP
 
 	// Install patches
 	//

@@ -194,6 +194,9 @@
     <ClInclude Include="core\TWithoutPrefixNL.h">
       <Filter>fixes</Filter>
     </ClInclude>
+    <ClInclude Include="core\THookCommandTable.h">
+      <Filter>hooks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="depends\obse64\obse64\PluginManager.cpp">
@@ -330,6 +333,9 @@
     </ClCompile>
     <ClCompile Include="core\TWithoutPrefixNL.cpp">
       <Filter>fixes</Filter>
+    </ClCompile>
+    <ClCompile Include="core\THookCommandTable.cpp">
+      <Filter>hooks</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

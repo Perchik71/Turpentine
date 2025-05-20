@@ -105,6 +105,7 @@
   <ItemGroup>
     <ClInclude Include="core\common.h" />
     <ClInclude Include="core\TFFXQueryCrash.h" />
+    <ClInclude Include="core\THookCommandTable.h" />
     <ClInclude Include="core\THookDataHandler.h" />
     <ClInclude Include="core\THookMenuSettings.h" />
     <ClInclude Include="core\TJokeFriendship.h" />
@@ -165,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\TFFXQueryCrash.cpp" />
+    <ClCompile Include="core\THookCommandTable.cpp" />
     <ClCompile Include="core\THookDataHandler.cpp" />
     <ClCompile Include="core\THookMenuSettings.cpp" />
     <ClCompile Include="core\TJokeFriendship.cpp" />

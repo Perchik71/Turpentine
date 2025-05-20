@@ -1,0 +1,882 @@
+Oblivion Remastered Commands:
+"MessageBox" "" opcode (1000) desc: ""
+	[Param #0] "String" id (0)
+"GetDistance" "" opcode (1001) reference desc: ""
+	[Param #0] "ObjectReferenceID" id (4)
+"AddItem" "" opcode (1002) reference desc: ""
+	[Param #0] "ObjectID" id (3)
+	[Param #1] "Count" id (1)
+"SetEssential" "" opcode (1003) desc: ""
+	[Param #0] "Actor Base" id (25)
+	[Param #1] "Integer (Optional)" id (1)
+"Rotate" "" opcode (1004) reference desc: ""
+	[Param #0] "Axis" id (8)
+	[Param #1] "Speed" id (1)
+"GetLocked" "" opcode (1005) reference desc: ""
+"GetPos" "" opcode (1006) reference desc: ""
+	[Param #0] "Axis" id (8)
+"SetPos" "" opcode (1007) reference desc: ""
+	[Param #0] "Axis" id (8)
+	[Param #1] "Float" id (2)
+"GetAngle" "" opcode (1008) reference desc: ""
+	[Param #0] "Axis" id (8)
+"SetAngle" "" opcode (1009) reference desc: ""
+	[Param #0] "Axis" id (8)
+	[Param #1] "Float" id (2)
+"GetStartingPos" "" opcode (100a) reference desc: ""
+	[Param #0] "Axis" id (8)
+"GetStartingAngle" "" opcode (100b) reference desc: ""
+	[Param #0] "Axis" id (8)
+"GetSecondsPassed" "" opcode (100c) desc: ""
+"Activate" "" opcode (100d) reference desc: ""
+	[Param #0] "ObjectReferenceID" id (4)
+	[Param #1] "Integer (Optional)" id (1)
+"GetActorValue" "GetAV" opcode (100e) reference desc: "Get an actor value. [player.getav luck]"
+	[Param #0] "Actor Value" id (5)
+"SetActorValue" "SetAV" opcode (100f) reference desc: "Set an actor value. [player.setav luck, 75]"
+	[Param #0] "Actor Value" id (5)
+	[Param #1] "Amount" id (1)
+"ModActorValue" "ModAV" opcode (1010) reference desc: "Modify an actor value. [player.modav luck, -10]"
+	[Param #0] "Actor Value" id (5)
+	[Param #1] "Amount" id (1)
+"SetAtStart" "" opcode (1011) reference desc: ""
+"GetCurrentTime" "" opcode (1012) desc: ""
+"PlayGroup" "" opcode (1013) reference desc: "IE: PlayGroup SEQNAME 1"
+	[Param #0] "Animation Group" id (10)
+	[Param #1] "Flags" id (1)
+"LoopGroup" "" opcode (1014) reference desc: ""
+	[Param #0] "Animation Group" id (10)
+	[Param #1] "Integer" id (1)
+	[Param #2] "Flags" id (1)
+"SkipAnim" "" opcode (1015) reference desc: ""
+"StartCombat" "" opcode (1016) reference desc: ""
+	[Param #0] "Actor" id (6)
+"StopCombat" "" opcode (1017) reference desc: ""
+"GetScale" "" opcode (1018) reference desc: ""
+"UnusedFunction1" "" opcode (1019) reference desc: ""
+"UnusedFunction2" "" opcode (101a) reference desc: ""
+"GetLineOfSight" "GetLOS" opcode (101b) reference desc: ""
+	[Param #0] "ObjectReferenceID" id (4)
+"AddSpell" "" opcode (101c) reference desc: ""
+	[Param #0] "Spell Item" id (7)
+"RemoveSpell" "" opcode (101d) reference desc: ""
+	[Param #0] "Spell Item" id (7)
+"Cast" "" opcode (101e) reference desc: ""
+	[Param #0] "Magic Item" id (11)
+	[Param #1] "ObjectReferenceID" id (4)
+"GetButtonPressed" "" opcode (101f) desc: ""
+"GetInSameCell" "" opcode (1020) reference desc: ""
+	[Param #0] "ObjectReferenceID" id (4)
+"Enable" "" opcode (1021) reference desc: ""
+"Disable" "" opcode (1022) reference desc: ""
+"GetDisabled" "" opcode (1023) reference desc: ""
+"MenuMode" "" opcode (1024) desc: ""
+	[Param #0] "Integer (Optional)" id (1)
+"PlaceAtMe" "" opcode (1025) reference desc: ""
+	[Param #0] "ObjectID" id (21)
+	[Param #1] "Count" id (1)
+	[Param #2] "Distance" id (1)
+	[Param #3] "Direction" id (1)
+"PlaySound" "" opcode (1026) desc: ""
+	[Param #0] "Sound" id (12)
+"GetDisease" "" opcode (1027) reference desc: ""
+"GetVampire" "" opcode (1028) reference desc: ""
+"GetClothingValue" "" opcode (1029) reference desc: ""
+"SameFaction" "" opcode (102a) reference desc: ""
+	[Param #0] "Actor" id (6)
+"SameRace" "" opcode (102b) reference desc: ""
+	[Param #0] "Actor" id (6)
+"SameSex" "" opcode (102c) reference desc: ""
+	[Param #0] "Actor" id (6)
+"GetDetected" "" opcode (102d) reference desc: ""
+	[Param #0] "Actor" id (6)
+"GetDead" "" opcode (102e) reference desc: ""
+"GetItemCount" "" opcode (102f) reference desc: ""
+	[Param #0] "ObjectID" id (3)
+"GetGold" "" opcode (1030) reference desc: ""
+"GetSleeping" "" opcode (1031) reference desc: ""
+"GetTalkedToPC" "" opcode (1032) reference desc: ""
+"Say" "" opcode (1033) reference desc: ""
+	[Param #0] "Topic" id (13)
+	[Param #1] "Integer (Optional)" id (1)
+	[Param #2] "NPC (Optional)" id (35)
+	[Param #3] "Integer (Optional)" id (1)
+	[Param #4] "Integer (Optional)" id (1)
+"SayTo" "" opcode (1034) reference desc: ""
+	[Param #0] "Actor" id (6)
+	[Param #1] "Topic" id (13)
+	[Param #2] "Integer (Optional)" id (1)
+"GetScriptVariable" "" opcode (1035) desc: ""
+	[Param #0] "ObjectReferenceID" id (4)
+	[Param #1] "Variable Name" id (22)
+"StartQuest" "" opcode (1036) desc: ""
+	[Param #0] "Quest" id (14)
+"StopQuest" "" opcode (1037) desc: ""
+	[Param #0] "Quest" id (14)
+"GetQuestRunning" "GetQR" opcode (1038) desc: ""
+	[Param #0] "Quest" id (14)
+"SetStage" "" opcode (1039) desc: ""
+	[Param #0] "Quest" id (14)
+	[Param #1] "Stage" id (23)
+"GetStage" "" opcode (103a) desc: ""
+	[Param #0] "Quest" id (14)
+"GetStageDone" "" opcode (103b) desc: ""
+	[Param #0] "Quest" id (14)
+	[Param #1] "Stage" id (23)
+"GetFactionRankDifference" "" opcode (103c) reference desc: ""
+	[Param #0] "Faction" id (17)
+	[Param #1] "Actor" id (6)
+"GetAlarmed" "" opcode (103d) reference desc: ""
+"IsRaining" "" opcode (103e) desc: ""
+"GetAttacked" "" opcode (103f) reference desc: ""
+"GetIsCreature" "" opcode (1040) reference desc: ""
+"GetLockLevel" "" opcode (1041) reference desc: ""
+"GetShouldAttack" "" opcode (1042) reference desc: ""
+	[Param #0] "Actor" id (6)
+"GetInCell" "" opcode (1043) reference desc: ""
+	[Param #0] "Cell" id (9)
+"GetIsClass" "" opcode (1044) reference desc: ""
+	[Param #0] "Class" id (16)
+"GetIsRace" "" opcode (1045) reference desc: ""
+	[Param #0] "Race" id (15)
+"GetIsSex" "" opcode (1046) reference desc: ""
+	[Param #0] "Sex" id (18)
+"GetInFaction" "" opcode (1047) reference desc: ""
+	[Param #0] "Faction" id (17)
+"GetIsID" "" opcode (1048) reference desc: ""
+	[Param #0] "ObjectID" id (21)
+"GetFactionRank" "" opcode (1049) reference desc: ""
+	[Param #0] "Faction" id (17)
+"GetGlobalValue" "" opcode (104a) desc: ""
+	[Param #0] "Global" id (19)
+"IsSnowing" "" opcode (104b) desc: ""
+"GetDisposition" "" opcode (104c) reference desc: ""
+	[Param #0] "Actor" id (6)
+"GetRandomPercent" "" opcode (104d) desc: ""
+"StreamMusic" "" opcode (104e) desc: ""
+	[Param #0] "String" id (0)
+"GetQuestVariable" "" opcode (104f) desc: ""
+	[Param #0] "Quest" id (14)
+	[Param #1] "Variable Name" id (22)
+"GetLevel" "" opcode (1050) reference desc: ""
+"GetArmorRating" "" opcode (1051) reference desc: ""
+"RemoveItem" "" opcode (1052) reference desc: ""
+	[Param #0] "ObjectID" id (3)
+	[Param #1] "Count" id (1)
+"ModDisposition" "" opcode (1053) reference desc: ""
+	[Param #0] "Actor" id (6)
+	[Param #1] "Value" id (1)
+"GetDeadCount" "" opcode (1054) desc: ""
+	[Param #0] "Actor Base" id (25)
+"ShowMap" "" opcode (1055) desc: ""
+	[Param #0] "Map Marker" id (24)
+	[Param #1] "Integer (Optional)" id (1)
+"StartConversation" "" opcode (1056) reference desc: "Start a conversation [Bob.StartConversation Joe, SecretTopic]"
+	[Param #0] "Actor" id (6)
+	[Param #1] "Topic" id (13)
+"Drop" "" opcode (1057) reference desc: ""
+	[Param #0] "ObjectID" id (3)
+	[Param #1] "Count" id (1)
+"AddTopic" "" opcode (1058) desc: ""
+	[Param #0] "Topic" id (13)
+"Message" "" opcode (1059) desc: ""
+	[Param #0] "String" id (0)
+"SetAlert" "" opcode (105a) reference desc: ""
+	[Param #0] "Integer" id (1)
+"GetIsAlerted" "" opcode (105b) reference desc: ""
+"Look" "" opcode (105c) reference desc: ""
+	[Param #0] "ObjectReferenceID" id (4)
+"StopLook" "" opcode (105d) reference desc: ""
+"EvaluatePackage" "evp" opcode (105e) reference desc: ""
+"Yield" "" opcode (105f) reference desc: ""
+"EnablePlayerControls" "" opcode (1060) desc: ""
+"DisablePlayerControls" "" opcode (1061) desc: ""
+"GetPlayerControlsDisabled" "" opcode (1062) desc: ""
+"GetHeadingAngle" "" opcode (1063) reference desc: ""
+	[Param #0] "ObjectReferenceID" id (4)
+"PickIdle" "" opcode (1064) reference desc: ""
+"IsWeaponOut" "" opcode (1065) reference desc: ""
+"IsTorchOut" "" opcode (1066) reference desc: ""
+"IsShieldOut" "" opcode (1067) reference desc: ""
+"IsYielding" "" opcode (1068) reference desc: ""
+"IsActionRef" "" opcode (1069) reference desc: ""
+	[Param #0] "ObjectReferenceID" id (4)
+"IsFacingUp" "" opcode (106a) reference desc: ""
+"GetKnockedState" "" opcode (106b) reference desc: ""
+"GetWeaponAnimType" "" opcode (106c) reference desc: ""
+"GetWeaponSkillType" "" opcode (106d) reference desc: ""
+"GetCurrentAIPackage" "" opcode (106e) reference desc: ""
+"IsWaiting" "" opcode (106f) reference desc: ""
+"IsIdlePlaying" "" opcode (1070) reference desc: ""
+"CompleteQuest" "" opcode (1071) desc: ""
+	[Param #0] "Quest" id (14)
+"Lock" "" opcode (1072) reference desc: ""
+	[Param #0] "Integer (Optional)" id (1)
+	[Param #1] "Integer (Optional)" id (1)
+"UnLock" "" opcode (1073) reference desc: ""
+	[Param #0] "Integer (Optional)" id (1)
+"GetCrimeGold" "" opcode (1074) reference desc: ""
+"SetCrimeGold" "" opcode (1075) reference desc: ""
+	[Param #0] "Integer" id (1)
+"ModCrimeGold" "" opcode (1076) reference desc: ""
+	[Param #0] "Integer" id (1)
+"GetCrimeKnown" "" opcode (1077) reference desc: ""
+	[Param #0] "Crime Type" id (28)
+	[Param #1] "Criminal" id (6)
+	[Param #2] "Victim" id (6)
+"PositionWorld" "PosWorld" opcode (1078) reference desc: ""
+	[Param #0] "X" id (2)
+	[Param #1] "Y" id (2)
+	[Param #2] "Z" id (2)
+	[Param #3] "Rotation" id (2)
+	[Param #4] "Worldspace" id (27)
+"PositionCell" "PosCell" opcode (1079) reference desc: ""
+	[Param #0] "X" id (2)
+	[Param #1] "Y" id (2)
+	[Param #2] "Z" id (2)
+	[Param #3] "Rotation" id (2)
+	[Param #4] "Interior Cell" id (9)
+"GetCrime" "" opcode (107a) reference desc: ""
+	[Param #0] "Actor" id (6)
+	[Param #1] "Crime Type (optional)" id (28)
+"PayFine" "" opcode (107b) reference desc: ""
+"PayFineThief" "" opcode (107c) reference desc: ""
+"IsGuard" "" opcode (107d) reference desc: ""
+"GoToJail" "" opcode (107e) reference desc: ""
+"CanPayCrimeGold" "" opcode (107f) reference desc: ""
+"GetFatiguePercentage" "GetFatigue" opcode (1080) reference desc: ""
+"GetPCIsClass" "" opcode (1081) desc: ""
+	[Param #0] "Class" id (16)
+"GetPCIsRace" "" opcode (1082) desc: ""
+	[Param #0] "Race" id (15)
+"GetPCIsSex" "" opcode (1083) desc: ""
+	[Param #0] "Sex" id (18)
+"GetPCInFaction" "" opcode (1084) desc: ""
+	[Param #0] "Faction" id (17)
+"SameFactionAsPC" "" opcode (1085) reference desc: ""
+"SameRaceAsPC" "" opcode (1086) reference desc: ""
+"SameSexAsPC" "" opcode (1087) reference desc: ""
+"GetIsReference" "" opcode (1088) reference desc: ""
+	[Param #0] "ObjectReferenceID" id (4)
+"SetFactionRank" "" opcode (1089) reference desc: ""
+	[Param #0] "Faction" id (17)
+	[Param #1] "Value" id (1)
+"ModFactionRank" "" opcode (108a) reference desc: ""
+	[Param #0] "Faction" id (17)
+	[Param #1] "Value" id (1)
+"KillActor" "kill" opcode (108b) reference desc: ""
+	[Param #0] "Actor (optional)" id (6)
+"ResurrectActor" "resurrect" opcode (108c) reference desc: ""
+	[Param #0] "Integer (Optional)" id (1)
+"IsTalking" "" opcode (108d) reference desc: ""
+"GetWalkSpeed" "GetWalk" opcode (108e) reference desc: ""
+"GetCurrentAIProcedure" "" opcode (108f) reference desc: ""
+"GetTrespassWarningLevel" "" opcode (1090) reference desc: ""
+"IsTrespassing" "" opcode (1091) reference desc: ""
+"IsInMyOwnedCell" "" opcode (1092) reference desc: ""
+"GetWindSpeed" "" opcode (1093) desc: ""
+"GetCurrentWeatherPercent" "getweatherpct" opcode (1094) desc: ""
+"GetIsCurrentWeather" "getweather" opcode (1095) desc: ""
+	[Param #0] "Weather ID" id (34)
+"IsContinuingPackagePCNear" "" opcode (1096) reference desc: ""
+"AddScriptPackage" "" opcode (1097) reference desc: ""
+	[Param #0] "Package" id (29)
+"RemoveScriptPackage" "" opcode (1098) reference desc: ""
+"CanHaveFlames" "" opcode (1099) reference desc: ""
+"HasFlames" "" opcode (109a) reference desc: ""
+"AddFlames" "" opcode (109b) reference desc: ""
+"RemoveFlames" "" opcode (109c) reference desc: ""
+"GetOpenState" "" opcode (109d) reference desc: ""
+"MoveToMarker" "MoveTo" opcode (109e) reference desc: ""
+	[Param #0] "ObjectReferenceID" id (4)
+	[Param #1] "Float (Optional)" id (2)
+	[Param #2] "Float (Optional)" id (2)
+	[Param #3] "Float (Optional)" id (2)
+"GetSitting" "" opcode (109f) reference desc: ""
+"GetFurnitureMarkerID" "" opcode (10a0) reference desc: ""
+"GetIsCurrentPackage" "" opcode (10a1) reference desc: ""
+	[Param #0] "Package" id (29)
+"IsCurrentFurnitureRef" "" opcode (10a2) reference desc: ""
+	[Param #0] "ObjectReferenceID" id (4)
+"IsCurrentFurnitureObj" "" opcode (10a3) reference desc: ""
+	[Param #0] "Furniture" id (20)
+"SetSize" "CSize" opcode (10a4) reference desc: "Shrink/Grow an actor. [player.shrink 0.0 or radius]"
+	[Param #0] "Float" id (2)
+"RemoveMe" "" opcode (10a5) reference desc: ""
+	[Param #0] "Container (optional)" id (26)
+"DropMe" "" opcode (10a6) reference desc: ""
+"GetFactionReaction" "" opcode (10a7) desc: ""
+	[Param #0] "Faction" id (17)
+	[Param #1] "Faction" id (17)
+"SetFactionReaction" "" opcode (10a8) desc: ""
+	[Param #0] "Faction" id (17)
+	[Param #1] "Faction" id (17)
+	[Param #2] "Value" id (1)
+"ModFactionReaction" "" opcode (10a9) desc: ""
+	[Param #0] "Faction" id (17)
+	[Param #1] "Faction" id (17)
+	[Param #2] "Value" id (1)
+"GetDayOfWeek" "" opcode (10aa) desc: ""
+"IsPlayerInJail" "" opcode (10ab) desc: ""
+"GetTalkedToPCParam" "" opcode (10ac) desc: ""
+	[Param #0] "Actor" id (6)
+"RemoveAllItems" "" opcode (10ad) reference desc: ""
+	[Param #0] "Container (optional)" id (26)
+	[Param #1] "Ownership Added (optional)" id (1)
+"WakeUpPC" "" opcode (10ae) desc: ""
+	[Param #0] "Integer (Optional)" id (1)
+"IsPCSleeping" "" opcode (10af) desc: ""
+"IsPCAMurderer" "" opcode (10b0) desc: ""
+"SetCombatStyle" "setcs" opcode (10b1) reference desc: ""
+	[Param #0] "Combat Style (optional)" id (30)
+"PlaySound3D" "" opcode (10b2) desc: ""
+	[Param #0] "Sound" id (12)
+"SelectPlayerSpell" "spspell" opcode (10b3) desc: ""
+	[Param #0] "Spell Item" id (7)
+"GetDetectionLevel" "" opcode (10b4) reference desc: ""
+	[Param #0] "Actor" id (6)
+"IsActorDetected" "" opcode (10b5) reference desc: ""
+"GetEquipped" "" opcode (10b6) reference desc: ""
+	[Param #0] "ObjectID" id (3)
+"Wait" "" opcode (10b7) reference desc: ""
+	[Param #0] "Package" id (29)
+"StopWaiting" "" opcode (10b8) reference desc: ""
+	[Param #0] "Package" id (29)
+"IsSwimming" "" opcode (10b9) reference desc: ""
+"ScriptEffectElapsedSeconds" "" opcode (10ba) desc: ""
+"SetCellPublicFlag" "setpublic" opcode (10bb) desc: "Set public flag on cell. [setpublic MyCell 1]"
+	[Param #0] "Cell" id (9)
+	[Param #1] "Flag" id (1)
+"GetPCSleepHours" "" opcode (10bc) desc: ""
+"SetPCSleepHours" "" opcode (10bd) desc: ""
+	[Param #0] "Integer" id (1)
+"GetAmountSoldStolen" "" opcode (10be) desc: ""
+"ModAmountSoldStolen" "" opcode (10bf) desc: ""
+	[Param #0] "Integer" id (1)
+"CloseCurrentOblivionGate" "" opcode (10c0) desc: ""
+	[Param #0] "Integer (Optional)" id (1)
+"GetPCExpelled" "" opcode (10c1) desc: ""
+	[Param #0] "Faction" id (17)
+"SetPCExpelled" "" opcode (10c2) desc: ""
+	[Param #0] "Faction" id (17)
+	[Param #1] "Value" id (1)
+"GetPCFactionMurder" "" opcode (10c3) desc: ""
+	[Param #0] "Faction" id (17)
+"SetPCFactionMurder" "" opcode (10c4) desc: ""
+	[Param #0] "Faction" id (17)
+	[Param #1] "Value" id (1)
+"GetPCFactionSteal" "" opcode (10c5) desc: ""
+	[Param #0] "Faction" id (17)
+"SetPCFactionSteal" "" opcode (10c6) desc: ""
+	[Param #0] "Faction" id (17)
+	[Param #1] "Value" id (1)
+"GetPCFactionAttack" "" opcode (10c7) desc: ""
+	[Param #0] "Faction" id (17)
+"SetPCFactionAttack" "" opcode (10c8) desc: ""
+	[Param #0] "Faction" id (17)
+	[Param #1] "Value" id (1)
+"GetPCFactionSubmitAuthority" "" opcode (10c9) desc: ""
+	[Param #0] "Faction" id (17)
+"SetPCFactionSubmitAuthority" "" opcode (10ca) desc: ""
+	[Param #0] "Faction" id (17)
+	[Param #1] "Value" id (1)
+"GetDestroyed" "" opcode (10cb) reference desc: ""
+"SetDestroyed" "" opcode (10cc) reference desc: ""
+	[Param #0] "Integer" id (1)
+"GetActionRef" "getAR" opcode (10cd) reference desc: ""
+"GetSelf" "this" opcode (10ce) reference desc: ""
+"GetContainer" "" opcode (10cf) reference desc: ""
+"GetForceRun" "" opcode (10d0) reference desc: ""
+"SetForceRun" "" opcode (10d1) reference desc: ""
+	[Param #0] "Integer" id (1)
+"GetForceSneak" "" opcode (10d2) reference desc: ""
+"SetForceSneak" "" opcode (10d3) reference desc: ""
+	[Param #0] "Integer" id (1)
+"AdvancePCSkill" "AdvSkill" opcode (10d4) desc: ""
+	[Param #0] "Actor Value" id (5)
+	[Param #1] "Amount" id (1)
+"AdvancePCLevel" "AdvLevel" opcode (10d5) desc: ""
+"HasMagicEffect" "" opcode (10d6) reference desc: ""
+	[Param #0] "Magic Effect" id (31)
+"GetDoorDefaultOpen" "" opcode (10d7) reference desc: "Returns 1 if this door is open by default."
+"SetDoorDefaultOpen" "" opcode (10d8) reference desc: "A value of 1 will make the door open by default."
+	[Param #0] "Integer" id (1)
+"ShowClassMenu" "" opcode (10d9) desc: ""
+"ShowRaceMenu" "" opcode (10da) desc: ""
+"ShowBirthSignMenu" "" opcode (10db) desc: ""
+"ShowNameMenu" "" opcode (10dc) desc: ""
+"SetOpenState" "" opcode (10dd) reference desc: "A value of 1 will make the door open."
+	[Param #0] "Integer" id (1)
+"CloseOblivionGate" "" opcode (10de) reference desc: ""
+	[Param #0] "Integer (Optional)" id (1)
+"IsSpellTarget" "" opcode (10df) reference desc: ""
+	[Param #0] "Magic Item" id (11)
+"GetIsPlayerBirthsign" "GetPBS" opcode (10e0) desc: ""
+	[Param #0] "Birthsign" id (32)
+"GetPersuasionNumber" "" opcode (10e1) desc: ""
+"VampireFeed" "" opcode (10e2) reference desc: ""
+	[Param #0] "Actor" id (6)
+"HasVampireFed" "" opcode (10e3) reference desc: ""
+"GetIsClassDefault" "" opcode (10e4) desc: ""
+	[Param #0] "Class" id (16)
+"GetClassDefaultMatch" "" opcode (10e5) desc: ""
+"GetInCellParam" "" opcode (10e6) desc: ""
+	[Param #0] "Cell" id (9)
+	[Param #1] "ObjectReferenceID" id (4)
+"SetInChargen" "" opcode (10e7) desc: "A value of 1 will be in chargen."
+	[Param #0] "Integer" id (1)
+"GetCombatTarget" "" opcode (10e8) reference desc: ""
+"GetPackageTarget" "" opcode (10e9) reference desc: ""
+"ShowSpellMaking" "" opcode (10ea) desc: ""
+"ShowEnchantment" "" opcode (10eb) desc: ""
+"SetGhost" "" opcode (10ec) reference desc: "A value of 1 will make the NPC act as a 'ghost'."
+	[Param #0] "Integer" id (1)
+"GetIsGhost" "" opcode (10ed) reference desc: "Returns 1 if the actor is acting as a 'ghost'."
+"EquipItem" "EquipObject" opcode (10ee) reference desc: ""
+	[Param #0] "ObjectID" id (3)
+	[Param #1] "Flag" id (1)
+"UnequipItem" "UnEquipObject" opcode (10ef) reference desc: ""
+	[Param #0] "ObjectID" id (3)
+	[Param #1] "Flag" id (1)
+"SetClass" "" opcode (10f0) reference desc: ""
+	[Param #0] "Class" id (16)
+"SetUnconscious" "" opcode (10f1) desc: "A value of 1 will be unconscious."
+	[Param #0] "Integer" id (1)
+"GetUnconscious" "" opcode (10f2) reference desc: "Returns 1 if is unconscious."
+"SetRestrained" "" opcode (10f3) desc: "A value of 1 will be restrained."
+	[Param #0] "Integer" id (1)
+"GetRestrained" "" opcode (10f4) reference desc: "Returns 1 if is restrained."
+"ForceFlee" "Flee" opcode (10f5) reference desc: "Forces a actor to flee if destination or cell is passed in uses them"
+	[Param #0] "Cell (optional)" id (9)
+	[Param #1] "ObjectReferenceID (optional)" id (4)
+"GetIsUsedItem" "" opcode (10f6) desc: ""
+	[Param #0] "ObjectID" id (21)
+"GetIsUsedItemType" "" opcode (10f7) desc: ""
+	[Param #0] "Form Type" id (33)
+"ModPCFame" "" opcode (10f8) desc: "modifies the fame of player"
+	[Param #0] "Integer" id (1)
+"GetPCFame" "" opcode (10f9) desc: "returns the player's fame"
+"ModPCInfamy" "" opcode (10fa) desc: "modifies the player's infamy"
+	[Param #0] "Integer" id (1)
+"GetPCInfamy" "" opcode (10fb) desc: "returns the player's infamy"
+"SetPCFame" "" opcode (10fc) desc: "set the player's fame to param"
+	[Param #0] "Integer" id (1)
+"SetPCInfamy" "" opcode (10fd) desc: "set the player's infamy to param"
+	[Param #0] "Integer" id (1)
+"GetIsPlayableRace" "" opcode (10fe) reference desc: ""
+"GetOffersServicesNow" "" opcode (10ff) reference desc: ""
+"GetGameSetting" "GetGS" opcode (1100) desc: ""
+	[Param #0] "String" id (0)
+"StopCombatAlarmOnActor" "SCAOnActor" opcode (1101) reference desc: ""
+"GetUsedItemLevel" "" opcode (1102) desc: ""
+"GetUsedItemActivate" "" opcode (1103) desc: ""
+"SetWeather" "sw" opcode (1104) desc: "Sets the active weather to the specified type"
+	[Param #0] "Weather ID" id (34)
+	[Param #1] "Integer (Optional)" id (1)
+"ForceTakeCover" "TakeCover" opcode (1105) reference desc: "Forces a actor to move away from the target actor for a period of time"
+	[Param #0] "Actor" id (6)
+	[Param #1] "Value" id (1)
+"ModBarterGold" "" opcode (1106) reference desc: ""
+	[Param #0] "Integer" id (1)
+"SetBarterGold" "" opcode (1107) reference desc: ""
+	[Param #0] "Integer" id (1)
+"GetBarterGold" "" opcode (1108) reference desc: ""
+"IsTimePassing" "" opcode (1109) desc: ""
+"IsPleasant" "" opcode (110a) desc: ""
+"IsCloudy" "" opcode (110b) desc: ""
+"TrapUpdate" "" opcode (110c) desc: ""
+"SetQuestObject" "" opcode (110d) desc: ""
+	[Param #0] "Object" id (21)
+	[Param #1] "Integer" id (1)
+"ForceActorValue" "ForceAV" opcode (110e) reference desc: "Does modav XXX (value - getav XXX). [player.forceav luck 25]"
+	[Param #0] "Actor Value" id (5)
+	[Param #1] "Amount" id (1)
+"ModPCSkill" "ModPCS" opcode (110f) desc: "Modify the Players Skill. [modpcs Blunt, 10]"
+	[Param #0] "Actor Value" id (5)
+	[Param #1] "Amount" id (1)
+"ModPCAttribute" "ModPCA" opcode (1110) desc: "Modify an actor value. [modpca luck, 10]"
+	[Param #0] "Actor Value" id (5)
+	[Param #1] "Amount" id (1)
+"EnableFastTravel" "EnableFast" opcode (1111) desc: ""
+	[Param #0] "Integer" id (1)
+"GetArmorRatingUpperBody" "" opcode (1112) reference desc: ""
+"GetParentRef" "" opcode (1113) reference desc: ""
+"PlayBink" "" opcode (1114) desc: ""
+	[Param #0] "String" id (0)
+	[Param #1] "Integer (Optional)" id (1)
+"GetBaseActorValue" "GetBaseAV" opcode (1115) reference desc: "Get a base actor value. [player.getbaseav luck]"
+	[Param #0] "Actor Value" id (5)
+"IsOwner" "" opcode (1116) reference desc: "get the ownership of the ref"
+	[Param #0] "Owner(optional)" id (36)
+"SetOwnership" "" opcode (1117) reference desc: ""
+	[Param #0] "Owner(optional)" id (36)
+"IsCellOwner" "" opcode (1118) reference desc: "get the ownership of the ref"
+	[Param #0] "Cell" id (9)
+	[Param #1] "Owner(optional)" id (36)
+"SetCellOwnership" "" opcode (1119) desc: ""
+	[Param #0] "Cell" id (9)
+	[Param #1] "Owner(optional)" id (36)
+"IsHorseStolen" "" opcode (111a) reference desc: ""
+"SetCellFullName" "" opcode (111b) desc: ""
+	[Param #0] "Cell" id (9)
+	[Param #1] "String" id (0)
+"SetActorFullName" "" opcode (111c) reference desc: ""
+	[Param #0] "String" id (0)
+"IsLeftUp" "" opcode (111d) reference desc: ""
+"IsSneaking" "" opcode (111e) reference desc: ""
+"IsRunning" "" opcode (111f) reference desc: ""
+"GetFriendHit" "" opcode (1120) reference desc: ""
+	[Param #0] "Actor" id (6)
+"IsInCombat" "" opcode (1121) reference desc: ""
+"SetPackDuration" "SPDur" opcode (1122) reference desc: ""
+	[Param #0] "Float" id (2)
+"PlayMagicShaderVisuals" "PMS" opcode (1123) reference desc: ""
+	[Param #0] "Effect Shader ID" id (37)
+	[Param #1] "Time(optional)" id (2)
+"PlayMagicEffectVisuals" "PME" opcode (1124) reference desc: ""
+	[Param #0] "Magic Effect" id (31)
+	[Param #1] "Time(optional)" id (2)
+"StopMagicShaderVisuals" "SMS" opcode (1125) reference desc: ""
+	[Param #0] "Effect Shader ID" id (37)
+"StopMagicEffectVisuals" "SME" opcode (1126) reference desc: ""
+	[Param #0] "Magic Effect" id (31)
+"ResetInterior" "" opcode (1127) desc: ""
+	[Param #0] "Cell" id (9)
+"IsAnimPlaying" "" opcode (1128) reference desc: ""
+"SetActorAlpha" "SAA" opcode (1129) reference desc: ""
+	[Param #0] "Float" id (2)
+"EnableLinkedPathPoints" "" opcode (112a) reference desc: ""
+"DisableLinkedPathPoints" "" opcode (112b) reference desc: ""
+"IsInInterior" "" opcode (112c) reference desc: ""
+"ForceWeather" "fw" opcode (112d) desc: "Forces the active weather to the specified type, without transition."
+	[Param #0] "Weather ID" id (34)
+	[Param #1] "Integer (Optional)" id (1)
+"ToggleActorsAI" "" opcode (112e) reference desc: ""
+"IsActorsAIOff" "" opcode (112f) reference desc: ""
+"SetInvestmentGold" "" opcode (1130) reference desc: ""
+	[Param #0] "Integer" id (1)
+"GetInvestmentGold" "" opcode (1131) reference desc: ""
+"IsActorUsingATorch" "" opcode (1132) reference desc: ""
+"SetLevel" "" opcode (1133) reference desc: ""
+	[Param #0] "Integer" id (1)
+	[Param #1] "Integer (Optional)" id (1)
+	[Param #2] "Integer (Optional)" id (1)
+	[Param #3] "Integer (Optional)" id (1)
+"ResetFallDamageTimer" "" opcode (1134) reference desc: ""
+"IsXBox" "" opcode (1135) desc: ""
+"GetInWorldspace" "" opcode (1136) reference desc: ""
+	[Param #0] "WorldSpace" id (27)
+"ModPCMiscStat" "ModPCMS" opcode (1137) desc: ""
+	[Param #0] "Integer" id (1)
+	[Param #1] "Integer" id (1)
+"GetPCMiscStat" "GetPCMS" opcode (1138) desc: ""
+	[Param #0] "Integer" id (1)
+"IsActorEvil" "" opcode (1139) reference desc: ""
+"IsActorAVictim" "" opcode (113a) reference desc: ""
+"GetTotalPersuasionNumber" "" opcode (113b) desc: ""
+"SetScale" "" opcode (113c) reference desc: "Set the scale of an object"
+	[Param #0] "Float" id (2)
+"ModScale" "" opcode (113d) reference desc: "Modify the scale of an object"
+	[Param #0] "Float" id (2)
+"GetIdleDoneOnce" "" opcode (113e) desc: ""
+"KillAllActors" "killall" opcode (113f) desc: ""
+	[Param #0] "Actor (optional)" id (6)
+"GetNoRumors" "" opcode (1140) reference desc: ""
+"SetNoRumors" "" opcode (1141) reference desc: ""
+	[Param #0] "Integer" id (1)
+"Dispel" "" opcode (1142) reference desc: ""
+	[Param #0] "Magic Item" id (11)
+"WhichServiceMenu" "" opcode (1143) desc: ""
+"TriggerHitShader" "ths" opcode (1144) desc: ""
+	[Param #0] "Float (Optional)" id (2)
+"RefreshTopicList" "" opcode (1145) desc: ""
+"Reset3DState" "" opcode (1146) desc: ""
+"IsRidingHorse" "" opcode (1147) reference desc: ""
+"DispelAllSpells" "" opcode (1148) reference desc: ""
+"IsTurnArrest" "" opcode (1149) desc: ""
+"AddAchievement" "" opcode (114a) desc: ""
+	[Param #0] "Integer" id (1)
+"DuplicateAllItems" "" opcode (114b) reference desc: ""
+	[Param #0] "Container (optional)" id (26)
+	[Param #1] "Ownership Added (optional)" id (1)
+"IsInDangerousWater" "" opcode (114c) reference desc: ""
+"EssentialDeathReload" "" opcode (114d) desc: ""
+	[Param #0] "String" id (0)
+"SetShowQuestItems" "" opcode (114e) desc: ""
+	[Param #0] "Integer" id (1)
+"DuplicateNPCStats" "" opcode (114f) reference desc: ""
+	[Param #0] "Actor (optional)" id (6)
+"ResetHealth" "" opcode (1150) reference desc: ""
+"SetIgnoreFriendlyHits" "sifh" opcode (1151) reference desc: "Set whether an actor should ignore friendly hits (0-no, 1-yes)"
+	[Param #0] "Integer" id (1)
+"GetIgnoreFriendlyHits" "gifh" opcode (1152) reference desc: "See if an actor is ignoring friendly hits"
+"IsPlayersLastRiddenHorse" "" opcode (1153) reference desc: ""
+"SetActorRefraction" "sar" opcode (1154) reference desc: ""
+	[Param #0] "Float" id (2)
+"SetItemValue" "" opcode (1155) reference desc: ""
+	[Param #0] "Integer" id (1)
+"SetRigidBodyMass" "" opcode (1156) desc: ""
+	[Param #0] "Float" id (2)
+"ShowViewerStrings" "svs" opcode (1157) reference desc: ""
+"ReleaseWeatherOverride" "rwo" opcode (1158) desc: ""
+"SetAllReachable" "" opcode (1159) desc: ""
+	[Param #0] "Integer" id (1)
+"SetAllVisible" "" opcode (115a) desc: ""
+	[Param #0] "Integer" id (1)
+"SetNoAvoidance" "" opcode (115b) desc: ""
+	[Param #0] "Integer" id (1)
+"SendTrespassAlarm" "" opcode (115c) reference desc: ""
+	[Param #0] "Actor" id (6)
+"SetSceneIsComplex" "" opcode (115d) desc: ""
+	[Param #0] "Integer" id (1)
+"Autosave" "" opcode (115e) desc: ""
+"StartMasterFileSeekData" "" opcode (115f) desc: ""
+"DumpMasterFileSeekData" "" opcode (1160) desc: ""
+"IsActor" "" opcode (1161) reference desc: ""
+"IsEssential" "" opcode (1162) reference desc: ""
+"PreloadMagicEffect" "" opcode (1163) reference desc: ""
+	[Param #0] "Magic Effect" id (31)
+"ShowDialogSubtitles" "" opcode (1164) desc: ""
+	[Param #0] "Integer (Optional)" id (1)
+"ForceCloseOblivionGate" "" opcode (1165) desc: ""
+	[Param #0] "Integer (Optional)" id (1)
+"IsPlayerMovingIntoNewSpace" "" opcode (1166) desc: ""
+"CreateFullActorCopy" "" opcode (1167) reference desc: ""
+"DeleteFullActorCopy" "" opcode (1168) reference desc: ""
+"GetTimeDead" "" opcode (1169) reference desc: ""
+"GetPlayerHasLastRiddenHorse" "" opcode (116a) desc: ""
+"PurgeCellBuffers" "pcb" opcode (116b) desc: "Forcibly unloads all unattached cells in cell buffers."
+"SetPlayerInSEWorld" "SPInSE" opcode (116c) desc: ""
+	[Param #0] "Integer" id (1)
+"GetPlayerInSEWorld" "gpInSE" opcode (116d) desc: ""
+"PushActorAway" "" opcode (116e) reference desc: ""
+	[Param #0] "ObjectReferenceID" id (4)
+	[Param #1] "Integer" id (1)
+"SetActorsAI" "" opcode (116f) reference desc: ""
+	[Param #0] "Integer" id (1)
+"ClearOwnership" "" opcode (1170) reference desc: ""
+"Show" "TST" opcode (100) desc: "Show global scripts and variables."
+	[Param #0] "Float" id (2)
+"ShowVars" "SV" opcode (101) reference desc: "Show variables on object. [player->sv]"
+"ShowQuestVars" "SQV" opcode (102) desc: "Show quest variables. [svq QuestID]"
+	[Param #0] "Quest" id (14)
+"ShowQuests" "SQ" opcode (103) desc: "List quests."
+"ToggleCombatStats" "TCS" opcode (104) desc: ""
+"ToggleSafeZone" "TSZ" opcode (105) desc: "Display the television 85%% safe zone."
+"ToggleAI" "TAI" opcode (106) desc: ""
+	[Param #0] "Actor (optional)" id (6)
+"ToggleCollisionGeometry" "TCG" opcode (107) desc: "Show collision geometry."
+"ToggleMaterialGeometry" "TMG" opcode (108) desc: "Show material geometry."
+"ToggleBorders" "TB" opcode (109) desc: "Show border lines for each cell."
+"ToggleSky" "TS" opcode (10a) desc: ""
+"ToggleLeaves" "TLV" opcode (10b) desc: ""
+"ToggleWireframe" "TWF" opcode (10c) desc: "Show the world as wireframe."
+"ToggleCollision" "TCL" opcode (10d) desc: ""
+"ToggleDebugText" "TDT" opcode (10e) desc: "Show debug numbers on the screen."
+"ToggleMenus" "TM" opcode (10f) desc: "Hide all the menus. Used for taking screen shots."
+"ShowScenegraph" "SSG" opcode (110) desc: "Create a window with the full game scene graph."
+"ToggleMagicStats" "TMS" opcode (111) desc: ""
+"ShowAnim" "SA" opcode (112) reference desc: "Show Animation and Actor status."
+"Show1stPerson" "S1ST" opcode (113) desc: "Show the 1st person Model from the 3rd person camera. If in 3rd person mode it will show both."
+"Help" "" opcode (114) desc: "Show this help."
+"TogglePathGrid" "TPG" opcode (115) desc: "Toggle blocked display."
+"TogglePathLine" "TPL" opcode (116) desc: "Toggle path display."
+"PickRefByID" "PRID" opcode (117) desc: "Select a reference by id for the console."
+	[Param #0] "ObjectReferenceID" id (4)
+"SetLightingPasses" "SLP" opcode (118) desc: "4 (0/1) values. amb|diff|tex|spec ex: 1010"
+	[Param #0] "String" id (0)
+"ToggleLODLand" "TLL" opcode (119) desc: ""
+"ToggleGrassUpdate" "TGU" opcode (11a) desc: ""
+"CenterOnCell" "COC" opcode (11b) desc: ""
+	[Param #0] "String" id (0)
+"SetGameSetting" "SetGS" opcode (11c) desc: ""
+	[Param #0] "String" id (0)
+	[Param #1] "String" id (0)
+"SetINISetting" "SetINI" opcode (11d) desc: ""setting:category" value"
+	[Param #0] "String" id (0)
+	[Param #1] "String" id (0)
+"GetINISetting" "GetINI" opcode (11e) desc: ""setting:category""
+	[Param #0] "String" id (0)
+"CenterOnExterior" "COE" opcode (11f) desc: ""
+	[Param #0] "Integer" id (1)
+	[Param #1] "Integer" id (1)
+"CalcPathToPoint" "P2P" opcode (120) reference desc: ""
+"CalcLowPathToPoint" "LP2P" opcode (121) reference desc: "ignore locks, allow disabled doors, ignore min use"
+	[Param #0] "Integer" id (1)
+	[Param #1] "Integer" id (1)
+	[Param #2] "Integer" id (1)
+"SetFog" "" opcode (122) desc: "2 floats, start and end depths"
+	[Param #0] "Integer" id (1)
+	[Param #1] "Integer" id (1)
+"SetClipDist" "" opcode (123) desc: "float, new clip distance"
+	[Param #0] "Float" id (2)
+"ToggleShadowVolumes" "TSV" opcode (124) desc: ""
+"SetImageSpaceGlow" "SISG" opcode (125) desc: ""
+	[Param #0] "Integer" id (1)
+	[Param #1] "Float" id (2)
+	[Param #2] "Float" id (2)
+	[Param #3] "Float" id (2)
+"ToggleDetection" "TDETECT" opcode (126) desc: ""
+"ToggleHighProcess" "THIGHPROCESS" opcode (127) desc: ""
+"ToggleLowProcess" "TLOWPROCESS" opcode (128) desc: ""
+"ToggleMiddleLowProcess" "TMLOWPROCESS" opcode (129) desc: ""
+"ToggleMiddleHighProcess" "TMHIGHPROCESS" opcode (12a) desc: ""
+"ToggleAiSchedules" "TAIS" opcode (12b) desc: ""
+"SpeakSound" "" opcode (12c) reference desc: ""
+	[Param #0] "Filename" id (0)
+	[Param #1] "Emotion" id (1)
+	[Param #2] "EmotionValue" id (1)
+"BetaComment" "BC" opcode (12d) desc: "Add comment to [General] 'sBetaCommentFile' file.
+  NOTE: select object first.
+  [bc "This rock is too high."]"
+	[Param #0] "String" id (0)
+"ToggleCellNode" "TCN" opcode (12e) desc: "Toggle 3D for a Cell child node: 0-Actor, 1-Marker, 2-Land, 3-Water, 4-Static, 5-Active"
+	[Param #0] "Integer" id (1)
+"ToggleTrees" "TT" opcode (12f) desc: "Turn trees on/off"
+"SetCameraFOV" "FOV" opcode (130) desc: "Change the camera's field of view (in deg): default 75"
+	[Param #0] "Integer" id (1)
+"Verbose" "VERBOSE" opcode (131) desc: "Toggle verbose combat/AI messages"
+"ToggleGodMode" "TGM" opcode (132) desc: "Toggle God mode"
+"RefreshShaders" "REFRESHSHADERS" opcode (133) desc: "Reload HLSL shaders from disk"
+"ToggleScripts" "TSCR" opcode (134) desc: "Turn Script processing on/off"
+"SexChange" "" opcode (135) desc: "Selected npc male become female or female becomes male."
+"ToggleConversations" "TCONV" opcode (136) desc: "Toggle conversation stats"
+"ToggleFullHelp" "TFH" opcode (137) desc: "Toggle Full Help"
+"ShowQuestLog" "SQL" opcode (138) desc: "Show Quest Log"
+	[Param #0] "Integer (Optional)" id (1)
+"ShowFullQuestLog" "SFQL" opcode (139) desc: "Show all log entries for a single quest"
+	[Param #0] "Quest" id (14)
+"DumpTexturePalette" "DTP" opcode (13a) desc: "Dump texture palette contents to warning file
+ param is sort type   f-filename, s-size, c-count)"
+	[Param #0] "String" id (0)
+"CenterOnWorld" "COW" opcode (13b) desc: "[COW worldname -10 5]"
+	[Param #0] "WorldSpace" id (27)
+	[Param #1] "Cell X" id (1)
+	[Param #2] "Cell Y" id (1)
+"ToggleGrass" "TG" opcode (13c) desc: "Toggle grass display."
+"AddFaceAnimNote" "AFAN" opcode (13d) reference desc: ""
+	[Param #0] "String" id (0)
+"RefreshINI" "REFINI" opcode (13e) desc: "Refresh INI settings from file."
+"ToggleEmotions" "temo" opcode (13f) desc: "Toggle NPC facial emotions."
+"AddDecal" "" opcode (140) desc: ""
+"TestCode" "" opcode (141) desc: ""
+"ToggleMapMarkers" "tmm" opcode (142) desc: "Toggle map markers (1 shows all, 0 hides all)."
+	[Param #0] "Integer" id (1)
+"PlayerSpellBook" "psb" opcode (143) desc: "Add all spells to player."
+"PrintAiList" "pai" opcode (144) desc: "Printed Ai Lists."
+"ShowQuestTargets" "SQT" opcode (145) desc: "Show current quest targets"
+"HairTint" "" opcode (146) desc: "3 ints, RGB"
+	[Param #0] "Integer" id (1)
+	[Param #1] "Integer" id (1)
+	[Param #2] "Integer" id (1)
+"SaveGame" "save" opcode (147) desc: "SaveGame <filename>"
+	[Param #0] "String" id (0)
+	[Param #1] "Integer (Optional)" id (1)
+"LoadGame" "load" opcode (148) desc: "LoadGame <filename>"
+	[Param #0] "String" id (0)
+	[Param #1] "Integer (Optional)" id (1)
+"TestAllCells" "TAC" opcode (149) desc: "Test All Cells (0 - stop, 1 - start, 2 - interiors, 3 - current world)"
+	[Param #0] "Integer" id (1)
+"SaveWorld" "" opcode (14a) desc: "Save hkWorld <filename>"
+	[Param #0] "String" id (0)
+"ReloadCurrentClimate" "rcc" opcode (14b) desc: "Reloads values from the current climate"
+"ReloadCurrentWeather" "rcw" opcode (14c) desc: "Reloads values from the current weather"
+"TestSeenData" "tsd" opcode (14d) desc: "Visually displays the current seen data"
+"TestLocalMap" "tlm" opcode (14e) desc: "Simulates the local map. (1 or 0 for FOW on or off)"
+	[Param #0] "Integer" id (1)
+"MoveToQuestTarget" "movetoqt" opcode (14f) desc: "Move player to current quest target (optional param: target number)."
+	[Param #0] "Integer (Optional)" id (1)
+"PrintNPCDialog" "pdialog" opcode (150) desc: "Prints NPC dialog"
+"ShowSubtitle" "" opcode (151) desc: "show all dialog subtitles (1 shows always, 0 hides always)"
+	[Param #0] "Integer (Optional)" id (1)
+"ShowRenderPasses" "srp" opcode (152) desc: "display render passes for the next frame"
+"FreezeRenderAccumulation" "fra" opcode (153) desc: "only re-render geometry visible during this frame"
+"ToggleOcclusion" "tocc" opcode (154) desc: "toggle occlusion query for geometry"
+"OutputMemContexts" "omc" opcode (155) desc: "Output Mem Context info to a file"
+	[Param #0] "String" id (0)
+"OutputMemStats" "oms" opcode (156) desc: "Output Mem Stats info to a file"
+	[Param #0] "String" id (0)
+"ToggleDetectionStats" "tds" opcode (157) desc: "Show the detection stats of the current seletected Ref."
+	[Param #0] "Actor (optional)" id (6)
+"SetTargetRefraction" "str" opcode (158) desc: "Sets the refractive value of the target"
+	[Param #0] "Float" id (2)
+"SetTargetRefractionFire" "strf" opcode (159) desc: "Sets the refractive fire value of the target"
+	[Param #0] "Float" id (2)
+	[Param #1] "Int" id (1)
+"ToggleRefractionDebug" "trd" opcode (15a) desc: "Toggles refraction debug render texture"
+"ToggleCharControllerShape" "TCCS" opcode (15b) desc: "Toggle char controller shape type."
+"ShowHeadTrackTarget" "SHeadT" opcode (15c) reference desc: "Show the head track target if set from look function"
+"SetSkyParam" "SSP" opcode (15d) desc: "Sets various values for the sky"
+	[Param #0] "Float" id (2)
+	[Param #1] "Float" id (2)
+"SetHDRParam" "SHP" opcode (15e) desc: "Sets various values for the HDR shader"
+	[Param #0] "Float" id (2)
+	[Param #1] "Float" id (2)
+	[Param #2] "Float" id (2)
+	[Param #3] "Float" id (2)
+	[Param #4] "Float" id (2)
+	[Param #5] "Float" id (2)
+"ShowPivot" "SP" opcode (15f) reference desc: "Puts a temporary yellow plus at the pivot point of the selected reference."
+"PrintHDRParam" "PHP" opcode (160) desc: "Prints current HDR settings."
+"ToggleHDRDebug" "THD" opcode (161) desc: "Toggles HDR debug textures."
+"RevertWorld" "rw" opcode (162) desc: "Revert the world"
+"OutputArchiveProfile" "oap" opcode (163) desc: "Output Archive profile info to a file"
+	[Param #0] "String" id (0)
+"QuitGame" "qqq" opcode (164) desc: "Exit game without going through menus."
+"SaveIniFiles" "saveini" opcode (165) desc: "Writes all the .ini files."
+"SetDebugText" "sdt" opcode (166) desc: "Sets which debug text is shown."
+	[Param #0] "Integer" id (1)
+"ToggleLiteBrite" "tlb" opcode (167) desc: "Toggles lite brite render mode."
+"RunMemoryPass" "rmp" opcode (168) desc: "Runs a cleanup memory pass"
+	[Param #0] "Integer" id (1)
+"ResetMemContexts" "rmc" opcode (169) desc: "Reset Max Mem Contexts"
+"ToggleWaterSystem" "TWS" opcode (16a) desc: "Toggles the water system"
+"ToggleWaterRadius" "TWR" opcode (16b) desc: ""
+"ShowWhoDetectsPlayer" "SWDP" opcode (16c) desc: " Show who detects the player"
+"ToggleCombatAI" "tcai" opcode (16d) desc: "Toggles ALL Combat AI"
+"ToggleFlyCam" "tfc" opcode (16e) desc: "Toggles the Free Fly camera (UFO cam)."
+"ModWaterShader" "mws" opcode (16f) desc: "Modifies water shader settings"
+	[Param #0] "String" id (0)
+	[Param #1] "Float(optional)" id (2)
+"WaterShallowColor" "shallow" opcode (170) desc: "Modifies water shallow color"
+	[Param #0] "Integer" id (1)
+	[Param #1] "Integer" id (1)
+	[Param #2] "Integer" id (1)
+"WaterDeepColor" "deep" opcode (171) desc: "Modifies water deep color"
+	[Param #0] "Integer" id (1)
+	[Param #1] "Integer" id (1)
+	[Param #2] "Integer" id (1)
+"WaterReflectionColor" "refl" opcode (172) desc: "Modifies water reflection color"
+	[Param #0] "Integer" id (1)
+	[Param #1] "Integer" id (1)
+	[Param #2] "Integer" id (1)
+"BeginTrace" "bt" opcode (173) desc: "Creates a trace file (Xenon only)"
+"RunCellTest" "rct" opcode (174) desc: "Runs a cell test"
+	[Param #0] "Integer (Optional)" id (1)
+"StartAllQuests" "saq" opcode (175) desc: "Starts all quests"
+"CompleteAllQuestStages" "caqs" opcode (176) desc: "Sets all quest stages"
+"FlushNonPersistActors" "Flush" opcode (177) desc: "Deletes all the actors in High who are not persistant"
+	[Param #0] "Integer" id (1)
+"ToggleFogOfWar" "TFOW" opcode (178) desc: "Turns fog of war on or off."
+"OutputLocalMapPictures" "OLMP" opcode (179) desc: "Writes out the current local map."
+"SetGamma" "sg" opcode (17a) desc: "Sets new gamma ramp."
+	[Param #0] "Float" id (2)
+"WasteMemory" "wm" opcode (17b) desc: "Allocates some memory (in MB)."
+	[Param #0] "Float" id (2)
+"ClearAdaptedLight" "cal" opcode (17c) desc: "Clears the HDR adapted light texture"
+"ToggleCastShadows" "tsh" opcode (17d) desc: ""
+	[Param #0] "Integer" id (1)
+"ShowSubSpaces" "sss" opcode (17e) desc: "Temporarily displays subspaces."
+"SetSTBBColorConstants" "sscc" opcode (17f) desc: "Show speedtree billboard color tweak constants."
+	[Param #0] "Float (Optional)" id (2)
+	[Param #1] "Float (Optional)" id (2)
+	[Param #2] "Float (Optional)" id (2)
+	[Param #3] "Float (Optional)" id (2)
+"CloseFile" "" opcode (180) desc: ""
+	[Param #0] "String" id (0)
+"SetTreeMipmapBias" "stmb" opcode (181) desc: "Set mipmap LOD bias values for tree billboards."
+	[Param #0] "Float (Optional)" id (2)
+	[Param #1] "Float (Optional)" id (2)
+"ClearFaceGenModelData" "CFG" opcode (182) desc: "Clears facegen model data"
+"ToggleLeveledRegion" "TLR" opcode (183) desc: "Toggle Leveled Region"
+"ToggleLeveledRegionDebug" "tlrdebug" opcode (184) desc: "Toggle Leveled Region Debug"
