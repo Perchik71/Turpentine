@@ -37,9 +37,19 @@ namespace Turpentine
 
 				lamda_print(f, OldTableCommands, 0x171);
 				lamda_print(f, NewTableCommands, 0x85);
+
+				fflush(f);
+				fclose(f);
 			}
-			fflush(f);
-			fclose(f);
+		}
+
+		void APIENTRY ShowMessageHint(const char* message)
+		{
+			if (!message || !message[0])
+				return;
+
+			//OldTableCommands[0x59].console((void*)0, OldTableCommands[0x59].params, (void*)message, 0);
+			return;
 		}
 	}
 

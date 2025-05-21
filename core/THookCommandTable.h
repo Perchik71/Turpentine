@@ -42,7 +42,8 @@ namespace Turpentine
 		extern CommandInfo* OldTableCommands;
 		extern CommandInfo* NewTableCommands;
 
-		void APIENTRY DumpCommandTable(const char* fname);
+		void APIENTRY DumpCommandTable(const char* fname);		
+		void APIENTRY ShowMessageHint(const char* message);
 	}
 
 	namespace Hooks

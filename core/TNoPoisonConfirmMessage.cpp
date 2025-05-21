@@ -3,6 +3,7 @@
 // License: https://www.gnu.org/licenses/gpl-3.0.html
 
 #include <TNoPoisonConfirmMessage.h>
+#include <THookCommandTable.h>
 #include <TRelocation.h>
 #include <TUtils.h>
 
@@ -12,7 +13,7 @@ namespace Turpentine
 	{
 		namespace Impl
 		{
-			static void* APIENTRY sub_146592440()
+			static void* APIENTRY GameApplyPoisonOnWeaponOrBow()
 			{
 				return Utils::FastCall<void*>(REL::Offset(0x662B070));
 			}
@@ -20,13 +21,13 @@ namespace Turpentine
 
 		void APIENTRY NoPoisonConfirmMessage() noexcept(true)
 		{
-			REL::Patch(REL::Offset(0x661C2C8), { 0x31, 0xC0, 0x90, 0x90, 0x90, 0x90, 0x90 });
 			REL::Patch(REL::Offset(0x661C2DD), { 0x00 });
 			REL::Patch(REL::Offset(0x662B0B1), { 0x00 });
-			REL::Patch(REL::Offset(0x661C2D4), { 0x45, 0x31, 0xC9, 0x90, 0x90, 0x90, 0x90 });
-			REL::DetourCall(REL::Offset(0x661C2EC), (uintptr_t)&Impl::sub_146592440);	
-			REL::DetourCall(REL::Offset(0x661C395), (uintptr_t)&Impl::sub_146592440);
+			REL::Patch(REL::Offset(0x661C38E), { 0x31, 0xD2, 0x90, 0x90, 0x90, 0x90, 0x90 });
+			REL::DetourCall(REL::Offset(0x661C2EC), (uintptr_t)&Impl::GameApplyPoisonOnWeaponOrBow);
 			REL::PatchNop(REL::Offset(0x662B0B2), 0x6);
+			REL::PatchNop(REL::Offset(0x661C13F), 0x5);
+			REL::PatchNop(REL::Offset(0x661C12A), 0x5);
 
 			_MESSAGE("Install NoPoisonConfirmMessage patch");
 		}
