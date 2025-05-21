@@ -188,14 +188,17 @@
     <ClInclude Include="core\TJokeFriendship.h">
       <Filter>jokes</Filter>
     </ClInclude>
-    <ClInclude Include="core\TNoScriptMessageBox.h">
-      <Filter>fixes</Filter>
-    </ClInclude>
     <ClInclude Include="core\TWithoutPrefixNL.h">
       <Filter>fixes</Filter>
     </ClInclude>
     <ClInclude Include="core\THookCommandTable.h">
       <Filter>hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="core\TNoPoisonConfirmMessage.h">
+      <Filter>patches</Filter>
+    </ClInclude>
+    <ClInclude Include="core\TNoScriptMessageBox.h">
+      <Filter>patches</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -328,14 +331,17 @@
     <ClCompile Include="core\TJokeFriendship.cpp">
       <Filter>jokes</Filter>
     </ClCompile>
-    <ClCompile Include="core\TNoScriptMessageBox.cpp">
-      <Filter>fixes</Filter>
-    </ClCompile>
     <ClCompile Include="core\TWithoutPrefixNL.cpp">
       <Filter>fixes</Filter>
     </ClCompile>
     <ClCompile Include="core\THookCommandTable.cpp">
       <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="core\TNoPoisonConfirmMessage.cpp">
+      <Filter>patches</Filter>
+    </ClCompile>
+    <ClCompile Include="core\TNoScriptMessageBox.cpp">
+      <Filter>patches</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

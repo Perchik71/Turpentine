@@ -24,6 +24,7 @@ namespace Turpentine
 		void APIENTRY SafeExit() noexcept(true)
 		{
 			REL::DetourIAT(GlobalBase, "user32.dll", "PostQuitMessage", (uintptr_t)&Impl::HKPostQuitMessage);
+			_MESSAGE("Install SafeExit fixes");
 		}
 	}
 }

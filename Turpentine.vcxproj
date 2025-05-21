@@ -114,6 +114,7 @@
     <ClInclude Include="core\TMemory.h" />
     <ClInclude Include="core\TModSettings.h" />
     <ClInclude Include="core\TModVersion.h" />
+    <ClInclude Include="core\TNoPoisonConfirmMessage.h" />
     <ClInclude Include="core\TNoScriptMessageBox.h" />
     <ClInclude Include="core\TRelocation.h" />
     <ClInclude Include="core\TSafeExit.h" />
@@ -174,6 +175,7 @@
     <ClCompile Include="core\TMaxStdio.cpp" />
     <ClCompile Include="core\TMemory.cpp" />
     <ClCompile Include="core\TModSettings.cpp" />
+    <ClCompile Include="core\TNoPoisonConfirmMessage.cpp" />
     <ClCompile Include="core\TNoScriptMessageBox.cpp" />
     <ClCompile Include="core\TRelocation.cpp" />
     <ClCompile Include="core\TSafeExit.cpp" />

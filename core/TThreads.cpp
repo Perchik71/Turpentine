@@ -190,6 +190,8 @@ namespace Turpentine
 				auto ErrorLast = GetLastError();
 				_ERROR("SetThreadErrorMode returned failed (0x%x): %s", ErrorLast, _com_error(ErrorLast).ErrorMessage());
 			}
+
+			_MESSAGE("Install Threads patch");
 		}
 	}
 }

@@ -24,8 +24,10 @@ namespace Turpentine
 	extern std::shared_ptr<Setting> CVarLoadScreen;
 	// Enemies don't attack (they don't see player)
 	extern std::shared_ptr<Setting> CVarFriendship;
-	// Deletes the "MessageBox" function from scripts and console, fixes an issue with annoying messages in gameplay
+	// Removes the "MessageBox" function from scripts (without buttons), fixes an issue with annoying messages in gameplay
 	extern std::shared_ptr<Setting> CVarNoScriptMessageBox;
 	// Removes the [NL] prefix from all strings
 	extern std::shared_ptr<Setting> CVarWithoutPrefixNL;
+	// Removes messages about the use of poison on weapons or bows
+	extern std::shared_ptr<Setting> CVarNoPoisonConfirmMessage;
 }

@@ -3,10 +3,7 @@
 // License: https://www.gnu.org/licenses/gpl-3.0.html
 
 #include <TNoScriptMessageBox.h>
-#include <THookCommandTable.h>
 #include <TRelocation.h>
-#include <TUtils.h>
-#include <xbyak/xbyak/xbyak.h>
 
 namespace Turpentine
 {

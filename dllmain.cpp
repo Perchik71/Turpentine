@@ -20,6 +20,7 @@
 #include "TMaxStdio.h"
 #include "TLoadScreen.h"
 #include "TNoScriptMessageBox.h"
+#include "TNoPoisonConfirmMessage.h"
 
 // Fixes
 #include "TSafeExit.h"
@@ -172,6 +173,7 @@ bool APIENTRY Start(const OBSEInterface* obse)
 	GlobalModSettings.Add(Turpentine::CVarFriendship);
 	GlobalModSettings.Add(Turpentine::CVarNoScriptMessageBox);
 	GlobalModSettings.Add(Turpentine::CVarWithoutPrefixNL);
+	GlobalModSettings.Add(Turpentine::CVarNoPoisonConfirmMessage);
 
 	// Load settings
 	GlobalModSettings.LoadFromFile((Turpentine::Utils::GetGamePluginPath() + MOD_NAME ".toml").c_str());
@@ -202,6 +204,9 @@ bool APIENTRY Start(const OBSEInterface* obse)
 
 	if (Turpentine::CVarNoScriptMessageBox->GetBool())
 		Turpentine::Patches::NoScriptMessageBox();
+
+	if (Turpentine::CVarNoPoisonConfirmMessage->GetBool())
+		Turpentine::Patches::NoPoisonConfirmMessage();
 
 	// Install fixes
 	//

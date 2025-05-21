@@ -12,6 +12,8 @@ namespace Turpentine
 		void APIENTRY WithoutPrefixNL() noexcept(true)
 		{
 			Turpentine::REL::Patch(REL::Offset(0x7DABBAC), { 0x00 });
+
+			_MESSAGE("Install WithoutPrefixNL fixes");
 		}
 	}
 }

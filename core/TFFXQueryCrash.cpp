@@ -31,6 +31,8 @@ namespace Turpentine
 			static ffxQueryInstance(REL::Offset(0x45BD115), REL::Offset(0x45BD18C));
 
 			REL::DetourJump(REL::Offset(0x45BD10D), (uintptr_t)ffxQueryInstance.getCode());
+
+			_MESSAGE("Install FFXQueryCrash fixes");
 		}
 	}
 }

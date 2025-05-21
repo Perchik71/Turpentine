@@ -271,6 +271,8 @@ namespace Turpentine
 				REL::DetourIAT(GlobalBase, "API-MS-WIN-CRT-HEAP-L1-1-0.DLL", "free", (uintptr_t)&Impl::MemoryHeapIntf::free);
 				REL::DetourIAT(GlobalBase, "API-MS-WIN-CRT-HEAP-L1-1-0.DLL", "malloc", (uintptr_t)&Impl::MemoryHeapIntf::malloc);
 				REL::DetourIAT(GlobalBase, "API-MS-WIN-CRT-HEAP-L1-1-0.DLL", "realloc", (uintptr_t)&Impl::MemoryHeapIntf::realloc);
+			
+				_MESSAGE("Install MemoryManager patch");
 			}
 
 			// AK::MemoryMgr for 0.411.140.0
@@ -301,6 +303,8 @@ namespace Turpentine
 				REL::DetourJump(REL::Offset(0x63CA270), (uintptr_t)&Impl::AK::MemoryMgr::Malloc);
 				REL::DetourJump(REL::Offset(0x63CA280), (uintptr_t)&Impl::AK::MemoryMgr::Realloc);
 				REL::DetourJump(REL::Offset(0x63CA290), (uintptr_t)&Impl::AK::MemoryMgr::ReallocAligned);
+
+				_MESSAGE("Install AudioAllocator patch");
 			}
 		}
 	}
