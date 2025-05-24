@@ -19,7 +19,7 @@ bNoPoisonConfirmMessage=false		# Removes messages about the use of poison on wea
 bNoTradeSpellConfirmMessage=false	# Removes the message when the spell is purchased
 bNoTradeItemConfirmMessage=false	# Removes the message when buying or selling items, but retains the window when selecting a number of items
 bNoRechargeItemConfirmMessage=false	# Removes the message when recharging a weapon or all weapons
-bNoRepairItemConfirmMessage=false	# Removes the message when all equipment is repaired.
+bNoRepairItemConfirmMessage=false	# Removes the message when all equipment is repaired or one
 
 [Jokes]
 bFriendship=false					# Enemies don't attack (they don't see player)

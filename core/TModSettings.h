@@ -36,6 +36,6 @@ namespace Turpentine
 	extern std::shared_ptr<Setting> CVarNoTradeItemConfirmMessage;
 	// Removes the message when recharging a weapon or all weapons
 	extern std::shared_ptr<Setting> CVarNoRechargeItemConfirmMessage;
-	// Removes the message when all equipment is repaired
+	// Removes the message when all equipment is repaired or one
 	extern std::shared_ptr<Setting> CVarNoRepairItemConfirmMessage;
 }
