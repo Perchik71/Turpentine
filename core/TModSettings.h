@@ -30,4 +30,12 @@ namespace Turpentine
 	extern std::shared_ptr<Setting> CVarWithoutPrefixNL;
 	// Removes messages about the use of poison on weapons or bows
 	extern std::shared_ptr<Setting> CVarNoPoisonConfirmMessage;
+	// Removes the message when the spell is purchased
+	extern std::shared_ptr<Setting> CVarNoTradeSpellConfirmMessage;
+	// Removes the message when buying or selling items, but retains the window when selecting a number of items
+	extern std::shared_ptr<Setting> CVarNoTradeItemConfirmMessage;
+	// Removes the message when recharging a weapon or all weapons
+	extern std::shared_ptr<Setting> CVarNoRechargeItemConfirmMessage;
+	// Removes the message when all equipment is repaired
+	extern std::shared_ptr<Setting> CVarNoRepairItemConfirmMessage;
 }

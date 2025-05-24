@@ -36,3 +36,4 @@
 /linkconf
 *.zip
 copy_dll.ps1
+/extend

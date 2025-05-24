@@ -19,8 +19,14 @@
 #include "TThreads.h"
 #include "TMaxStdio.h"
 #include "TLoadScreen.h"
+
+// Messages
 #include "TNoScriptMessageBox.h"
 #include "TNoPoisonConfirmMessage.h"
+#include "TNoTradeSpellConfirmMessage.h"
+#include "TNoTradeItemConfirmMessage.h"
+#include "TNoRechargeConfirmMessage.h"
+#include "TNoRepairConfirmMessage.h"
 
 // Fixes
 #include "TSafeExit.h"
@@ -174,6 +180,10 @@ bool APIENTRY Start(const OBSEInterface* obse)
 	GlobalModSettings.Add(Turpentine::CVarNoScriptMessageBox);
 	GlobalModSettings.Add(Turpentine::CVarWithoutPrefixNL);
 	GlobalModSettings.Add(Turpentine::CVarNoPoisonConfirmMessage);
+	GlobalModSettings.Add(Turpentine::CVarNoTradeSpellConfirmMessage);
+	GlobalModSettings.Add(Turpentine::CVarNoTradeItemConfirmMessage);
+	GlobalModSettings.Add(Turpentine::CVarNoRechargeItemConfirmMessage);
+	GlobalModSettings.Add(Turpentine::CVarNoRepairItemConfirmMessage);
 
 	// Load settings
 	GlobalModSettings.LoadFromFile((Turpentine::Utils::GetGamePluginPath() + MOD_NAME ".toml").c_str());
@@ -202,11 +212,25 @@ bool APIENTRY Start(const OBSEInterface* obse)
 	//if (Turpentine::CVarLoadScreen->GetBool())
 	//	Turpentine::Patches::LoadScreen();
 
+	// Install gameplay
+	//
 	if (Turpentine::CVarNoScriptMessageBox->GetBool())
 		Turpentine::Patches::NoScriptMessageBox();
 
 	if (Turpentine::CVarNoPoisonConfirmMessage->GetBool())
 		Turpentine::Patches::NoPoisonConfirmMessage();
+	
+	if (Turpentine::CVarNoTradeSpellConfirmMessage->GetBool())
+		Turpentine::Patches::NoTradeSpellConfirmMessage();
+
+	if (Turpentine::CVarNoTradeItemConfirmMessage->GetBool())
+		Turpentine::Patches::NoTradeItemConfirmMessage();
+
+	if (Turpentine::CVarNoRechargeItemConfirmMessage->GetBool())
+		Turpentine::Patches::NoRechargeConfirmMessage();
+
+	if (Turpentine::CVarNoRepairItemConfirmMessage->GetBool())
+		Turpentine::Patches::NoRepairConfirmMessage();
 
 	// Install fixes
 	//

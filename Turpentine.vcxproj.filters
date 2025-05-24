@@ -29,6 +29,9 @@
     <Filter Include="jokes">
       <UniqueIdentifier>{7b71fbef-46af-40bf-b2bf-454b7e4f5f90}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gameplay">
+      <UniqueIdentifier>{15aa3065-1a5c-4fff-a236-41f2cc4ee6c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="depends\obse64\obse64\PluginManager.h">
@@ -194,11 +197,23 @@
     <ClInclude Include="core\THookCommandTable.h">
       <Filter>hooks</Filter>
     </ClInclude>
+    <ClInclude Include="core\TNoTradeItemConfirmMessage.h">
+      <Filter>gameplay</Filter>
+    </ClInclude>
     <ClInclude Include="core\TNoPoisonConfirmMessage.h">
-      <Filter>patches</Filter>
+      <Filter>gameplay</Filter>
     </ClInclude>
     <ClInclude Include="core\TNoScriptMessageBox.h">
-      <Filter>patches</Filter>
+      <Filter>gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="core\TNoTradeSpellConfirmMessage.h">
+      <Filter>gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="core\TNoRechargeConfirmMessage.h">
+      <Filter>gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="core\TNoRepairConfirmMessage.h">
+      <Filter>gameplay</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -337,11 +352,23 @@
     <ClCompile Include="core\THookCommandTable.cpp">
       <Filter>hooks</Filter>
     </ClCompile>
+    <ClCompile Include="core\TNoTradeItemConfirmMessage.cpp">
+      <Filter>gameplay</Filter>
+    </ClCompile>
     <ClCompile Include="core\TNoPoisonConfirmMessage.cpp">
-      <Filter>patches</Filter>
+      <Filter>gameplay</Filter>
     </ClCompile>
     <ClCompile Include="core\TNoScriptMessageBox.cpp">
-      <Filter>patches</Filter>
+      <Filter>gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="core\TNoTradeSpellConfirmMessage.cpp">
+      <Filter>gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="core\TNoRechargeConfirmMessage.cpp">
+      <Filter>gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="core\TNoRepairConfirmMessage.cpp">
+      <Filter>gameplay</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

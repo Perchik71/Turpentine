@@ -16,8 +16,8 @@ namespace Turpentine
 				uint32_t _old;
 				uintptr_t _target, _size;
 			public:
-				ScopeLock(uintptr_t Target, uintptr_t Size);
-				ScopeLock(void* Target, uintptr_t Size);
+				ScopeLock(uintptr_t a_target, uintptr_t a_size);
+				ScopeLock(void* a_target, uintptr_t a_size);
 				virtual ~ScopeLock();
 
 				[[nodiscard]] inline virtual bool HasUnlocked() const noexcept(true) { return _locked; }

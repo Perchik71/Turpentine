@@ -114,8 +114,12 @@
     <ClInclude Include="core\TMemory.h" />
     <ClInclude Include="core\TModSettings.h" />
     <ClInclude Include="core\TModVersion.h" />
+    <ClInclude Include="core\TNoRechargeConfirmMessage.h" />
+    <ClInclude Include="core\TNoRepairConfirmMessage.h" />
+    <ClInclude Include="core\TNoTradeItemConfirmMessage.h" />
     <ClInclude Include="core\TNoPoisonConfirmMessage.h" />
     <ClInclude Include="core\TNoScriptMessageBox.h" />
+    <ClInclude Include="core\TNoTradeSpellConfirmMessage.h" />
     <ClInclude Include="core\TRelocation.h" />
     <ClInclude Include="core\TSafeExit.h" />
     <ClInclude Include="core\TSettings.h" />
@@ -175,8 +179,12 @@
     <ClCompile Include="core\TMaxStdio.cpp" />
     <ClCompile Include="core\TMemory.cpp" />
     <ClCompile Include="core\TModSettings.cpp" />
+    <ClCompile Include="core\TNoRechargeConfirmMessage.cpp" />
+    <ClCompile Include="core\TNoRepairConfirmMessage.cpp" />
+    <ClCompile Include="core\TNoTradeItemConfirmMessage.cpp" />
     <ClCompile Include="core\TNoPoisonConfirmMessage.cpp" />
     <ClCompile Include="core\TNoScriptMessageBox.cpp" />
+    <ClCompile Include="core\TNoTradeSpellConfirmMessage.cpp" />
     <ClCompile Include="core\TRelocation.cpp" />
     <ClCompile Include="core\TSafeExit.cpp" />
     <ClCompile Include="core\TSettings.cpp" />
