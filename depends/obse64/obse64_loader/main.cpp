@@ -222,10 +222,22 @@ int main(int argc, char ** argv)
 			FreeLibrary(resourceHandle);
 		}
 
+		u32 trustError = 0;
+
 		if(dllOK)
 		{
-			if(!CheckDLLSignature(dllPath))
+			if(!CheckDLLSignature(dllPath, &trustError))
+			{
+				switch(trustError)
+				{
+					case CERT_E_UNTRUSTEDROOT:	// this one could be a user going in and messing with the root certs
+					case CERT_E_CHAINING:
+						PrintLoaderError("Your computer has an outdated or corrupt certificate database. This will likely cause many other issues on your machine and needs to be fixed to continue.");
+						break;
+				}
+
 				dllOK = false;
+			}
 		}
 
 		if(!dllOK)
@@ -249,7 +261,7 @@ int main(int argc, char ** argv)
 			PrintLoaderError(
 				"Bad OBSE64 DLL (%s).\n"
 				"Do not rename files; it will not magically make anything work.\n"
-				"%08X %08X", dllPath.c_str(), procHookInfo.packedVersion, dllVersion);
+				"%08X %08X %08X", dllPath.c_str(), procHookInfo.packedVersion, dllVersion, trustError);
 
 			return 1;
 		}

@@ -1,4 +1,6 @@
 #include "Utilities.h"
+#include "obse64_common/Log.h"
+#include "obse64_common/Errors.h"
 #include <string>
 #include <Windows.h>
 

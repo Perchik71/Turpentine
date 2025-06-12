@@ -215,6 +215,9 @@
     <ClInclude Include="core\TNoRepairConfirmMessage.h">
       <Filter>gameplay</Filter>
     </ClInclude>
+    <ClInclude Include="core\TNoLoadGameConfirmMessage.h">
+      <Filter>gameplay</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="depends\obse64\obse64\PluginManager.cpp">
@@ -368,6 +371,9 @@
       <Filter>gameplay</Filter>
     </ClCompile>
     <ClCompile Include="core\TNoRepairConfirmMessage.cpp">
+      <Filter>gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="core\TNoLoadGameConfirmMessage.cpp">
       <Filter>gameplay</Filter>
     </ClCompile>
   </ItemGroup>

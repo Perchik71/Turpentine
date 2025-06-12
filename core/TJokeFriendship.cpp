@@ -11,7 +11,7 @@ namespace Turpentine
 	{
 		void APIENTRY Friendship() noexcept(true)
 		{
-			Turpentine::REL::PatchNop(REL::Offset(0x65FD3FB), 5);
+			Turpentine::REL::PatchNop(REL::Offset(0x65D17EE), 5);
 
 			_MESSAGE("Install Friendship joke");
 		}

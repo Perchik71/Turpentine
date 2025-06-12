@@ -23,4 +23,5 @@ namespace Turpentine
 	std::shared_ptr<Setting> CVarNoTradeItemConfirmMessage = std::make_shared<Setting>("bNoTradeItemConfirmMessage:Gameplay", false);
 	std::shared_ptr<Setting> CVarNoRechargeItemConfirmMessage = std::make_shared<Setting>("bNoRechargeItemConfirmMessage:Gameplay", false);
 	std::shared_ptr<Setting> CVarNoRepairItemConfirmMessage = std::make_shared<Setting>("bNoRepairItemConfirmMessage:Gameplay", false);
+	std::shared_ptr<Setting> CVarNoLoadGameConfirmMessage = std::make_shared<Setting>("bNoLoadGameConfirmMessage:Gameplay", false);
 }

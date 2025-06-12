@@ -38,4 +38,6 @@ namespace Turpentine
 	extern std::shared_ptr<Setting> CVarNoRechargeItemConfirmMessage;
 	// Removes the message when all equipment is repaired or one
 	extern std::shared_ptr<Setting> CVarNoRepairItemConfirmMessage;
+	// Removes the message when you load game
+	extern std::shared_ptr<Setting> CVarNoLoadGameConfirmMessage;
 }

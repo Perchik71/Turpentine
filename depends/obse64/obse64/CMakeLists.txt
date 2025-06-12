@@ -48,12 +48,54 @@ source_group(
 )
 
 source_group(
-	${PROJECT_NAME}/api
+	${PROJECT_NAME}/game
 	FILES
 		GameConsole.cpp
 		GameConsole.h
 		GameScript.cpp
 		GameScript.h
+		GameData.cpp
+		GameData.h
+		GameTypes.cpp
+		GameTypes.h
+		GameRTTI.cpp
+		GameRTTI.h
+		GameRTTI.inl
+		GameBSExtraData.cpp
+		GameBSExtraData.h
+		GameExtraData.cpp
+		GameExtraData.h
+		GameForms.cpp
+		GameForms.h
+		GameObjects.cpp
+		GameObjects.h
+)
+
+source_group(
+	${PROJECT_NAME}/altar
+	FILES
+		AltarSync.cpp
+		AltarSync.h
+		AltarExtraData.cpp
+		AltarExtraData.h
+		STLTypes.h
+)
+
+source_group(
+	${PROJECT_NAME}/ue
+	FILES
+		UnrealAPI.cpp
+		UnrealAPI.h
+		UnrealObject.cpp
+		UnrealObject.h
+		UnrealTypes.cpp
+		UnrealTypes.h
+)
+
+source_group(
+	${PROJECT_NAME}/ni
+	FILES
+		NiTypes.h
 )
 
 source_group(
@@ -61,6 +103,12 @@ source_group(
 	FILES
 		Hooks_Script.cpp
 		Hooks_Script.h
+		Hooks_Version.cpp
+		Hooks_Version.h
+		Hooks_Gameplay.cpp
+		Hooks_Gameplay.h
+		Hooks_Data.cpp
+		Hooks_Data.h
 )
 
 source_group(
@@ -69,6 +117,25 @@ source_group(
 		PluginAPI.h
 		PluginManager.cpp
 		PluginManager.h
+		SteamInit.cpp
+		SteamInit.h
+		CommandTable.cpp
+		CommandTable.h
+		ParamInfos.cpp
+		ParamInfos.h
+		MersenneTwister.cpp
+		MersenneTwister.h
+)
+
+source_group(
+	${PROJECT_NAME}/commands
+	FILES
+		Commands_Inventory.cpp
+		Commands_Input.cpp
+		Commands_Console.cpp
+		Commands_Player.cpp
+		Commands_Math.cpp
+		Commands_MiscReference.cpp
 )
 
 # ---- Create library ----
@@ -80,6 +147,7 @@ add_library(
 	${sources}
 	obse64.def
 	obse64_version.rc
+	GameRTTI.inl
 )
 
 add_library(obse64::${PROJECT_NAME} ALIAS ${PROJECT_NAME})

@@ -1,3 +1,5 @@
+#define _CRT_RAND_S
+#include <stdlib.h>
 #include <Windows.h>
 #include <ShlObj.h>
 #include <corecrt_startup.h>
@@ -8,8 +10,13 @@
 #include "obse64_common/BranchTrampoline.h"
 #include "obse64_common/CoreInfo.h"
 #include "PluginManager.h"
+#include "SteamInit.h"
+#include "MersenneTwister.h"
 
 #include "Hooks_Script.h"
+#include "Hooks_Version.h"
+#include "Hooks_Gameplay.h"
+#include "Hooks_Data.h"
 
 HINSTANCE g_moduleHandle = nullptr;
 
@@ -107,7 +114,7 @@ void OBSE64_Preinit()
 
 	// WaitForDebugger();
 #endif
-
+	
 	if(!g_branchTrampoline.create(1024 * 64))
 	{
 		_ERROR("couldn't create branch trampoline. this is fatal. skipping remainder of init process.");
@@ -135,13 +142,30 @@ void OBSE64_Initialize()
 	if(runOnce) return;
 	runOnce = true;
 
+	SteamInit(2623190);	// fixed appid?
+
 	// load plugins
 	g_pluginManager.installPlugins(PluginManager::kPhase_Load);
 	g_pluginManager.loadComplete();
 
 	Hooks_Script_Apply();
+	Hooks_Version_Apply();
+	Hooks_Gameplay_Apply();
+	Hooks_Data_Apply();
 
 	FlushInstructionCache(GetCurrentProcess(), NULL, 0);
+
+	{
+		const int kRNGSeedLen = 4;
+
+		u32 seed[kRNGSeedLen];
+
+		for(int i = 0; i < kRNGSeedLen; i++)
+			rand_s(&seed[i]);
+
+		static_assert(sizeof(unsigned long) == sizeof(u32));
+		MersenneTwister::init_by_array((unsigned long *)seed, kRNGSeedLen);
+	}
 
 	_MESSAGE("init complete");
 

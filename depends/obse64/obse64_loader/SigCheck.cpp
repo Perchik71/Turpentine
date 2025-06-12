@@ -27,6 +27,8 @@ public:
 
 	const std::vector <u8> & serial() const { return m_serial; }
 
+	DWORD getTrustError() { return m_trustError; }
+
 private:
 	bool getLeafCertSerial(const WCHAR * path, std::vector <u8> * outSerial) const;
 
@@ -173,14 +175,17 @@ bool FileCertVerifier::getLeafCertSerial(const WCHAR * path, std::vector <u8> * 
 
 #endif
 
-bool CheckDLLSignature(const std::string & dllPath)
+bool CheckDLLSignature(const std::string & dllPath, u32 * trustError)
 {
 	// verify ourselves, get the signature
 	WCHAR exePath[2048];
 	GetModuleFileNameW(GetModuleHandle(NULL), exePath, _countof(exePath));
 
 	FileCertVerifier exeVerifier;
-	if(!exeVerifier.verify(exePath))
+	bool validationOK = exeVerifier.verify(exePath);
+	if(trustError) *trustError = exeVerifier.getTrustError();
+
+	if(!validationOK)
 	{
 		_ERROR("exe failed validation");
 		return false;

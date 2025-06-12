@@ -57,8 +57,8 @@ namespace Turpentine
 	{
 		void APIENTRY CommandTable() noexcept(true)
 		{
-			RE::OldTableCommands = (RE::CommandInfo*)REL::Offset(0x8FEC850);
-			RE::NewTableCommands = (RE::CommandInfo*)REL::Offset(0x8FF3C40);
+			RE::OldTableCommands = (RE::CommandInfo*)REL::Offset(0x8FAF210);
+			RE::NewTableCommands = (RE::CommandInfo*)REL::Offset(0x8FB6600);
 		}
 	}
 }

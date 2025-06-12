@@ -3,11 +3,14 @@
 
 // these have to be macros so they can be used in the .rc
 #define OBSE_VERSION_INTEGER		0
-#define OBSE_VERSION_INTEGER_MINOR	1
+#define OBSE_VERSION_INTEGER_MINOR	2
 #define OBSE_VERSION_INTEGER_BETA	0
-#define OBSE_VERSION_VERSTRING		"0, 0, 1, 0"
+#define OBSE_VERSION_VERSTRING		"0, 0, 2, 0"
 #define OBSE_VERSION_PADDEDSTRING	"0001"
 #define OBSE_VERSION_RELEASEIDX		1
+
+// the version of classic OBSE currently implemented
+#define OBSE_VERSION_IMPL_INTEGER	6
 
 //	x-------	major
 //	-xxx----	minor
@@ -27,14 +30,17 @@
 #define	RUNTIME_TYPE_EPIC		2
 #define	RUNTIME_TYPE_MSSTORE	3
 
-#define RUNTIME_VERSION_0_411_140	MAKE_EXE_VERSION(0, 411, 140)	// 0x019B08C0	initial Steam release
+#define RUNTIME_VERSION_0_411_140	MAKE_EXE_VERSION(0, 411, 140)	// 0x019B08C0	initial release
+#define RUNTIME_VERSION_0_411_141	MAKE_EXE_VERSION(0, 411, 141)	// 0x019B08D0	ms store only update
+#define RUNTIME_VERSION_0_411_142	MAKE_EXE_VERSION(0, 411, 142)	// 0x019B08E0	ms store only update
+#define RUNTIME_VERSION_1_511_102	MAKE_EXE_VERSION(1, 511, 102)	// 0x11FF0660	beta patch released to public
 
 #define PACKED_OBSE_VERSION		MAKE_EXE_VERSION(OBSE_VERSION_INTEGER, OBSE_VERSION_INTEGER_MINOR, OBSE_VERSION_INTEGER_BETA)
 
 // information about the state of the game at the time of release
 #define OBSE_TARGETING_BETA_VERSION	0
-#define CURRENT_RELEASE_RUNTIME		RUNTIME_VERSION_0_411_140
-#define CURRENT_RELEASE_OBSE_STR	"0.1.0"
+#define CURRENT_RELEASE_RUNTIME		RUNTIME_VERSION_1_511_102
+#define CURRENT_RELEASE_OBSE_STR	"0.2.0"
 
 #if GET_EXE_VERSION_SUB(RUNTIME_VERSION) == RUNTIME_TYPE_BETHESDA
 #define SAVE_FOLDER_NAME "Oblivion Remastered"

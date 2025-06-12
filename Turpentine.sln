@@ -11,12 +11,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MemoryManager", "depends\vm
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Toml", "depends\Toml\Toml.vcxproj", "{05D6A7E8-F94B-49AD-B7F2-B1A832B746FD}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcommon", "extend\libcommon\libcommon.vcxproj", "{FE46A9DF-49C8-4D81-9A10-85DA242C4530}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "address_gen", "extend\libcommon\address_gen\address_gen.vcxproj", "{044679BC-FEC8-458B-80AC-B6339CEB6078}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LibCommonOBSE64", "LibCommonOBSE64", "{D335BB34-81F2-417A-BFE9-A6786A9A67C5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|x64 = Release|x64
@@ -39,21 +33,9 @@ Global
 		{05D6A7E8-F94B-49AD-B7F2-B1A832B746FD}.Release|x64.Build.0 = Release|x64
 		{05D6A7E8-F94B-49AD-B7F2-B1A832B746FD}.Release|x86.ActiveCfg = Release|Win32
 		{05D6A7E8-F94B-49AD-B7F2-B1A832B746FD}.Release|x86.Build.0 = Release|Win32
-		{FE46A9DF-49C8-4D81-9A10-85DA242C4530}.Release|x64.ActiveCfg = Release|x64
-		{FE46A9DF-49C8-4D81-9A10-85DA242C4530}.Release|x64.Build.0 = Release|x64
-		{FE46A9DF-49C8-4D81-9A10-85DA242C4530}.Release|x86.ActiveCfg = Release|Win32
-		{FE46A9DF-49C8-4D81-9A10-85DA242C4530}.Release|x86.Build.0 = Release|Win32
-		{044679BC-FEC8-458B-80AC-B6339CEB6078}.Release|x64.ActiveCfg = Release|x64
-		{044679BC-FEC8-458B-80AC-B6339CEB6078}.Release|x64.Build.0 = Release|x64
-		{044679BC-FEC8-458B-80AC-B6339CEB6078}.Release|x86.ActiveCfg = Release|Win32
-		{044679BC-FEC8-458B-80AC-B6339CEB6078}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{FE46A9DF-49C8-4D81-9A10-85DA242C4530} = {D335BB34-81F2-417A-BFE9-A6786A9A67C5}
-		{044679BC-FEC8-458B-80AC-B6339CEB6078} = {D335BB34-81F2-417A-BFE9-A6786A9A67C5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {931E07B7-B8D0-49F6-B5C8-1D54CCD769AE}

@@ -14,16 +14,16 @@ namespace Turpentine
 		{
 			static void* APIENTRY GameApplySellOrBuyItemFromPlayer()
 			{
-				return Utils::FastCall<void*>(REL::Offset(0x6782400));
+				return Utils::FastCall<void*>(REL::Offset(0x6756810));
 			}
 		}
 
 		void APIENTRY NoTradeItemConfirmMessage() noexcept(true)
 		{
 			// Sell / Buy
-			REL::Patch(REL::Offset(0x678240A), { 0x00 });
-			REL::PatchNop(REL::Offset(0x678240B), 0x6);
-			REL::DetourCall(REL::Offset(0x677F6AD), (uintptr_t)&Impl::GameApplySellOrBuyItemFromPlayer);
+			REL::Patch(REL::Offset(0x675681A), { 0x00 });
+			REL::PatchNop(REL::Offset(0x675681B), 0x6);
+			REL::DetourCall(REL::Offset(0x6753AA5), (uintptr_t)&Impl::GameApplySellOrBuyItemFromPlayer);
 
 			_MESSAGE("Install NoTradeItemConfirmMessage patch");
 		}

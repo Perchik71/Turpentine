@@ -106,6 +106,8 @@ struct OBSEMessagingInterface
 	enum {
 		kMessage_PostLoad,		// sent to registered plugins once all plugins have been loaded (no data)
 		kMessage_PostPostLoad,	// sent right after kMessage_PostPostLoad to facilitate the correct dispatching/registering of messages/listeners
+
+		kMessage_DataLoaded,	// sent after the data handler has loaded all its forms. call comes from Oblivion thread
 	};
 
 	std::uint32_t interfaceVersion;

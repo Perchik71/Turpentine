@@ -2,6 +2,8 @@
 #include "SafeWrite.h"
 #include <climits>
 #include <Windows.h>
+#include "obse64_common/Log.h"
+#include "obse64_common/Errors.h"
 
 BranchTrampoline g_branchTrampoline;
 BranchTrampoline g_localTrampoline;
@@ -225,8 +227,8 @@ bool BranchTrampoline::write5Branch_Internal(uintptr_t src, uintptr_t dst, u8 op
 	};
 #pragma pack(pop)
 
-	STATIC_ASSERT(sizeof(TrampolineCode) == 14);
-	STATIC_ASSERT(sizeof(HookCode) == 5);
+	//STATIC_ASSERT(sizeof(TrampolineCode) == 14);
+	//STATIC_ASSERT(sizeof(HookCode) == 5);
 
 	TrampolineCode * trampolineCode = (TrampolineCode *)allocate(sizeof(TrampolineCode));
 	if (trampolineCode)

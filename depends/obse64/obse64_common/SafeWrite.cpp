@@ -1,5 +1,6 @@
 #include "SafeWrite.h"
 #include <Windows.h>
+#include "obse64_common/Errors.h"
 
 void safeWriteBuf(uintptr_t addr, void * data, size_t len)
 {

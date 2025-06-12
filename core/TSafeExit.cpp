@@ -15,7 +15,7 @@ namespace Turpentine
 		{
 			static void WINAPI HKPostQuitMessage(int nExitCode) noexcept(true)
 			{
-				if (!TerminateProcess(GetCurrentProcess(), 0))
+				if (!TerminateProcess(GetCurrentProcess(), EXIT_SUCCESS))
 					std::abort();
 				__assume(0);
 			}

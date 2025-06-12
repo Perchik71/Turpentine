@@ -27,6 +27,7 @@
 #include "TNoTradeItemConfirmMessage.h"
 #include "TNoRechargeConfirmMessage.h"
 #include "TNoRepairConfirmMessage.h"
+#include "TNoLoadGameConfirmMessage.h"
 
 // Fixes
 #include "TSafeExit.h"
@@ -59,7 +60,7 @@ extern "C"
 		MOD_AUTHOR,
 		0,
 		0,
-		{ RUNTIME_VERSION_0_411_140, 0 },
+		{ RUNTIME_VERSION_1_511_102, 0 },
 		0,	// works with any version of the script extender. you probably do not need to put anything here
 	};
 
@@ -184,6 +185,7 @@ bool APIENTRY Start(const OBSEInterface* obse)
 	GlobalModSettings.Add(Turpentine::CVarNoTradeItemConfirmMessage);
 	GlobalModSettings.Add(Turpentine::CVarNoRechargeItemConfirmMessage);
 	GlobalModSettings.Add(Turpentine::CVarNoRepairItemConfirmMessage);
+	GlobalModSettings.Add(Turpentine::CVarNoLoadGameConfirmMessage);
 
 	// Load settings
 	GlobalModSettings.LoadFromFile((Turpentine::Utils::GetGamePluginPath() + MOD_NAME ".toml").c_str());
@@ -232,6 +234,9 @@ bool APIENTRY Start(const OBSEInterface* obse)
 	if (Turpentine::CVarNoRepairItemConfirmMessage->GetBool())
 		Turpentine::Patches::NoRepairConfirmMessage();
 
+	if (Turpentine::CVarNoLoadGameConfirmMessage->GetBool())
+		Turpentine::Patches::NoLoadGameConfirmMessage();
+
 	// Install fixes
 	//
 	if (Turpentine::CVarSafeExit->GetBool())
@@ -247,9 +252,6 @@ bool APIENTRY Start(const OBSEInterface* obse)
 	//
 	if (Turpentine::CVarFriendship->GetBool())
 		Turpentine::Jokes::Friendship();
-
-	// Blocking input or show pause menu
-	//Turpentine::REL::Patch(GlobalBase + 0x6591CD0, { 0x31, 0xC0, 0xC3, 0x90 });
 
 	return true;
 }
