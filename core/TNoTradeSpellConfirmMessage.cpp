@@ -10,21 +10,27 @@ namespace Turpentine
 {
 	namespace Patches
 	{
+		uintptr_t sub_NoTradeSpellConfirmMessage_0 = 0;
+		uintptr_t sub_NoTradeSpellConfirmMessage_1 = 0;
+
 		namespace Impl
 		{
 			static void* APIENTRY GameApplyTradeSpellByPlayer()
 			{
-				return Utils::FastCall<void*>(REL::Offset(0x67BFD80));
+				return Utils::FastCall<void*>(sub_NoTradeSpellConfirmMessage_1);
 			}
 		}
 
 		void APIENTRY NoTradeSpellConfirmMessage() noexcept(true)
 		{
-			REL::Patch(REL::Offset(0x67C0303), { 0x00 });
-			REL::Patch(REL::Offset(0x67BFDD9), { 0x00 });
-			REL::Patch(REL::Offset(0x67C02FA), { 0x31, 0xD2, 0x90, 0x90, 0x90, 0x90, 0x90 });
-			REL::DetourCall(REL::Offset(0x67C0313), (uintptr_t)&Impl::GameApplyTradeSpellByPlayer);
-			REL::PatchNop(REL::Offset(0x67BFDDA), 0x6);
+			sub_NoTradeSpellConfirmMessage_0 = REL::ID(411431);	// 67BFF30
+			sub_NoTradeSpellConfirmMessage_1 = REL::ID(411430);	// 67BFD80
+			
+			REL::Patch(sub_NoTradeSpellConfirmMessage_0 + 0x3D3, { 0x00 });
+			REL::Patch(sub_NoTradeSpellConfirmMessage_1 + 0x59, { 0x00 });
+			REL::Patch(sub_NoTradeSpellConfirmMessage_0 + 0x3CA, { 0x31, 0xD2, 0x90, 0x90, 0x90, 0x90, 0x90 });
+			REL::DetourCall(sub_NoTradeSpellConfirmMessage_0 + 0x3E3, (uintptr_t)&Impl::GameApplyTradeSpellByPlayer);
+			REL::PatchNop(sub_NoTradeSpellConfirmMessage_1 + 0x5A, 0x6);
 
 			_MESSAGE("Install NoTradeSpellConfirmMessage patch");
 		}

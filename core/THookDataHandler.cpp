@@ -12,11 +12,13 @@ namespace Turpentine
 {
 	namespace Hooks
 	{
+		uintptr_t sub_DataHandler_0 = 0;
+
 		namespace Impl
 		{
 			static bool APIENTRY TESDataHandler_Hook_LoadPlugin(const void* self, __int64 file, char a3)
 			{
-				bool r = Utils::ThisCall<bool>(REL::Offset(0x6624110), self, file, a3);
+				bool r = Utils::ThisCall<bool>(sub_DataHandler_0, self, file, a3);
 				
 				if (file)
 				{
@@ -35,8 +37,10 @@ namespace Turpentine
 		
 		void APIENTRY DataHandler() noexcept(true)
 		{
-			Turpentine::REL::DetourCall(REL::Offset(0x6623236), (uintptr_t)&Impl::TESDataHandler_Hook_LoadPlugin);
-			Turpentine::REL::PatchNop(REL::Offset(0x6624479), 5);
+			sub_DataHandler_0 = REL::ID(407438);
+			
+			Turpentine::REL::DetourCall(REL::ID(407436) + 0x366, (uintptr_t)&Impl::TESDataHandler_Hook_LoadPlugin);
+			Turpentine::REL::PatchNop(sub_DataHandler_0 + 0x369, 5);
 		}
 	}
 }

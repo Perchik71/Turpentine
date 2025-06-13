@@ -47,7 +47,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IntDir>$(SolutionDir)linkconf\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)build\</OutDir>
-    <IncludePath>$(SolutionDir)depends\obse64;$(SolutionDir)core;$(SolutionDir)depends\vmm\include;$(SolutionDir)depends\detours;$(SolutionDir)depends\typeinfo;$(SolutionDir)depends\Toml\include;$(SolutionDir)depends\f4se_common;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)depends\obse64;$(SolutionDir)core;$(SolutionDir)depends\vmm\include;$(SolutionDir)depends\detours;$(SolutionDir)depends\typeinfo;$(SolutionDir)depends\Toml\include;$(SolutionDir)depends\f4se_common;$(SolutionDir)depends\SHA;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -105,9 +105,7 @@
   <ItemGroup>
     <ClInclude Include="core\common.h" />
     <ClInclude Include="core\TFFXQueryCrash.h" />
-    <ClInclude Include="core\THookCommandTable.h" />
     <ClInclude Include="core\THookDataHandler.h" />
-    <ClInclude Include="core\THookMenuSettings.h" />
     <ClInclude Include="core\TJokeFriendship.h" />
     <ClInclude Include="core\TLoadScreen.h" />
     <ClInclude Include="core\TMaxStdio.h" />
@@ -168,13 +166,12 @@
     <ClInclude Include="depends\obse64\obse64_common\SafeWrite.h" />
     <ClInclude Include="depends\obse64\obse64_common\Types.h" />
     <ClInclude Include="depends\obse64\obse64_common\Utilities.h" />
+    <ClInclude Include="depends\SHA\sha256.h" />
     <ClInclude Include="depends\typeinfo\ms_rtti.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core\TFFXQueryCrash.cpp" />
-    <ClCompile Include="core\THookCommandTable.cpp" />
     <ClCompile Include="core\THookDataHandler.cpp" />
-    <ClCompile Include="core\THookMenuSettings.cpp" />
     <ClCompile Include="core\TJokeFriendship.cpp" />
     <ClCompile Include="core\TLoadScreen.cpp" />
     <ClCompile Include="core\TMaxStdio.cpp" />
@@ -225,6 +222,7 @@
     <ClCompile Include="depends\obse64\obse64_common\Relocation.cpp" />
     <ClCompile Include="depends\obse64\obse64_common\SafeWrite.cpp" />
     <ClCompile Include="depends\obse64\obse64_common\Utilities.cpp" />
+    <ClCompile Include="depends\SHA\sha256.cpp" />
     <ClCompile Include="depends\typeinfo\ms_rtti.cpp" />
     <ClCompile Include="dllmain.cpp" />
   </ItemGroup>

@@ -10,32 +10,40 @@ namespace Turpentine
 {
 	namespace Patches
 	{
+		uintptr_t sub_NoRepairConfirmMessage_0 = 0;
+		uintptr_t sub_NoRepairConfirmMessage_1 = 0;
+		uintptr_t sub_NoRepairConfirmMessage_2 = 0;
+
 		namespace Impl
 		{
 			static void* APIENTRY GameApplyRepairItemByPlayer()
 			{
-				return Utils::FastCall<void*>(REL::Offset(0x67B40A0));
+				return Utils::FastCall<void*>(sub_NoRepairConfirmMessage_1);
 			}
 
 			static void* APIENTRY GameApplyRepairItemAllByPlayer()
 			{
-				return Utils::FastCall<void*>(REL::Offset(0x67B60A0));
+				return Utils::FastCall<void*>(sub_NoRepairConfirmMessage_2);
 			}
 		}
 
 		void APIENTRY NoRepairConfirmMessage() noexcept(true)
 		{
+			sub_NoRepairConfirmMessage_0 = REL::ID(411317);	// 67B4330
+			sub_NoRepairConfirmMessage_1 = REL::ID(411316);	// 67B40A0
+			sub_NoRepairConfirmMessage_2 = REL::ID(411335);	// 67B60A0
+
 			// One
-			REL::Patch(REL::Offset(0x67B40F3), { 0x00 });
-			REL::PatchNop(REL::Offset(0x67B40F4), 0x6);
-			REL::DetourCall(REL::Offset(0x67B504D), (uintptr_t)&Impl::GameApplyRepairItemByPlayer);
-			REL::PatchNop(REL::Offset(0x67B5052), 0x8);
+			REL::Patch(sub_NoRepairConfirmMessage_1 + 0x53, { 0x00 });
+			REL::PatchNop(sub_NoRepairConfirmMessage_1 + 0x54, 0x6);
+			REL::DetourCall(sub_NoRepairConfirmMessage_1 + 0xD1D, (uintptr_t)&Impl::GameApplyRepairItemByPlayer);
+			REL::PatchNop(sub_NoRepairConfirmMessage_1 + 0xD22, 0x8);
 			
 			// All
-			REL::Patch(REL::Offset(0x67B60D6), { 0x00 });
-			REL::PatchNop(REL::Offset(0x67B60D7), 0x6);
-			REL::DetourCall(REL::Offset(0x67B4505), (uintptr_t)&Impl::GameApplyRepairItemAllByPlayer);
-			REL::PatchNop(REL::Offset(0x67B450A), 0x8);
+			REL::Patch(sub_NoRepairConfirmMessage_2 + 0x36, { 0x00 });
+			REL::PatchNop(sub_NoRepairConfirmMessage_2 + 0x37, 0x6);
+			REL::DetourCall(sub_NoRepairConfirmMessage_1 + 0x1D5, (uintptr_t)&Impl::GameApplyRepairItemAllByPlayer);
+			REL::PatchNop(sub_NoRepairConfirmMessage_1 + 0x1DA, 0x8);
 		
 			_MESSAGE("Install NoRepairConfirmMessage patch");
 		}

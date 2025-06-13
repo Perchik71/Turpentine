@@ -298,11 +298,11 @@ namespace Turpentine
 			{
 				Impl::AK::audiomgr = new voltek::memory_manager::memory_manager();
 
-				REL::DetourJump(REL::Offset(0x639DF60), (uintptr_t)&Impl::AK::MemoryMgr::Free);
-				REL::DetourJump(REL::Offset(0x639DFA0), (uintptr_t)&Impl::AK::MemoryMgr::Malign);
-				REL::DetourJump(REL::Offset(0x639DFB0), (uintptr_t)&Impl::AK::MemoryMgr::Malloc);
-				REL::DetourJump(REL::Offset(0x639DFC0), (uintptr_t)&Impl::AK::MemoryMgr::Realloc);
-				REL::DetourJump(REL::Offset(0x639DFD0), (uintptr_t)&Impl::AK::MemoryMgr::ReallocAligned);
+				REL::DetourJump(REL::ID(399128), (uintptr_t)&Impl::AK::MemoryMgr::Free);
+				REL::DetourJump(REL::ID(399132), (uintptr_t)&Impl::AK::MemoryMgr::Malign);
+				REL::DetourJump(REL::ID(399133), (uintptr_t)&Impl::AK::MemoryMgr::Malloc);
+				REL::DetourJump(REL::ID(399134), (uintptr_t)&Impl::AK::MemoryMgr::Realloc);
+				REL::DetourJump(REL::ID(399135), (uintptr_t)&Impl::AK::MemoryMgr::ReallocAligned);
 
 				_MESSAGE("Install AudioAllocator patch");
 			}

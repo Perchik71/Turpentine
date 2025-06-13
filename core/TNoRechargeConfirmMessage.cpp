@@ -10,29 +10,39 @@ namespace Turpentine
 {
 	namespace Patches
 	{
+		uintptr_t sub_NoRechargeConfirmMessage_0 = 0;
+		uintptr_t sub_NoRechargeConfirmMessage_1 = 0;
+		uintptr_t sub_NoRechargeConfirmMessage_2 = 0;
+		uintptr_t sub_NoRechargeConfirmMessage_3 = 0;
+
 		namespace Impl
 		{
 			static void* APIENTRY GameApplyRechargeItemByPlayer()
 			{
-				return Utils::FastCall<void*>(REL::Offset(0x67AFDE0));
+				return Utils::FastCall<void*>(sub_NoRechargeConfirmMessage_1);
 			}
 
 			static void* APIENTRY GameApplyRechargeItemAllByPlayer()
 			{
-				return Utils::FastCall<void*>(REL::Offset(0x67B1580));
+				return Utils::FastCall<void*>(sub_NoRechargeConfirmMessage_3);
 			}
 		}
 
 		void APIENTRY NoRechargeConfirmMessage() noexcept(true)
 		{
-			REL::PatchNop(REL::Offset(0x67AFDEB), 0x6);
-			REL::Patch(REL::Offset(0x67AFDEA), { 0x00 });
-			REL::DetourCall(REL::Offset(0x67B07A6), (uintptr_t)&Impl::GameApplyRechargeItemByPlayer);
+			sub_NoRechargeConfirmMessage_0 = REL::ID(411278);	// 67B00D0
+			sub_NoRechargeConfirmMessage_1 = REL::ID(411277);	// 67AFDE0
+			sub_NoRechargeConfirmMessage_2 = REL::ID(411299);	// 67B1CE0
+			sub_NoRechargeConfirmMessage_3 = REL::ID(411293);	// 67B1580
 
-			REL::PatchNop(REL::Offset(0x67B15A5), 0x6);
-			REL::Patch(REL::Offset(0x67B15A4), { 0x00 });
-			REL::DetourCall(REL::Offset(0x67B1E31), (uintptr_t)&Impl::GameApplyRechargeItemAllByPlayer);
-
+			REL::PatchNop(sub_NoRechargeConfirmMessage_1 + 0xB, 0x6);
+			REL::Patch(sub_NoRechargeConfirmMessage_1 + 0xA, { 0x00 });
+			REL::DetourCall(sub_NoRechargeConfirmMessage_0 + 0x6D6, (uintptr_t)&Impl::GameApplyRechargeItemByPlayer);
+			
+			REL::PatchNop(sub_NoRechargeConfirmMessage_3 + 0x25, 0x6);
+			REL::Patch(sub_NoRechargeConfirmMessage_3 + 0x24, { 0x00 });
+			REL::DetourCall(sub_NoRechargeConfirmMessage_3 + 0x151, (uintptr_t)&Impl::GameApplyRechargeItemAllByPlayer);
+			
 			_MESSAGE("Install NoRechargeConfirmMessage patch");
 		}
 	}

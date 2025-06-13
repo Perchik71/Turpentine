@@ -2,8 +2,11 @@
 // Contacts: <email:timencevaleksej@gmail.com>
 // License: https://www.gnu.org/licenses/gpl-3.0.html
 
+//#include <sha256.h>
 #include "TRelocation.h"
 #include <detours/Detours.h>
+#include <obse64_common/obse64_version.h>
+#include <obse64_common/FileStream.h>
 
 extern uintptr_t GlobalBase;
 
@@ -11,6 +14,79 @@ namespace Turpentine
 {
 	namespace REL
 	{
+		static IDDB* siddb = nullptr;
+
+		IDDB::IDDB(const std::wstring& fname, uint32_t runtimeVersion) noexcept(true) :
+			_runtimeVersion(runtimeVersion)
+		{
+			FileStream stream;
+			if (stream.open(fname.c_str()))
+			{
+				_WIN32_FILE_ATTRIBUTE_DATA fd{};
+				GetFileAttributesExW(fname.c_str(), GetFileExInfoStandard, &fd);
+
+				ULARGE_INTEGER ul{};
+				ul.HighPart = fd.nFileSizeHigh;
+				ul.LowPart = fd.nFileSizeLow;
+
+				if (ul.QuadPart > 0x60)
+				{
+					stream.seek(0x60);
+
+					_count = (ul.QuadPart - 0x60) / sizeof(mapping_t);
+					_id2offset = new mapping_t[_count];
+					if (_id2offset) stream.read(_id2offset, ul.QuadPart - 0x60);
+				}
+
+				stream.close();
+			}
+		}
+
+		IDDB::~IDDB()
+		{
+			if (_id2offset)
+			{
+				delete[] _id2offset;
+				_id2offset = nullptr;
+			}
+		}
+
+		const IDDB* IDDB::Create(const wchar_t* fname, uint32_t runtimeVersion) noexcept(true)
+		{
+			siddb = new IDDB(fname, runtimeVersion);	
+			if (!siddb->_count)
+			{
+				delete siddb;
+				siddb = nullptr;
+			}
+			return siddb;
+		}
+
+		void IDDB::Release() noexcept(true)
+		{
+			if (siddb)
+			{
+				delete siddb;
+				siddb = nullptr;
+			}
+		}
+
+		const IDDB* IDDB::GetSingleton() noexcept(true)
+		{
+			return siddb;
+		}
+
+		uintptr_t IDDB::ID2Offset(uintptr_t id) const noexcept(true)
+		{
+			return static_cast<uintptr_t>(_id2offset[id].offset);
+		}
+
+		uintptr_t ID(uintptr_t id) noexcept(true)
+		{
+			auto off = siddb ? siddb->ID2Offset(id) : 0;
+			return !off ? 0 : Offset(off);
+		}
+
 		namespace Impl
 		{
 			ScopeLock::ScopeLock(uintptr_t Target, uintptr_t Size) :

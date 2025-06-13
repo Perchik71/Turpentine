@@ -11,9 +11,23 @@ namespace Turpentine
 	{
 		void APIENTRY WithoutPrefixNL() noexcept(true)
 		{
-			Turpentine::REL::Patch(REL::Offset(0x7D71B2C), { 0x00 });
+			auto sub = (uint8_t*)REL::ID(308068); // 4883B20
+			if (!sub)
+			{
+				_MESSAGE("Install WithoutPrefixNL fixes [ID:FAILED]");
+				return;
+			}
 
-			_MESSAGE("Install WithoutPrefixNL fixes");
+			sub += 0x6D5;
+			if ((sub[0] == 0x48) && (sub[1] == 0x8D) && (sub[2] == 0x15))
+			{
+				auto offset = (uintptr_t)(*(uint32_t*)(sub + 3)) + (uintptr_t)sub + 7;
+				Turpentine::REL::Patch(offset, { 0x00 });
+				
+				_MESSAGE("Install WithoutPrefixNL fixes");
+			}
+			else
+				_MESSAGE("Install WithoutPrefixNL fixes [SIG:FAILED]");
 		}
 	}
 }

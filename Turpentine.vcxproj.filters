@@ -32,6 +32,9 @@
     <Filter Include="gameplay">
       <UniqueIdentifier>{15aa3065-1a5c-4fff-a236-41f2cc4ee6c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="depends\sha">
+      <UniqueIdentifier>{3adede9b-d935-4668-8e70-e460477df763}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="depends\obse64\obse64\PluginManager.h">
@@ -184,18 +187,12 @@
     <ClInclude Include="core\THookDataHandler.h">
       <Filter>hooks</Filter>
     </ClInclude>
-    <ClInclude Include="core\THookMenuSettings.h">
-      <Filter>hooks</Filter>
-    </ClInclude>
     <ClInclude Include="core\TModVersion.h" />
     <ClInclude Include="core\TJokeFriendship.h">
       <Filter>jokes</Filter>
     </ClInclude>
     <ClInclude Include="core\TWithoutPrefixNL.h">
       <Filter>fixes</Filter>
-    </ClInclude>
-    <ClInclude Include="core\THookCommandTable.h">
-      <Filter>hooks</Filter>
     </ClInclude>
     <ClInclude Include="core\TNoTradeItemConfirmMessage.h">
       <Filter>gameplay</Filter>
@@ -217,6 +214,9 @@
     </ClInclude>
     <ClInclude Include="core\TNoLoadGameConfirmMessage.h">
       <Filter>gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="depends\SHA\sha256.h">
+      <Filter>depends\sha</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -343,17 +343,11 @@
     <ClCompile Include="core\THookDataHandler.cpp">
       <Filter>hooks</Filter>
     </ClCompile>
-    <ClCompile Include="core\THookMenuSettings.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
     <ClCompile Include="core\TJokeFriendship.cpp">
       <Filter>jokes</Filter>
     </ClCompile>
     <ClCompile Include="core\TWithoutPrefixNL.cpp">
       <Filter>fixes</Filter>
-    </ClCompile>
-    <ClCompile Include="core\THookCommandTable.cpp">
-      <Filter>hooks</Filter>
     </ClCompile>
     <ClCompile Include="core\TNoTradeItemConfirmMessage.cpp">
       <Filter>gameplay</Filter>
@@ -375,6 +369,9 @@
     </ClCompile>
     <ClCompile Include="core\TNoLoadGameConfirmMessage.cpp">
       <Filter>gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="depends\SHA\sha256.cpp">
+      <Filter>depends\sha</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

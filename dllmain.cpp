@@ -11,8 +11,6 @@
 
 // Hooks
 #include "THookDataHandler.h"
-#include "THookMenuSettings.h"
-#include "THookCommandTable.h"
 
 // Patches
 #include "TMemory.h"
@@ -58,8 +56,8 @@ extern "C"
 		MOD_VERSION,
 		MOD_NAME,
 		MOD_AUTHOR,
-		0,
-		0,
+		OBSEPluginVersionData::kAddressIndependence_AddressLibrary,
+		OBSEPluginVersionData::kStructureIndependence_NoStructs,
 		{ RUNTIME_VERSION_1_511_102, 0 },
 		0,	// works with any version of the script extender. you probably do not need to put anything here
 	};
@@ -108,6 +106,21 @@ static void APIENTRY InitializeOBSE64LogSystem()
 	}
 }
 
+static bool APIENTRY OpenAddressLibrary(const OBSEInterface* obse)
+{
+	auto fileName = std::make_unique<wchar_t[]>(500);
+	const wchar_t* buildType = L"";
+
+	swprintf_s(fileName.get(), 500, L"OBSE\\Plugins\\versionlib-%d-%d-%d-%d%s.bin",
+		GET_EXE_VERSION_MAJOR(obse->runtimeVersion),
+		GET_EXE_VERSION_MINOR(obse->runtimeVersion),
+		GET_EXE_VERSION_BUILD(obse->runtimeVersion),
+		GET_EXE_VERSION_SUB(obse->runtimeVersion),
+		buildType);
+
+	return Turpentine::REL::IDDB::Create(fileName.get(), obse->runtimeVersion) != nullptr;
+}
+
 bool APIENTRY Start(const OBSEInterface* obse)
 {
 	InitializeOBSE64LogSystem();
@@ -137,6 +150,8 @@ bool APIENTRY Start(const OBSEInterface* obse)
 		_ERROR("There is no information about \".data\" in the module");
 		return false;
 	}
+
+	OpenAddressLibrary(obse);
 
 	msrtti::section temp;
 	if (Turpentine::Utils::GetPESectionRange(".textbss", &temp))
@@ -192,9 +207,7 @@ bool APIENTRY Start(const OBSEInterface* obse)
 
 	// Install Hooks
 	//
-	Turpentine::Hooks::MenuSettings();
 	Turpentine::Hooks::DataHandler();
-	Turpentine::Hooks::CommandTable();
 
 #if USE_CMDTABLE_DUMP
 	Turpentine::RE::DumpCommandTable("commands_dump.txt");
@@ -252,6 +265,9 @@ bool APIENTRY Start(const OBSEInterface* obse)
 	//
 	if (Turpentine::CVarFriendship->GetBool())
 		Turpentine::Jokes::Friendship();
+
+	// Release address library
+	Turpentine::REL::IDDB::Release();
 
 	return true;
 }

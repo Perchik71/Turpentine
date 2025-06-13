@@ -4,6 +4,9 @@
 
 #include <TJokeFriendship.h>
 #include <TRelocation.h>
+#include "TUtils.h"
+
+extern msrtti::section GlobalSection[3];
 
 namespace Turpentine
 {
@@ -11,9 +14,18 @@ namespace Turpentine
 	{
 		void APIENTRY Friendship() noexcept(true)
 		{
-			Turpentine::REL::PatchNop(REL::Offset(0x65D17EE), 5);
+			auto offset = Turpentine::REL::FindPattern(GlobalSection[0].base, GlobalSection[0].end - GlobalSection[0].base,
+				"BA 05 00 00 00 48 8B 0D ? ? ? ? E8 ? ? ? ? F3 0F 10 15 ? ? ? ? BA 02 00 00 00 48 8B 0D ? ? ? ? "
+				"E8 ? ? ? ? 48 8B CD E8 ? ? ? ?");
+			
+			if (!offset)
+				_MESSAGE("Install Friendship joke [SIG:FAILED]");
+			else
+			{
+				Turpentine::REL::PatchNop(offset - 0x2D, 5);
 
-			_MESSAGE("Install Friendship joke");
+				_MESSAGE("Install Friendship joke");
+			}
 		}
 	}
 }

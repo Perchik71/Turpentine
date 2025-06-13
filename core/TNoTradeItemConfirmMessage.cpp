@@ -10,21 +10,27 @@ namespace Turpentine
 {
 	namespace Patches
 	{
+		uintptr_t sub_NoTradeItemConfirmMessage_0 = 0;
+		uintptr_t sub_NoTradeItemConfirmMessage_1 = 0;
+
 		namespace Impl
 		{
 			static void* APIENTRY GameApplySellOrBuyItemFromPlayer()
 			{
-				return Utils::FastCall<void*>(REL::Offset(0x6756810));
+				return Utils::FastCall<void*>(sub_NoTradeItemConfirmMessage_1);
 			}
 		}
 
 		void APIENTRY NoTradeItemConfirmMessage() noexcept(true)
 		{
-			// Sell / Buy
-			REL::Patch(REL::Offset(0x675681A), { 0x00 });
-			REL::PatchNop(REL::Offset(0x675681B), 0x6);
-			REL::DetourCall(REL::Offset(0x6753AA5), (uintptr_t)&Impl::GameApplySellOrBuyItemFromPlayer);
+			sub_NoTradeItemConfirmMessage_0 = REL::ID(410449);	// 6753400
+			sub_NoTradeItemConfirmMessage_1 = REL::ID(410475);	// 6756810
 
+			// Sell / Buy
+			REL::Patch(sub_NoTradeItemConfirmMessage_1 + 0xA, { 0x00 });
+			REL::PatchNop(sub_NoTradeItemConfirmMessage_1 + 0xB, 0x6);
+			REL::DetourCall(sub_NoTradeItemConfirmMessage_0 + 0x6A5, (uintptr_t)&Impl::GameApplySellOrBuyItemFromPlayer);
+			
 			_MESSAGE("Install NoTradeItemConfirmMessage patch");
 		}
 	}

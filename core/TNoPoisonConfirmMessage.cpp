@@ -3,7 +3,6 @@
 // License: https://www.gnu.org/licenses/gpl-3.0.html
 
 #include <TNoPoisonConfirmMessage.h>
-#include <THookCommandTable.h>
 #include <TRelocation.h>
 #include <TUtils.h>
 
@@ -11,24 +10,30 @@ namespace Turpentine
 {
 	namespace Patches
 	{
+		uintptr_t sub_NoPoisonConfirmMessage_0 = 0;
+		uintptr_t sub_NoPoisonConfirmMessage_1 = 0;
+
 		namespace Impl
 		{
 			static void* APIENTRY GameApplyPoisonOnWeaponOrBow()
 			{
-				return Utils::FastCall<void*>(REL::Offset(0x65FF430));
+				return Utils::FastCall<void*>(sub_NoPoisonConfirmMessage_1);
 			}
 		}
 
 		void APIENTRY NoPoisonConfirmMessage() noexcept(true)
 		{
-			REL::Patch(REL::Offset(0x65F069D), { 0x00 });
-			REL::Patch(REL::Offset(0x65FF471), { 0x00 });
-			REL::Patch(REL::Offset(0x65F074E), { 0x31, 0xD2, 0x90, 0x90, 0x90, 0x90, 0x90 });
-			REL::DetourCall(REL::Offset(0x65F06AC), (uintptr_t)&Impl::GameApplyPoisonOnWeaponOrBow);
-			REL::PatchNop(REL::Offset(0x65FF472), 0x6);
-			REL::PatchNop(REL::Offset(0x65F04FF), 0x5);
-			REL::PatchNop(REL::Offset(0x65F04EA), 0x5);
+			sub_NoPoisonConfirmMessage_0 = REL::ID(406775); // 65F0450
+			sub_NoPoisonConfirmMessage_1 = REL::ID(406910); // 65FF430
 
+			REL::Patch(sub_NoPoisonConfirmMessage_0 + 0x24D, { 0x00 });
+			REL::Patch(sub_NoPoisonConfirmMessage_1 + 0x41, { 0x00 });
+			REL::Patch(sub_NoPoisonConfirmMessage_0 + 0x2FE, { 0x31, 0xD2, 0x90, 0x90, 0x90, 0x90, 0x90 });
+			REL::DetourCall(sub_NoPoisonConfirmMessage_0 + 0x25C, (uintptr_t)&Impl::GameApplyPoisonOnWeaponOrBow);
+			REL::PatchNop(sub_NoPoisonConfirmMessage_1 + 0x42, 0x6);
+			REL::PatchNop(sub_NoPoisonConfirmMessage_0 + 0xAF, 0x5);
+			REL::PatchNop(sub_NoPoisonConfirmMessage_0 + 0x9A, 0x5);
+			
 			_MESSAGE("Install NoPoisonConfirmMessage patch");
 		}
 	}
