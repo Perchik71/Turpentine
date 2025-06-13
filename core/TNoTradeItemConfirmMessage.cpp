@@ -27,9 +27,11 @@ namespace Turpentine
 			sub_NoTradeItemConfirmMessage_1 = REL::ID(410475);	// 6756810
 
 			// Sell / Buy
-			REL::Patch(sub_NoTradeItemConfirmMessage_1 + 0xA, { 0x00 });
+			REL::Patch(sub_NoTradeItemConfirmMessage_1 + 0x9, { 0xB0 });
 			REL::PatchNop(sub_NoTradeItemConfirmMessage_1 + 0xB, 0x6);
-			REL::DetourCall(sub_NoTradeItemConfirmMessage_0 + 0x6A5, (uintptr_t)&Impl::GameApplySellOrBuyItemFromPlayer);
+			// Remove trigger menu
+			REL::PatchNop(sub_NoTradeItemConfirmMessage_0 + 0x6A5, 0x5);
+			REL::DetourCall(sub_NoTradeItemConfirmMessage_0 + 0x6D1, (uintptr_t)&Impl::GameApplySellOrBuyItemFromPlayer);
 			
 			_MESSAGE("Install NoTradeItemConfirmMessage patch");
 		}

@@ -36,14 +36,14 @@ namespace Turpentine
 			// One
 			REL::Patch(sub_NoRepairConfirmMessage_1 + 0x53, { 0x00 });
 			REL::PatchNop(sub_NoRepairConfirmMessage_1 + 0x54, 0x6);
-			REL::DetourCall(sub_NoRepairConfirmMessage_1 + 0xD1D, (uintptr_t)&Impl::GameApplyRepairItemByPlayer);
-			REL::PatchNop(sub_NoRepairConfirmMessage_1 + 0xD22, 0x8);
+			REL::DetourCall(sub_NoRepairConfirmMessage_0 + 0xD1D, (uintptr_t)&Impl::GameApplyRepairItemByPlayer);
+			REL::PatchNop(sub_NoRepairConfirmMessage_0 + 0xD22, 0x8);
 			
 			// All
 			REL::Patch(sub_NoRepairConfirmMessage_2 + 0x36, { 0x00 });
 			REL::PatchNop(sub_NoRepairConfirmMessage_2 + 0x37, 0x6);
-			REL::DetourCall(sub_NoRepairConfirmMessage_1 + 0x1D5, (uintptr_t)&Impl::GameApplyRepairItemAllByPlayer);
-			REL::PatchNop(sub_NoRepairConfirmMessage_1 + 0x1DA, 0x8);
+			REL::DetourCall(sub_NoRepairConfirmMessage_0 + 0x1D5, (uintptr_t)&Impl::GameApplyRepairItemAllByPlayer);
+			REL::PatchNop(sub_NoRepairConfirmMessage_0 + 0x1DA, 0x8);
 		
 			_MESSAGE("Install NoRepairConfirmMessage patch");
 		}

@@ -41,8 +41,9 @@ namespace Turpentine
 			
 			REL::PatchNop(sub_NoRechargeConfirmMessage_3 + 0x25, 0x6);
 			REL::Patch(sub_NoRechargeConfirmMessage_3 + 0x24, { 0x00 });
-			REL::DetourCall(sub_NoRechargeConfirmMessage_3 + 0x151, (uintptr_t)&Impl::GameApplyRechargeItemAllByPlayer);
-			
+			REL::PatchNop(sub_NoRechargeConfirmMessage_2 + 0x50, 0x6);
+			REL::DetourCall(sub_NoRechargeConfirmMessage_2 + 0x151, (uintptr_t)&Impl::GameApplyRechargeItemAllByPlayer);
+
 			_MESSAGE("Install NoRechargeConfirmMessage patch");
 		}
 	}
